@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Minimal Desktop Switcher
+Type=Service
+ServiceTypes=Plasma/Applet
+X-KDE-PluginInfo-Name=org.kde.plasma.minimaldesktopswitcher
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ServiceTypes=Plasma/Applet
+X-KDE-FormFactors=desktop
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-API=declarativeappletscript
