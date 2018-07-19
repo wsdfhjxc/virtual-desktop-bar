@@ -16,6 +16,7 @@ RowLayout {
             property int desktopIndicatorThickness: 2
 
             property string desktopName: "Desktop"
+            property bool activeDesktop: false
 
             implicitWidth: desktopLabel.width + 2 * desktopLabelMargin
             implicitHeight: parent.height
@@ -32,13 +33,30 @@ RowLayout {
                 width: parent.width
                 height: desktopIndicatorThickness
                 anchors.bottom: parent.bottom
-                color: theme.buttonHoverColor
+                color: "transparent"
             }
+
+            state: {
+                if (activeDesktop) {
+                    return "active"
+                }
+            }
+
+            states: [
+                State {
+                    name: "active"
+
+                    PropertyChanges {
+                        target: desktopIndicator
+                        color: theme.buttonHoverColor
+                    }
+                }
+            ]
         }
     }
 
     Component.onCompleted: {
-        desktopEntry.createObject(root)
+        desktopEntry.createObject(root, {"activeDesktop": true})
         desktopEntry.createObject(root, {"desktopName": "Other desktop"})
         desktopEntry.createObject(root, {"desktopName": "Another one"})
     }
