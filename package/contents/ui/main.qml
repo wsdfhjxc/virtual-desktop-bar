@@ -35,9 +35,18 @@ RowLayout {
                 anchors.bottom: parent.bottom
             }
 
+            MouseArea {
+                id: mouseArea
+                hoverEnabled: true
+                anchors.fill: parent
+            }
+
             state: {
                 if (activeDesktop) {
                     return "active"
+                }
+                if (mouseArea.containsMouse) {
+                    return "hovered"
                 }
                 return "inactive"
             }
@@ -69,6 +78,21 @@ RowLayout {
                     PropertyChanges {
                         target: desktopIndicator
                         color: theme.buttonHoverColor
+                    }
+                },
+
+                State {
+                    name: "hovered"
+
+                    PropertyChanges {
+                        target: desktopLabel
+                        opacity: 0.75
+                    }
+
+                    PropertyChanges {
+                        target: desktopIndicator
+                        color: theme.textColor
+                        opacity: 0.15
                     }
                 }
             ]
