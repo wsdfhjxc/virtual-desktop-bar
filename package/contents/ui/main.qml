@@ -62,7 +62,7 @@ RowLayout {
 
                     PropertyChanges {
                         target: desktopIndicator
-                        color: "transparent"
+                        opacity: 0
                     }
 
                 },
@@ -78,6 +78,7 @@ RowLayout {
                     PropertyChanges {
                         target: desktopIndicator
                         color: theme.buttonHoverColor
+                        opacity: 1
                     }
                 },
 
