@@ -5,7 +5,7 @@ import org.kde.plasma.plasmoid 2.0
 
 RowLayout {
     id: root
-    spacing: 6
+    spacing: 8
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     Component {
