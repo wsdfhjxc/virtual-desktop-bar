@@ -26,7 +26,6 @@ RowLayout {
                 text: desktopName
                 x: desktopLabelMargin
                 anchors.verticalCenter: parent.verticalCenter
-                opacity: 0.75
             }
 
             Rectangle {
@@ -34,16 +33,31 @@ RowLayout {
                 width: parent.width
                 height: desktopIndicatorThickness
                 anchors.bottom: parent.bottom
-                color: "transparent"
             }
 
             state: {
                 if (activeDesktop) {
                     return "active"
                 }
+                return "inactive"
             }
 
             states: [
+                State {
+                    name: "inactive"
+
+                    PropertyChanges {
+                        target: desktopLabel
+                        opacity: 0.75
+                    }
+
+                    PropertyChanges {
+                        target: desktopIndicator
+                        color: "transparent"
+                    }
+
+                },
+
                 State {
                     name: "active"
 
