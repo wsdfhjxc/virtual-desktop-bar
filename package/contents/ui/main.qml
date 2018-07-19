@@ -97,6 +97,32 @@ RowLayout {
                     }
                 }
             ]
+
+            transitions: [
+                Transition {
+                    to: "hovered"
+
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 150
+                        }
+                    }
+                },
+
+                Transition {
+                    to: "inactive"
+
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 300
+                        }
+                    }
+                }
+            ]
         }
     }
 
