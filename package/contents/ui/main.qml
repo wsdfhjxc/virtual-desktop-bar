@@ -93,7 +93,7 @@ RowLayout {
                     PropertyChanges {
                         target: desktopIndicator
                         color: theme.textColor
-                        opacity: 0.15
+                        opacity: 0.25
                     }
                 }
             ]
