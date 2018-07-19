@@ -26,6 +26,7 @@ RowLayout {
                 text: desktopName
                 x: desktopLabelMargin
                 anchors.verticalCenter: parent.verticalCenter
+                opacity: 0.75
             }
 
             Rectangle {
@@ -45,6 +46,11 @@ RowLayout {
             states: [
                 State {
                     name: "active"
+
+                    PropertyChanges {
+                        target: desktopLabel
+                        opacity: 1
+                    }
 
                     PropertyChanges {
                         target: desktopIndicator
