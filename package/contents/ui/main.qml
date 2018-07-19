@@ -54,12 +54,10 @@ RowLayout {
             states: [
                 State {
                     name: "inactive"
-
                     PropertyChanges {
                         target: desktopLabel
                         opacity: 0.75
                     }
-
                     PropertyChanges {
                         target: desktopIndicator
                         opacity: 0
@@ -69,12 +67,10 @@ RowLayout {
 
                 State {
                     name: "active"
-
                     PropertyChanges {
                         target: desktopLabel
                         opacity: 1
                     }
-
                     PropertyChanges {
                         target: desktopIndicator
                         color: theme.buttonHoverColor
@@ -84,12 +80,10 @@ RowLayout {
 
                 State {
                     name: "hovered"
-
                     PropertyChanges {
                         target: desktopLabel
                         opacity: 0.75
                     }
-
                     PropertyChanges {
                         target: desktopIndicator
                         color: theme.textColor
@@ -101,7 +95,6 @@ RowLayout {
             transitions: [
                 Transition {
                     to: "hovered"
-
                     ParallelAnimation {
                         NumberAnimation {
                             target: desktopIndicator
@@ -113,7 +106,6 @@ RowLayout {
 
                 Transition {
                     to: "inactive"
-
                     ParallelAnimation {
                         NumberAnimation {
                             target: desktopIndicator
