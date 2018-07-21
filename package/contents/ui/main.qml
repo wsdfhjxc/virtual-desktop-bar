@@ -2,11 +2,16 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.private.mds 2.0
 
 RowLayout {
     id: root
     spacing: 8
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+
+    MDSModel {
+        id: mdsModel
+    }
 
     Component {
         id: desktopEntry
