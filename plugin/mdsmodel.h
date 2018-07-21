@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-class MDSModel : public QObject
-{
+class MDSModel : public QObject {
     Q_OBJECT
 
 public:
