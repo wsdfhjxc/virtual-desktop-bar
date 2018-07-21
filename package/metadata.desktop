@@ -2,7 +2,7 @@
 Name=Minimal Desktop Switcher
 Type=Service
 ServiceTypes=Plasma/Applet
-X-KDE-PluginInfo-Name=org.kde.plasma.minimaldesktopswitcher
+X-KDE-PluginInfo-Name=org.kde.plasma.mds
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ServiceTypes=Plasma/Applet
 X-KDE-FormFactors=desktop
