@@ -28,7 +28,7 @@ set(mds_SRCS
 
 add_library(mdsplugin SHARED ${mds_SRCS})
 
-target_link_libraries(mdsplugin Qt5::Qml Qt5::X11Extras KF5::Plasma PW::LibTaskManager)
+target_link_libraries(mdsplugin Qt5::Qml Qt5::X11Extras KF5::Plasma KF5::WindowSystem PW::LibTaskManager)
 
 install(TARGETS mdsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
