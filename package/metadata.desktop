@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Minimal Desktop Switcher
 Type=Service
+Icon=mds_plasma_applet
 ServiceTypes=Plasma/Applet
 X-KDE-PluginInfo-Name=org.kde.plasma.mds
 X-KDE-PluginInfo-EnabledByDefault=true

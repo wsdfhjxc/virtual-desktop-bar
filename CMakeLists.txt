@@ -7,6 +7,7 @@ include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
 include(FeatureSummary)
+include(ECMInstallIcons)
 
 set(REQUIRED_QT_VERSION 5.3.0)
 set(KF5_MIN_VERSION 5.0.0)
@@ -31,3 +32,5 @@ target_link_libraries(mdsplugin Qt5::Qml Qt5::X11Extras KF5::Plasma PW::LibTaskM
 
 install(TARGETS mdsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
+
+ecm_install_icons(ICONS sc-apps-mds_plasma_applet.svg DESTINATION ${ICON_INSTALL_DIR})
