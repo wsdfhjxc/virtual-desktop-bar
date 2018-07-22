@@ -1,6 +1,9 @@
 #include "mdsmodel.h"
 
-MDSModel::MDSModel(QObject* parent) : QObject(parent) {}
+MDSModel::MDSModel(QObject* parent) : QObject(parent) {
+    QObject::connect(&desktopInfo, &VirtualDesktopInfo::currentDesktopChanged,
+                     this, &MDSModel::desktopChanged);
+}
 
 QVariantList MDSModel::getDesktopNames() const {
     QVariantList desktopNames;

@@ -16,6 +16,9 @@ public:
     Q_INVOKABLE QVariantList getDesktopNames() const;
     Q_INVOKABLE QVariant getActiveDesktopNumber() const;
 
+signals:
+    void desktopChanged();
+
 private:
     VirtualDesktopInfo desktopInfo;
 };
