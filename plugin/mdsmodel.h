@@ -3,9 +3,6 @@
 
 #include <QObject>
 #include <QVariantList>
-#include <virtualdesktopinfo.h>
-
-using namespace TaskManager;
 
 class MDSModel : public QObject {
     Q_OBJECT
@@ -18,9 +15,6 @@ public:
 
 signals:
     void desktopChanged();
-
-private:
-    VirtualDesktopInfo desktopInfo;
 };
 
 #endif // MDSMODEL_H
