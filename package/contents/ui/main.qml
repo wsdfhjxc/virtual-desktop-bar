@@ -22,6 +22,7 @@ RowLayout {
             property int desktopLabelMargin: 2
             property int desktopIndicatorThickness: 2
 
+            property int desktopNumber: 1
             property string desktopName: "Desktop"
             property bool activeDesktop: false
 
@@ -131,10 +132,12 @@ RowLayout {
         var activeDesktopNumber = mdsModel.getActiveDesktopNumber();
 
         for (var i = 0; i < desktopNames.length; i++) {
-            var activeDesktop = activeDesktopNumber == i + 1;
+            var desktopNumber = i + 1;
+            var activeDesktop = activeDesktopNumber == desktopNumber;
             var desktopName = desktopNames[i];
 
             desktopEntries.push(desktopEntry.createObject(root, {
+                "desktopNumber": desktopNumber,
                 "activeDesktop": activeDesktop,
                 "desktopName": desktopName
             }));
