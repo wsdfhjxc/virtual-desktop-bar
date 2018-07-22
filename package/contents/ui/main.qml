@@ -139,4 +139,16 @@ RowLayout {
             }));
         }
     }
+
+    Connections {
+        target: mdsModel
+
+        onDesktopChanged: {
+            var activeDesktopNumber = mdsModel.getActiveDesktopNumber();
+            for (var i = 0; i < desktopEntries.length; i++) {
+                var desktopEntry = desktopEntries[i];
+                desktopEntry.activeDesktop = activeDesktopNumber == i + 1;
+            }
+        }
+    }
 }
