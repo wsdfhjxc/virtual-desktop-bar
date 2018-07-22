@@ -9,6 +9,8 @@ RowLayout {
     spacing: 8
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
+    property var desktopEntries: []
+
     MDSModel {
         id: mdsModel
     }
@@ -131,10 +133,10 @@ RowLayout {
             var activeDesktop = activeDesktopNumber == i + 1;
             var desktopName = desktopNames[i];
 
-            desktopEntry.createObject(root, {
+            desktopEntries.push(desktopEntry.createObject(root, {
                 "activeDesktop": activeDesktop,
                 "desktopName": desktopName
-            });
+            }));
         }
     }
 }
