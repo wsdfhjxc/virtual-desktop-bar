@@ -124,8 +124,17 @@ RowLayout {
     }
 
     Component.onCompleted: {
-        desktopEntry.createObject(root, {"activeDesktop": true})
-        desktopEntry.createObject(root, {"desktopName": "Other desktop"})
-        desktopEntry.createObject(root, {"desktopName": "Another one"})
+        var desktopNames = mdsModel.getDesktopNames();
+        var activeDesktopNumber = mdsModel.getActiveDesktopNumber();
+
+        for (var i = 0; i < desktopNames.length; i++) {
+            var activeDesktop = activeDesktopNumber == i + 1;
+            var desktopName = desktopNames[i];
+
+            desktopEntry.createObject(root, {
+                "activeDesktop": activeDesktop,
+                "desktopName": desktopName
+            });
+        }
     }
 }
