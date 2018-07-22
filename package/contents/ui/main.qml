@@ -133,13 +133,13 @@ RowLayout {
 
         for (var i = 0; i < desktopNames.length; i++) {
             var desktopNumber = i + 1;
-            var activeDesktop = activeDesktopNumber == desktopNumber;
             var desktopName = desktopNames[i];
+            var activeDesktop = activeDesktopNumber == desktopNumber;
 
             desktopEntries.push(desktopEntry.createObject(root, {
                 "desktopNumber": desktopNumber,
-                "activeDesktop": activeDesktop,
-                "desktopName": desktopName
+                "desktopName": desktopName,
+                "activeDesktop": activeDesktop
             }));
         }
     }
