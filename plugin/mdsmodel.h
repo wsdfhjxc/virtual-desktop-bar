@@ -13,6 +13,8 @@ public:
     Q_INVOKABLE QVariantList getDesktopNames() const;
     Q_INVOKABLE QVariant getActiveDesktopNumber() const;
 
+    Q_INVOKABLE void switchToDesktop(int desktopNumber);
+
 signals:
     void desktopChanged();
 };

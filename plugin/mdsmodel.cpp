@@ -21,3 +21,7 @@ QVariant MDSModel::getActiveDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
+
+void MDSModel::switchToDesktop(int desktopNumber) {
+    KWindowSystem::setCurrentDesktop(desktopNumber);
+}
