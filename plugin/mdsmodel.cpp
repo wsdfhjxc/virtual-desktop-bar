@@ -1,19 +1,23 @@
 #include "mdsmodel.h"
 
+#include <KWindowSystem>
+
 MDSModel::MDSModel(QObject* parent) : QObject(parent) {
-    QObject::connect(&desktopInfo, &VirtualDesktopInfo::currentDesktopChanged,
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
                      this, &MDSModel::desktopChanged);
 }
 
 QVariantList MDSModel::getDesktopNames() const {
     QVariantList desktopNames;
-    for (const QString& desktopName : desktopInfo.desktopNames()) {
+    int numberOfDesktops = KWindowSystem::numberOfDesktops();
+    for (int desktopNumber = 0; desktopNumber < numberOfDesktops; desktopNumber++) {
+        const QString& desktopName = KWindowSystem::desktopName(desktopNumber + 1);
         desktopNames << QVariant(desktopName);
     }
     return desktopNames;
 }
 
 QVariant MDSModel::getActiveDesktopNumber() const {
-    const int currentDesktop = desktopInfo.currentDesktop();
+    const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
