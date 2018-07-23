@@ -129,6 +129,22 @@ RowLayout {
                             duration: 300
                         }
                     }
+                },
+
+                Transition {
+                    to: "active"
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: desktopLabel
+                            property: "opacity"
+                            duration: 150
+                        }
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 150
+                        }
+                    }
                 }
             ]
         }
