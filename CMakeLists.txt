@@ -29,4 +29,4 @@ target_link_libraries(mdsplugin Qt5::Qml KF5::Plasma KF5::WindowSystem)
 install(TARGETS mdsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
 
-ecm_install_icons(ICONS sc-apps-mds_plasma_applet.svg DESTINATION ${ICON_INSTALL_DIR})
+ecm_install_icons(ICONS icons/sc-apps-mds_plasma_applet.svg DESTINATION ${ICON_INSTALL_DIR})
