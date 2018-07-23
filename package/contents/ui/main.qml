@@ -69,7 +69,7 @@ RowLayout {
                     name: "inactive"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: 0.75
+                        opacity: 0.7
                     }
                     PropertyChanges {
                         target: desktopIndicator
@@ -94,12 +94,13 @@ RowLayout {
                     name: "hovered"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: 0.75
+                        opacity: 0.9
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        opacity: 0.25
+                        opacity: 0
                     }
+
                 }
             ]
 
@@ -108,7 +109,7 @@ RowLayout {
                     to: "hovered"
                     ParallelAnimation {
                         NumberAnimation {
-                            target: desktopIndicator
+                            target: desktopLabel
                             property: "opacity"
                             duration: 150
                         }
