@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE void switchToDesktop(int desktopNumber);
 
 signals:
-    void desktopChanged();
+    void desktopChanged(int desktopNumber);
 };
 
 #endif // MDSMODEL_H
