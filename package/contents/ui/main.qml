@@ -119,6 +119,11 @@ RowLayout {
                     to: "inactive"
                     ParallelAnimation {
                         NumberAnimation {
+                            target: desktopLabel
+                            property: "opacity"
+                            duration: 300
+                        }
+                        NumberAnimation {
                             target: desktopIndicator
                             property: "opacity"
                             duration: 300
