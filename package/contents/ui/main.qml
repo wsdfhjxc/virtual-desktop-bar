@@ -6,7 +6,7 @@ import org.kde.plasma.private.mds 2.0
 
 RowLayout {
     id: root
-    spacing: 8
+    spacing: 12
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     property var desktopEntries: []
