@@ -41,6 +41,7 @@ RowLayout {
                 width: parent.width
                 height: desktopIndicatorThickness
                 anchors.bottom: parent.bottom
+                color: theme.buttonHoverColor
             }
 
             MouseArea {
@@ -72,7 +73,6 @@ RowLayout {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        color: theme.buttonHoverColor
                         opacity: 0
                     }
 
@@ -86,7 +86,6 @@ RowLayout {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        color: theme.buttonHoverColor
                         opacity: 1
                     }
                 },
@@ -99,7 +98,6 @@ RowLayout {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        color: theme.textColor
                         opacity: 0.25
                     }
                 }
