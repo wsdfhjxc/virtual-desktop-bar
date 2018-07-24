@@ -3,8 +3,12 @@
 #include <KWindowSystem>
 
 MDSModel::MDSModel(QObject* parent) : QObject(parent) {
+
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
                      this, &MDSModel::desktopChanged);
+
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
+                     this, &MDSModel::desktopAmountChanged);
 }
 
 QVariantList MDSModel::getDesktopNames() const {
