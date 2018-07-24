@@ -15,6 +15,13 @@ RowLayout {
         id: mdsModel
     }
 
+    RowLayout {
+        id: desktopEntriesLayout
+        spacing: root.spacing
+        implicitHeight: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
     Item {
         implicitWidth: label.width
         implicitHeight: parent.height
@@ -223,7 +230,7 @@ RowLayout {
             var desktopName = desktopNames[i];
             var activeDesktop = activeDesktopNumber == desktopNumber;
 
-            desktopEntries.push(desktopEntry.createObject(root, {
+            desktopEntries.push(desktopEntry.createObject(desktopEntriesLayout, {
                 "desktopNumber": desktopNumber,
                 "desktopName": desktopName,
                 "activeDesktop": activeDesktop
