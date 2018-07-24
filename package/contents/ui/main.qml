@@ -86,7 +86,7 @@ RowLayout {
     }
 
     Component {
-        id: desktopEntry
+        id: desktopEntryComponent
 
         Item {
             property int desktopLabelMargin: 2
@@ -230,7 +230,7 @@ RowLayout {
             var desktopName = desktopNames[i];
             var activeDesktop = activeDesktopNumber == desktopNumber;
 
-            desktopEntries.push(desktopEntry.createObject(desktopEntriesLayout, {
+            desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
                 "desktopNumber": desktopNumber,
                 "desktopName": desktopName,
                 "activeDesktop": activeDesktop
