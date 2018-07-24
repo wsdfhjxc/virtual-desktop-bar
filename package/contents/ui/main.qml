@@ -247,5 +247,28 @@ RowLayout {
                 desktopEntry.activeDesktop = desktopNumber == i + 1;
             }
         }
+
+        onDesktopAmountChanged: {
+            var currentDesktopAmount = desktopEntries.length;
+            var desktopAmountDifference = desktopAmount - currentDesktopAmount;
+            if (desktopAmountDifference > 0) {
+                var desktopNames = mdsModel.getDesktopNames();
+                for (var i = 1; i <= desktopAmountDifference; i++) {
+                    var desktopNumber = currentDesktopAmount + i;
+                    var desktopName = desktopNames[desktopNumber - 1];
+
+                    desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
+                        "desktopNumber": desktopNumber,
+                        "desktopName": desktopName
+                    }));
+                }
+            } else {
+                for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
+                    var desktopEntry = desktopEntries[i];
+                    desktopEntry.destroy();
+                    desktopEntries.splice(i, 1);
+                }
+            }
+        }
     }
 }
