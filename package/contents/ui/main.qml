@@ -15,6 +15,69 @@ RowLayout {
         id: mdsModel
     }
 
+    Item {
+        implicitWidth: label.width
+        implicitHeight: parent.height
+
+        Label {
+            id: label
+            text: "＋"
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        MouseArea {
+            id: mouseArea
+            hoverEnabled: true
+            anchors.fill: parent
+        }
+
+        state: {
+            return mouseArea.containsMouse ? "hovered" : "default"
+        }
+
+        states: [
+            State {
+                name: "default"
+                PropertyChanges {
+                    target: label
+                    opacity: 0.7
+                }
+            },
+
+            State {
+                name: "hovered"
+                PropertyChanges {
+                    target: label
+                    opacity: 0.9
+                }
+            }
+        ]
+
+        transitions: [
+            Transition {
+                to: "hovered"
+                ParallelAnimation {
+                    NumberAnimation {
+                        target: label
+                        property: "opacity"
+                        duration: 150
+                    }
+                }
+            },
+
+            Transition {
+                to: "default"
+                ParallelAnimation {
+                    NumberAnimation {
+                        target: label
+                        property: "opacity"
+                        duration: 300
+                    }
+                }
+            }
+        ]
+    }
+
     Component {
         id: desktopEntry
 
@@ -151,73 +214,6 @@ RowLayout {
         }
     }
 
-    Component {
-        id: addDesktopButton
-
-        Item {
-            implicitWidth: label.width
-            implicitHeight: parent.height
-
-            Label {
-                id: label
-                text: "＋"
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            MouseArea {
-                id: mouseArea
-                hoverEnabled: true
-                anchors.fill: parent
-            }
-
-            state: {
-                return mouseArea.containsMouse ? "hovered" : "default"
-            }
-
-            states: [
-                State {
-                    name: "default"
-                    PropertyChanges {
-                        target: label
-                        opacity: 0.7
-                    }
-                },
-
-                State {
-                    name: "hovered"
-                    PropertyChanges {
-                        target: label
-                        opacity: 0.9
-                    }
-                }
-            ]
-
-            transitions: [
-                Transition {
-                    to: "hovered"
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: label
-                            property: "opacity"
-                            duration: 150
-                        }
-                    }
-                },
-
-                Transition {
-                    to: "default"
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: label
-                            property: "opacity"
-                            duration: 300
-                        }
-                    }
-                }
-            ]
-        }
-    }
-
     Component.onCompleted: {
         var desktopNames = mdsModel.getDesktopNames();
         var activeDesktopNumber = mdsModel.getActiveDesktopNumber();
@@ -233,8 +229,6 @@ RowLayout {
                 "activeDesktop": activeDesktop
             }));
         }
-
-        addDesktopButton.createObject(root);
     }
 
     Connections {
