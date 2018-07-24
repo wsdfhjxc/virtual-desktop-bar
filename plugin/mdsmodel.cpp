@@ -9,6 +9,9 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent) {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
                      this, &MDSModel::desktopAmountChanged);
+
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
+                     this, &MDSModel::desktopNamesChanged);
 }
 
 QVariantList MDSModel::getDesktopNames() const {

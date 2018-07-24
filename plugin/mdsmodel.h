@@ -18,6 +18,7 @@ public:
 signals:
     void desktopChanged(int desktopNumber);
     void desktopAmountChanged(int desktopAmount);
+    void desktopNamesChanged();
 };
 
 #endif // MDSMODEL_H
