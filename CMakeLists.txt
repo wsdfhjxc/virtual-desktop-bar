@@ -12,7 +12,7 @@ include(ECMInstallIcons)
 set(REQUIRED_QT_VERSION 5.3.0)
 set(KF5_MIN_VERSION 5.0.0)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Qml)
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Qml X11Extras)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Plasma)
 
 plasma_install_package(package org.kde.plasma.mds)
@@ -24,7 +24,7 @@ set(mds_SRCS
 
 add_library(mdsplugin SHARED ${mds_SRCS})
 
-target_link_libraries(mdsplugin Qt5::Qml KF5::Plasma KF5::WindowSystem)
+target_link_libraries(mdsplugin Qt5::Qml Qt5::X11Extras KF5::Plasma KF5::WindowSystem)
 
 install(TARGETS mdsplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/mds)
