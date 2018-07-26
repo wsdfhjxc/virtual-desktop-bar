@@ -36,6 +36,10 @@ RowLayout {
             id: mouseArea
             hoverEnabled: true
             anchors.fill: parent
+
+            onClicked: {
+                mdsModel.addDesktop();
+            }
         }
 
         state: {
