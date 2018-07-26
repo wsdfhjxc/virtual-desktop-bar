@@ -2,7 +2,8 @@
 
 #include <KWindowSystem>
 
-MDSModel::MDSModel(QObject* parent) : QObject(parent) {
+MDSModel::MDSModel(QObject* parent) : QObject(parent),
+                                      netRootInfo(QX11Info::connection(), 0) {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
                      this, &MDSModel::desktopChanged);

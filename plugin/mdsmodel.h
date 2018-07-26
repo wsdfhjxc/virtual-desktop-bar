@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QVariantList>
+#include <netwm.h>
+#include <QX11Info>
 
 class MDSModel : public QObject {
     Q_OBJECT
@@ -19,6 +21,9 @@ signals:
     void desktopChanged(int desktopNumber);
     void desktopAmountChanged(int desktopAmount);
     void desktopNamesChanged();
+
+private:
+    NETRootInfo netRootInfo;
 };
 
 #endif // MDSMODEL_H
