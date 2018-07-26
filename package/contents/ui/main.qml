@@ -102,12 +102,43 @@ RowLayout {
 
             implicitWidth: desktopLabel.width + 2 * desktopLabelMargin
             implicitHeight: parent.height
+            opacity: 0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 150
+                }
+            }
+
+            Timer {
+                interval: 75
+                running: true
+                onTriggered: {
+                    opacity = 1
+                }
+            }
 
             Label {
                 id: desktopLabel
                 text: desktopName
                 x: desktopLabelMargin
                 anchors.verticalCenter: parent.verticalCenter
+                clip: true
+                width: 0
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 75
+                    }
+                }
+            }
+
+            Timer {
+                interval: 0
+                running: true
+                onTriggered: {
+                    desktopLabel.width = desktopLabel.implicitWidth
+                }
             }
 
             Rectangle {
