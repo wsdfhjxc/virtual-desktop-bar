@@ -100,7 +100,8 @@ RowLayout {
             property string desktopName: "Desktop"
             property bool activeDesktop: false
 
-            implicitWidth: desktopLabel.width + 2 * desktopLabelMargin
+            implicitWidth: desktopLabel.width > 0 ?
+                           desktopLabel.width + 2 * desktopLabelMargin : 0
             implicitHeight: parent.height
             opacity: 0
 
@@ -115,6 +116,14 @@ RowLayout {
                 running: true
                 onTriggered: {
                     opacity = 1
+                }
+            }
+
+            Timer {
+                id: removeTimer1
+                interval: 0
+                onTriggered: {
+                    opacity = 0;
                 }
             }
 
@@ -138,6 +147,14 @@ RowLayout {
                 running: true
                 onTriggered: {
                     desktopLabel.width = desktopLabel.implicitWidth
+                }
+            }
+
+            Timer {
+                id: removeTimer2
+                interval: 150
+                onTriggered: {
+                    desktopLabel.width = 0
                 }
             }
 
@@ -253,6 +270,12 @@ RowLayout {
                     }
                 }
             ]
+
+            function remove() {
+                removeTimer1.start();
+                removeTimer2.start();
+                destroy(225);
+            }
         }
     }
 
@@ -300,7 +323,7 @@ RowLayout {
             } else {
                 for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
                     var desktopEntry = desktopEntries[i];
-                    desktopEntry.destroy();
+                    desktopEntry.remove();
                     desktopEntries.splice(i, 1);
                 }
             }
