@@ -16,6 +16,8 @@ public:
     Q_INVOKABLE QVariant getActiveDesktopNumber() const;
 
     Q_INVOKABLE void switchToDesktop(int desktopNumber);
+    Q_INVOKABLE void addDesktop(const QString desktopName = QString());
+    Q_INVOKABLE void removeDesktop();
 
 signals:
     void desktopChanged(int desktopNumber);
