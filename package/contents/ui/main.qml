@@ -281,7 +281,7 @@ RowLayout {
             function remove() {
                 removeTimer1.start();
                 removeTimer2.start();
-                destroy(225);
+                destroy(500);
             }
         }
     }
