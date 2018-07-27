@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.private.mds 2.0
+import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 
 RowLayout {
     id: root
@@ -39,6 +40,9 @@ RowLayout {
             var activeDesktop = activeDesktopNumber == desktopNumber;
             registerDesktopEntry(desktopNumber, desktopName, activeDesktop);
         }
+
+        plasmoid.setAction("addDesktop", "Add virtual desktop", "list-add");
+        plasmoid.setAction("removeDesktop", "Remove virtual desktop", "list-remove");
     }
 
     Connections {
@@ -71,6 +75,14 @@ RowLayout {
                 }
             }
         }
+    }
+
+    function action_addDesktop() {
+        mdsModel.addDesktop();
+    }
+
+    function action_removeDesktop() {
+        mdsModel.removeDesktop();
     }
 
     function registerDesktopEntry(desktopNumber, desktopName, activeDesktop) {
