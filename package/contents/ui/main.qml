@@ -60,22 +60,9 @@ RowLayout {
             var currentDesktopAmount = desktopEntries.length;
             var desktopAmountDifference = desktopAmount - currentDesktopAmount;
             if (desktopAmountDifference > 0) {
-                var desktopNames = mdsModel.getDesktopNames();
-                for (var i = 1; i <= desktopAmountDifference; i++) {
-                    var desktopNumber = currentDesktopAmount + i;
-                    var desktopName = desktopNames[desktopNumber - 1];
-
-                    desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
-                        "desktopNumber": desktopNumber,
-                        "desktopName": desktopName
-                    }));
-                }
+                addDesktops(currentDesktopAmount, desktopAmountDifference);
             } else {
-                for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
-                    var desktopEntry = desktopEntries[i];
-                    desktopEntry.remove();
-                    desktopEntries.splice(i, 1);
-                }
+                removeDesktops(currentDesktopAmount, desktopAmount);
             }
         }
 
@@ -88,6 +75,26 @@ RowLayout {
                     desktopEntry.desktopName = desktopName;
                 }
             }
+        }
+    }
+
+    function addDesktops(currentDesktopAmount, addDesktopAmount) {
+        var desktopNames = mdsModel.getDesktopNames();
+        for (var i = 1; i <= addDesktopAmount; i++) {
+            var desktopNumber = currentDesktopAmount + i;
+            var desktopName = desktopNames[desktopNumber - 1];
+            desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
+                "desktopNumber": desktopNumber,
+                "desktopName": desktopName
+            }));
+        }
+    }
+
+    function removeDesktops(currentDesktopAmount, desktopAmount) {
+        for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
+            var desktopEntry = desktopEntries[i];
+            desktopEntry.remove();
+            desktopEntries.splice(i, 1);
         }
     }
 }
