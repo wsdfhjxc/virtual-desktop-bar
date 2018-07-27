@@ -127,21 +127,6 @@ RowLayout {
                 }
             }
 
-            Label {
-                id: desktopLabel
-                text: desktopName
-                x: desktopLabelMargin
-                anchors.verticalCenter: parent.verticalCenter
-                clip: true
-                width: 0
-
-                Behavior on width {
-                    NumberAnimation {
-                        duration: 75
-                    }
-                }
-            }
-
             Timer {
                 interval: 0
                 running: true
@@ -159,117 +144,139 @@ RowLayout {
             }
 
             Rectangle {
-                id: desktopIndicator
-                width: parent.width
-                height: desktopIndicatorThickness
-                anchors.bottom: parent.bottom
-                color: theme.buttonHoverColor
-            }
+                id: desktopEntryRect
+                width: desktopLabel.width
+                height: parent.height
+                color: "transparent"
 
-            MouseArea {
-                id: mouseArea
-                hoverEnabled: true
-                anchors.fill: parent
+                Label {
+                    id: desktopLabel
+                    text: desktopName
+                    x: desktopLabelMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    clip: true
+                    width: 0
 
-                onClicked: {
-                    mdsModel.switchToDesktop(desktopNumber)
-                }
-            }
-
-            state: {
-                if (activeDesktop) {
-                    return "active"
-                }
-                if (mouseArea.containsMouse) {
-                    return "hovered"
-                }
-                return "inactive"
-            }
-
-            states: [
-                State {
-                    name: "inactive"
-                    PropertyChanges {
-                        target: desktopLabel
-                        opacity: 0.7
-                    }
-                    PropertyChanges {
-                        target: desktopIndicator
-                        opacity: 0
-                    }
-
-                },
-
-                State {
-                    name: "active"
-                    PropertyChanges {
-                        target: desktopLabel
-                        opacity: 1
-                    }
-                    PropertyChanges {
-                        target: desktopIndicator
-                        opacity: 1
-                    }
-                },
-
-                State {
-                    name: "hovered"
-                    PropertyChanges {
-                        target: desktopLabel
-                        opacity: 0.9
-                    }
-                    PropertyChanges {
-                        target: desktopIndicator
-                        opacity: 0
-                    }
-
-                }
-            ]
-
-            transitions: [
-                Transition {
-                    to: "hovered"
-                    ParallelAnimation {
+                    Behavior on width {
                         NumberAnimation {
-                            target: desktopLabel
-                            property: "opacity"
-                            duration: 150
+                            duration: 75
                         }
                     }
-                },
+                }
 
-                Transition {
-                    to: "inactive"
-                    ParallelAnimation {
-                        NumberAnimation {
+                Rectangle {
+                    id: desktopIndicator
+                    width: parent.width
+                    height: desktopIndicatorThickness
+                    anchors.bottom: parent.bottom
+                    color: theme.buttonHoverColor
+                }
+
+                MouseArea {
+                    id: mouseArea
+                    hoverEnabled: true
+                    anchors.fill: parent
+
+                    onClicked: {
+                        mdsModel.switchToDesktop(desktopNumber)
+                    }
+                }
+
+                state: {
+                    if (activeDesktop) {
+                        return "active"
+                    }
+                    if (mouseArea.containsMouse) {
+                        return "hovered"
+                    }
+                    return "inactive"
+                }
+
+                states: [
+                    State {
+                        name: "inactive"
+                        PropertyChanges {
                             target: desktopLabel
-                            property: "opacity"
-                            duration: 300
+                            opacity: 0.7
                         }
-                        NumberAnimation {
+                        PropertyChanges {
                             target: desktopIndicator
-                            property: "opacity"
-                            duration: 300
+                            opacity: 0
                         }
-                    }
-                },
 
-                Transition {
-                    to: "active"
-                    ParallelAnimation {
-                        NumberAnimation {
+                    },
+
+                    State {
+                        name: "active"
+                        PropertyChanges {
                             target: desktopLabel
-                            property: "opacity"
-                            duration: 150
+                            opacity: 1
                         }
-                        NumberAnimation {
+                        PropertyChanges {
                             target: desktopIndicator
-                            property: "opacity"
-                            duration: 150
+                            opacity: 1
+                        }
+                    },
+
+                    State {
+                        name: "hovered"
+                        PropertyChanges {
+                            target: desktopLabel
+                            opacity: 0.9
+                        }
+                        PropertyChanges {
+                            target: desktopIndicator
+                            opacity: 0
+                        }
+
+                    }
+                ]
+
+                transitions: [
+                    Transition {
+                        to: "hovered"
+                        ParallelAnimation {
+                            NumberAnimation {
+                                target: desktopLabel
+                                property: "opacity"
+                                duration: 150
+                            }
+                        }
+                    },
+
+                    Transition {
+                        to: "inactive"
+                        ParallelAnimation {
+                            NumberAnimation {
+                                target: desktopLabel
+                                property: "opacity"
+                                duration: 300
+                            }
+                            NumberAnimation {
+                                target: desktopIndicator
+                                property: "opacity"
+                                duration: 300
+                            }
+                        }
+                    },
+
+                    Transition {
+                        to: "active"
+                        ParallelAnimation {
+                            NumberAnimation {
+                                target: desktopLabel
+                                property: "opacity"
+                                duration: 150
+                            }
+                            NumberAnimation {
+                                target: desktopIndicator
+                                property: "opacity"
+                                duration: 150
+                            }
                         }
                     }
-                }
-            ]
+                ]
+            }
 
             function remove() {
                 removeTimer1.start();
