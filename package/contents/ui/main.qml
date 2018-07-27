@@ -100,8 +100,7 @@ RowLayout {
             property string desktopName: "Desktop"
             property bool activeDesktop: false
 
-            implicitWidth: desktopLabel.width > 0 ?
-                           desktopLabel.width + 2 * desktopLabelMargin : 0
+            implicitWidth: desktopEntryRect.width
             implicitHeight: parent.height
             opacity: 0
 
@@ -131,7 +130,7 @@ RowLayout {
                 interval: 0
                 running: true
                 onTriggered: {
-                    desktopLabel.width = desktopLabel.implicitWidth
+                    desktopEntryRect.width = desktopLabel.implicitWidth + 2 * desktopLabelMargin
                 }
             }
 
@@ -139,15 +138,21 @@ RowLayout {
                 id: removeTimer2
                 interval: 150
                 onTriggered: {
-                    desktopLabel.width = 0
+                    desktopEntryRect.width = 0
                 }
             }
 
             Rectangle {
                 id: desktopEntryRect
-                width: desktopLabel.width
+                width: 0
                 height: parent.height
                 color: "transparent"
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 75
+                    }
+                }
 
                 Label {
                     id: desktopLabel
@@ -155,13 +160,6 @@ RowLayout {
                     x: desktopLabelMargin
                     anchors.verticalCenter: parent.verticalCenter
                     clip: true
-                    width: 0
-
-                    Behavior on width {
-                        NumberAnimation {
-                            duration: 75
-                        }
-                    }
                 }
 
                 Rectangle {
