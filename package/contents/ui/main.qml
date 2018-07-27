@@ -27,74 +27,7 @@ RowLayout {
         id: desktopEntryComponent
     }
 
-    Item {
-        implicitWidth: label.width
-        implicitHeight: parent.height
-
-        Label {
-            id: label
-            text: "＋"
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        MouseArea {
-            id: mouseArea
-            hoverEnabled: true
-            anchors.fill: parent
-
-            onClicked: {
-                mdsModel.addDesktop();
-            }
-        }
-
-        state: {
-            return mouseArea.containsMouse ? "hovered" : "default"
-        }
-
-        states: [
-            State {
-                name: "default"
-                PropertyChanges {
-                    target: label
-                    opacity: 0.7
-                }
-            },
-
-            State {
-                name: "hovered"
-                PropertyChanges {
-                    target: label
-                    opacity: 0.9
-                }
-            }
-        ]
-
-        transitions: [
-            Transition {
-                to: "hovered"
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: label
-                        property: "opacity"
-                        duration: 150
-                    }
-                }
-            },
-
-            Transition {
-                to: "default"
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: label
-                        property: "opacity"
-                        duration: 300
-                    }
-                }
-            }
-        ]
-    }
-
-
+    AddDesktopButton {}
 
     Component.onCompleted: {
         var desktopNames = mdsModel.getDesktopNames();
