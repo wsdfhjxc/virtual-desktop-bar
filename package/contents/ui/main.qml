@@ -6,10 +6,11 @@ import org.kde.plasma.private.mds 2.0
 
 RowLayout {
     id: root
-    spacing: 12
+    spacing: 0
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     property var desktopEntries: []
+    property int desktopEntrySpacing: 12
 
     MDSModel {
         id: mdsModel
@@ -100,7 +101,8 @@ RowLayout {
             property string desktopName: "Desktop"
             property bool activeDesktop: false
 
-            implicitWidth: desktopEntryRect.width
+            implicitWidth: desktopEntryRect.width > 0 ?
+                           desktopEntryRect.width + desktopEntrySpacing : 0
             implicitHeight: parent.height
             opacity: 0
 
