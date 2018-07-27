@@ -37,12 +37,7 @@ RowLayout {
             var desktopNumber = i + 1;
             var desktopName = desktopNames[i];
             var activeDesktop = activeDesktopNumber == desktopNumber;
-
-            desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
-                "desktopNumber": desktopNumber,
-                "desktopName": desktopName,
-                "activeDesktop": activeDesktop
-            }));
+            registerDesktopEntry(desktopNumber, desktopName, activeDesktop);
         }
     }
 
@@ -78,15 +73,20 @@ RowLayout {
         }
     }
 
+    function registerDesktopEntry(desktopNumber, desktopName, activeDesktop) {
+        desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
+            "desktopNumber": desktopNumber,
+            "desktopName": desktopName,
+            "activeDesktop": activeDesktop
+        }));
+    }
+
     function addDesktops(currentDesktopAmount, addDesktopAmount) {
         var desktopNames = mdsModel.getDesktopNames();
         for (var i = 1; i <= addDesktopAmount; i++) {
             var desktopNumber = currentDesktopAmount + i;
             var desktopName = desktopNames[desktopNumber - 1];
-            desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
-                "desktopNumber": desktopNumber,
-                "desktopName": desktopName
-            }));
+            registerDesktopEntry(desktopNumber, desktopName);
         }
     }
 
