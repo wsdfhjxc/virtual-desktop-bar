@@ -43,6 +43,7 @@ RowLayout {
 
         plasmoid.setAction("addDesktop", "Add virtual desktop", "list-add");
         plasmoid.setAction("removeDesktop", "Remove virtual desktop", "list-remove");
+        plasmoid.setAction("openDesktopSettings", i18n("Open virtual desktop settings"), "configure");
     }
 
     Connections {
@@ -83,6 +84,10 @@ RowLayout {
 
     function action_removeDesktop() {
         mdsModel.removeDesktop();
+    }
+
+    function action_openDesktopSettings() {
+        KQuickControlsAddonsComponents.KCMShell.open("desktop");
     }
 
     function registerDesktopEntry(desktopNumber, desktopName, activeDesktop) {
