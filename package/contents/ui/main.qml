@@ -41,9 +41,9 @@ RowLayout {
             registerDesktopEntry(desktopNumber, desktopName, activeDesktop);
         }
 
-        plasmoid.setAction("addDesktop", "Add virtual desktop", "list-add");
-        plasmoid.setAction("removeDesktop", "Remove virtual desktop", "list-remove");
-        plasmoid.setAction("openDesktopSettings", "Open virtual desktop settings", "configure");
+        plasmoid.setAction("addDesktop", "Add new Virtual Desktop", "list-add");
+        plasmoid.setAction("removeDesktop", "Remove last Virtual Desktop", "list-remove");
+        plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
     }
 
     Connections {
