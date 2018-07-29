@@ -47,6 +47,9 @@ RowLayout {
         plasmoid.setAction("addDesktop", "Add new Virtual Desktop", "list-add");
         plasmoid.setAction("removeDesktop", "Remove last Virtual Desktop", "list-remove");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
+        plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
+            return desktopAmount > 1;
+        });
     }
 
     Connections {
