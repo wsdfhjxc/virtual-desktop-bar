@@ -42,7 +42,9 @@ Component {
             interval: 0
             running: true
             onTriggered: {
-                desktopEntryRect.width = desktopLabel.implicitWidth + 2 * desktopLabelMargin
+                desktopEntryRect.width = Qt.binding(function() {
+                    return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
+                });
             }
         }
 
