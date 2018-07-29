@@ -10,6 +10,7 @@ RowLayout {
     spacing: 0
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
+    property int desktopAmount: 0
     property var desktopEntries: []
     property int desktopEntrySpacing: 12
 
@@ -57,12 +58,13 @@ RowLayout {
         }
 
         onDesktopAmountChanged: {
+            root.desktopAmount = desktopAmount;
             var currentDesktopAmount = desktopEntries.length;
             var desktopAmountDifference = desktopAmount - currentDesktopAmount;
             if (desktopAmountDifference > 0) {
                 addDesktops(currentDesktopAmount, desktopAmountDifference);
             } else {
-                removeDesktops(currentDesktopAmount, desktopAmount);
+                removeDesktops(currentDesktopAmount);
             }
         }
 
@@ -107,7 +109,7 @@ RowLayout {
         }
     }
 
-    function removeDesktops(currentDesktopAmount, desktopAmount) {
+    function removeDesktops(currentDesktopAmount) {
         for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
             var desktopEntry = desktopEntries[i];
             desktopEntry.remove();
