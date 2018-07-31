@@ -12,15 +12,15 @@ RowLayout {
     property var desktopEntries: []
     property int desktopEntrySpacing: 12
 
+    DesktopEntry {
+        id: desktopEntryComponent
+    }
+
     RowLayout {
         id: desktopEntriesLayout
         spacing: parent.spacing
         implicitHeight: parent.height
         anchors.fill: parent
-    }
-
-    DesktopEntry {
-        id: desktopEntryComponent
     }
 
     AddDesktopButton {}
