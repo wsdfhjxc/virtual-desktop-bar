@@ -6,6 +6,7 @@ RowLayout {
     id: desktopSwitcher
     spacing: 0
     implicitHeight: parent.height
+    anchors.fill: parent
 
     property int desktopAmount: 0
     property var desktopEntries: []
@@ -15,7 +16,7 @@ RowLayout {
         id: desktopEntriesLayout
         spacing: parent.spacing
         implicitHeight: parent.height
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.fill: parent
     }
 
     DesktopEntry {
