@@ -7,5 +7,5 @@ X-KDE-PluginInfo-Name=org.kde.plasma.mds
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ServiceTypes=Plasma/Applet
 X-KDE-FormFactors=desktop
-X-Plasma-MainScript=ui/main.qml
+X-Plasma-MainScript=ui/Applet.qml
 X-Plasma-API=declarativeappletscript
