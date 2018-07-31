@@ -5,7 +5,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.private.mds 2.0
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 
-Item {
+RowLayout {
     id: root
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
