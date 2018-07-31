@@ -23,7 +23,7 @@ RowLayout {
         anchors.fill: parent
     }
 
-    AddDesktopButton {}
+    PlusButton {}
 
     Component.onCompleted: {
         var desktopNames = mdsModel.getDesktopNames();
