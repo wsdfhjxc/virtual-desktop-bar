@@ -13,6 +13,7 @@ RowLayout {
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}
+    Plasmoid.toolTipItem: Item {}
 
     Connections {
         target: mdsModel
