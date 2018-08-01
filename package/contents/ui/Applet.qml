@@ -7,29 +7,26 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 
 RowLayout {
     id: root
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
     MDSModel {
         id: mdsModel
     }
 
-    DesktopSwitcher {
-        id: desktopSwitcher
-    }
+    Plasmoid.compactRepresentation: DesktopSwitcher {}
 
     Connections {
         target: mdsModel
 
         onDesktopChanged: {
-            desktopSwitcher.onDesktopChanged(desktopNumber);
+            plasmoid.compactRepresentationItem.onDesktopChanged(desktopNumber);
         }
 
         onDesktopAmountChanged: {
-            desktopSwitcher.onDesktopAmountChanged(desktopAmount);
+            plasmoid.compactRepresentationItem.onDesktopAmountChanged(desktopAmount);
         }
 
         onDesktopNamesChanged: {
-            desktopSwitcher.onDesktopNamesChanged();
+            plasmoid.compactRepresentationItem.onDesktopNamesChanged();
         }
     }
 
@@ -38,7 +35,7 @@ RowLayout {
         plasmoid.setAction("removeDesktop", "Remove Virtual Desktop", "list-remove");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
-            return desktopSwitcher.desktopAmount > 1;
+            return plasmoid.compactRepresentationItem.desktopAmount > 1;
         });
     }
 
