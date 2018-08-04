@@ -19,10 +19,17 @@ RowLayout {
         implicitWidth: 162
         implicitHeight: 28
         text: "Desktop"
+    }
 
-        Component.onCompleted: {
-            selectAll();
-            focus = true;
+    Timer {
+        repeat: true
+        running: true
+        interval: 500
+        onTriggered: {
+            if (visible && !desktopNameInput.focus) {
+                desktopNameInput.focus = true;
+                desktopNameInput.selectAll();
+            }
         }
     }
 }
