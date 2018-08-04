@@ -16,7 +16,8 @@ RowLayout {
 
     TextField {
         id: desktopNameInput
-        width: 200
+        implicitWidth: 162
+        implicitHeight: 28
         text: "Desktop"
 
         Component.onCompleted: {
