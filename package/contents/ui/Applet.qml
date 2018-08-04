@@ -13,6 +13,7 @@ RowLayout {
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}
+    Plasmoid.fullRepresentation: DesktopNamePopup {}
     Plasmoid.toolTipItem: Item { width: -999; height: -999 }
 
     Connections {
