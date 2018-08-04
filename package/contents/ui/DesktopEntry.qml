@@ -115,7 +115,6 @@ Component {
                         target: desktopIndicator
                         opacity: 0
                     }
-
                 },
 
                 State {
@@ -140,7 +139,6 @@ Component {
                         target: desktopIndicator
                         opacity: 0
                     }
-
                 }
             ]
 
