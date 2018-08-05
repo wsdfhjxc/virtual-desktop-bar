@@ -32,4 +32,13 @@ RowLayout {
             }
         }
     }
+
+    Component.onCompleted: {
+        refreshDesktopNameInput();
+    }
+
+    function refreshDesktopNameInput() {
+        desktopNameInput.text = mdsModel.getActiveDesktopName();
+        desktopNameInput.selectAll();
+    }
 }
