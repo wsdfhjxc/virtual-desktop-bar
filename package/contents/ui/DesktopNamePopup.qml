@@ -6,7 +6,7 @@ RowLayout {
     Text {
         anchors.verticalCenter: parent.verticalCenter
         color: theme.textColor
-        text: "Virtual Desktop name:"
+        text: "Current Virtual Desktop Name:"
     }
 
     Item {
