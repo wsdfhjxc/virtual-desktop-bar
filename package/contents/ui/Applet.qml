@@ -33,8 +33,8 @@ RowLayout {
     }
 
     Component.onCompleted: {
-        plasmoid.setAction("addDesktop", "Add Virtual Desktop", "list-add");
-        plasmoid.setAction("removeDesktop", "Remove Virtual Desktop", "list-remove");
+        plasmoid.setAction("addDesktop", "Add New Virtual Desktop", "list-add");
+        plasmoid.setAction("removeDesktop", "Remove Last Virtual Desktop", "list-remove");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
