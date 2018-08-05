@@ -54,3 +54,8 @@ void MDSModel::removeDesktop() {
         netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
     }
 }
+
+void MDSModel::renameActiveDesktop(const QString desktopName) {
+    const int currentDesktop = KWindowSystem::currentDesktop();
+    KWindowSystem::setDesktopName(currentDesktop, desktopName);
+}

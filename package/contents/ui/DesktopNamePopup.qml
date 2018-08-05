@@ -19,6 +19,11 @@ RowLayout {
         implicitWidth: 162
         implicitHeight: 28
         text: "Desktop"
+
+        onAccepted: {
+            mdsModel.renameActiveDesktop(text);
+            plasmoid.expanded = false;
+        }
     }
 
     Timer {
