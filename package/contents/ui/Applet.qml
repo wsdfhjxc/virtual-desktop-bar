@@ -41,6 +41,7 @@ RowLayout {
     Component.onCompleted: {
         plasmoid.setAction("addDesktop", "Add New Virtual Desktop", "list-add");
         plasmoid.setAction("removeDesktop", "Remove Last Virtual Desktop", "list-remove");
+        plasmoid.setAction("removeActiveDesktop", "Remove Current Virtual Desktop", "list-remove");
         plasmoid.setAction("renameDesktop", "Rename Current Virtual Desktop", "edit-rename");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
@@ -54,6 +55,10 @@ RowLayout {
 
     function action_removeDesktop() {
         mdsModel.removeDesktop();
+    }
+
+    function action_removeActiveDesktop() {
+        mdsModel.removeActiveDesktop();
     }
 
     function action_renameDesktop() {

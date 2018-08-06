@@ -82,6 +82,41 @@ void MDSModel::removeDesktop() {
     }
 }
 
+void MDSModel::removeDesktop(int desktopNumber) {
+    const int numberOfDesktops = KWindowSystem::numberOfDesktops();
+    if (numberOfDesktops > 1) {
+        QVariantList desktopNames = getDesktopNames();
+
+        QList<WId> windows = KWindowSystem::windows();
+        for (WId id : windows) {
+            if (KWindowSystem::hasWId(id)) {
+                KWindowInfo info = KWindowInfo(id, NET::Property::WMDesktop);
+                if (info.valid()) {
+                    const int windowDesktopNumber = info.desktop();
+                    if (windowDesktopNumber != NET::OnAllDesktops
+                        && windowDesktopNumber >= desktopNumber) {
+                        KWindowSystem::setOnDesktop(id, windowDesktopNumber - 1);
+                    }
+                }
+            }
+        }
+
+        if (desktopNumber != numberOfDesktops) {
+            for (int i = desktopNumber - 1; i < numberOfDesktops - 1; i++) {
+                const QString desktopName = desktopNames.at(i + 1).toString();
+                KWindowSystem::setDesktopName(i + 1, desktopName);
+            }
+        }
+
+        removeDesktop();
+    }
+}
+
+void MDSModel::removeActiveDesktop() {
+    const int currentDesktop = KWindowSystem::currentDesktop();
+    removeDesktop(currentDesktop);
+}
+
 void MDSModel::renameActiveDesktop(const QString desktopName) {
     const int currentDesktop = KWindowSystem::currentDesktop();
     KWindowSystem::setDesktopName(currentDesktop, desktopName);
