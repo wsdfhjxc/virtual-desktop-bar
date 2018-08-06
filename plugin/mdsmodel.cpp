@@ -1,6 +1,7 @@
 #include "mdsmodel.h"
 
 #include <KWindowSystem>
+#include <KGlobalAccel>
 
 MDSModel::MDSModel(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
@@ -13,6 +14,29 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
                      this, &MDSModel::desktopNamesChanged);
+
+    actionCollection = new KActionCollection(this);
+
+    actionAddDesktop = actionCollection->addAction(QStringLiteral("addDesktop"));
+    actionAddDesktop->setText("Add New Virtual Desktop");
+    connect(actionAddDesktop, &QAction::triggered, this, [this]() {
+        addDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionAddDesktop, QKeySequence());
+
+    actionRemoveDesktop = actionCollection->addAction(QStringLiteral("removeDesktop"));
+    actionRemoveDesktop->setText("Remove Last Virtual Desktop");
+    connect(actionRemoveDesktop, &QAction::triggered, this, [this]() {
+        removeDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRemoveDesktop, QKeySequence());
+
+    actionRenameDesktop = actionCollection->addAction(QStringLiteral("renameDesktop"));
+    actionRenameDesktop->setText("Rename Current Virtual Desktop");
+    connect(actionRenameDesktop, &QAction::triggered, this, [this]() {
+        emit activated();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRenameDesktop, QKeySequence());
 }
 
 QVariantList MDSModel::getDesktopNames() const {

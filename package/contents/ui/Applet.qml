@@ -19,6 +19,10 @@ RowLayout {
     Connections {
         target: mdsModel
 
+        onActivated: {
+            plasmoid.expanded = true;
+        }
+
         onDesktopChanged: {
             plasmoid.compactRepresentationItem.onDesktopChanged(desktopNumber);
             plasmoid.fullRepresentationItem.refreshDesktopNameInput();

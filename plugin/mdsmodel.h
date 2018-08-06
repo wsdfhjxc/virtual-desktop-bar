@@ -5,6 +5,8 @@
 #include <QVariantList>
 #include <netwm.h>
 #include <QX11Info>
+#include <QAction>
+#include <KActionCollection>
 
 class MDSModel : public QObject {
     Q_OBJECT
@@ -22,12 +24,18 @@ public:
     Q_INVOKABLE void renameActiveDesktop(const QString desktopName);
 
 signals:
+    void activated();
     void desktopChanged(int desktopNumber);
     void desktopAmountChanged(int desktopAmount);
     void desktopNamesChanged();
 
 private:
     NETRootInfo netRootInfo;
+
+    KActionCollection* actionCollection;
+    QAction* actionAddDesktop;
+    QAction* actionRemoveDesktop;
+    QAction* actionRenameDesktop;
 };
 
 #endif // MDSMODEL_H
