@@ -19,6 +19,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
 
     actionAddDesktop = actionCollection->addAction(QStringLiteral("addDesktop"));
     actionAddDesktop->setText("Add New Virtual Desktop");
+    actionAddDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     connect(actionAddDesktop, &QAction::triggered, this, [this]() {
         addDesktop();
     });
@@ -26,6 +27,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
 
     actionRemoveDesktop = actionCollection->addAction(QStringLiteral("removeDesktop"));
     actionRemoveDesktop->setText("Remove Last Virtual Desktop");
+    actionRemoveDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     connect(actionRemoveDesktop, &QAction::triggered, this, [this]() {
         removeDesktop();
     });
@@ -33,6 +35,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
 
     actionRenameDesktop = actionCollection->addAction(QStringLiteral("renameDesktop"));
     actionRenameDesktop->setText("Rename Current Virtual Desktop");
+    actionRenameDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     connect(actionRenameDesktop, &QAction::triggered, this, [this]() {
         emit activated();
     });
