@@ -15,15 +15,15 @@ public:
     MDSModel(QObject* parent = nullptr);
 
     Q_INVOKABLE QVariantList getDesktopNames() const;
-    Q_INVOKABLE QVariant getActiveDesktopNumber() const;
-    Q_INVOKABLE QVariant getActiveDesktopName() const;
+    Q_INVOKABLE QVariant getCurrentDesktopNumber() const;
+    Q_INVOKABLE QVariant getCurrentDesktopName() const;
 
     Q_INVOKABLE void switchToDesktop(int desktopNumber);
     Q_INVOKABLE void addDesktop(const QString desktopName = QString());
     Q_INVOKABLE void removeDesktop();
     Q_INVOKABLE void removeDesktop(int desktopNumber);
-    Q_INVOKABLE void removeActiveDesktop();
-    Q_INVOKABLE void renameActiveDesktop(const QString desktopName);
+    Q_INVOKABLE void removeCurrentDesktop();
+    Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
 
 signals:
     void activated();

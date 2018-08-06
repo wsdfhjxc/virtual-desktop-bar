@@ -28,12 +28,12 @@ Component {
 
         Component.onCompleted: {
             var desktopNames = mdsModel.getDesktopNames();
-            var activeDesktopNumber = mdsModel.getActiveDesktopNumber();
+            var currentDesktopNumber = mdsModel.getCurrentDesktopNumber();
 
             for (var i = 0; i < desktopNames.length; i++) {
                 var desktopNumber = i + 1;
                 var desktopName = desktopNames[i];
-                var activeDesktop = activeDesktopNumber == desktopNumber;
+                var activeDesktop = currentDesktopNumber == desktopNumber;
                 registerDesktopEntry(desktopNumber, desktopName, activeDesktop);
             }
 

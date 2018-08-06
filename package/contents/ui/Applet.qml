@@ -57,8 +57,8 @@ RowLayout {
         mdsModel.removeDesktop();
     }
 
-    function action_removeActiveDesktop() {
-        mdsModel.removeActiveDesktop();
+    function action_removeCurrentDesktop() {
+        mdsModel.removeCurrentDesktop();
     }
 
     function action_renameDesktop() {

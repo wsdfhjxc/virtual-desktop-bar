@@ -52,12 +52,12 @@ QVariantList MDSModel::getDesktopNames() const {
     return desktopNames;
 }
 
-QVariant MDSModel::getActiveDesktopNumber() const {
+QVariant MDSModel::getCurrentDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
 
-QVariant MDSModel::getActiveDesktopName() const {
+QVariant MDSModel::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
     return QVariant(currentDesktopName);
@@ -112,12 +112,12 @@ void MDSModel::removeDesktop(int desktopNumber) {
     }
 }
 
-void MDSModel::removeActiveDesktop() {
+void MDSModel::removeCurrentDesktop() {
     const int currentDesktop = KWindowSystem::currentDesktop();
     removeDesktop(currentDesktop);
 }
 
-void MDSModel::renameActiveDesktop(const QString desktopName) {
+void MDSModel::renameCurrentDesktop(const QString desktopName) {
     const int currentDesktop = KWindowSystem::currentDesktop();
     KWindowSystem::setDesktopName(currentDesktop, desktopName);
 }
