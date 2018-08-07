@@ -82,6 +82,7 @@ Component {
                 height: desktopIndicatorThickness
                 anchors.bottom: parent.bottom
                 color: theme.buttonFocusColor
+                radius: desktopIndicatorThickness
             }
 
             MouseArea {
