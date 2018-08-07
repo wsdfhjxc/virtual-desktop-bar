@@ -19,12 +19,8 @@ RowLayout {
     Connections {
         target: mdsModel
 
-        onActivated: {
-            plasmoid.expanded = true;
-        }
-
-        onDesktopChanged: {
-            plasmoid.compactRepresentationItem.onDesktopChanged(desktopNumber);
+        onCurrentDesktopChanged: {
+            plasmoid.compactRepresentationItem.onCurrentDesktopChanged(desktopNumber);
             plasmoid.fullRepresentationItem.refreshDesktopNameInput();
         }
 
@@ -35,6 +31,10 @@ RowLayout {
         onDesktopNamesChanged: {
             plasmoid.compactRepresentationItem.onDesktopNamesChanged();
             plasmoid.fullRepresentationItem.refreshDesktopNameInput();
+        }
+
+        onCurrentDesktopNameChangeRequested: {
+            plasmoid.expanded = true;
         }
     }
 
@@ -50,11 +50,11 @@ RowLayout {
     }
 
     function action_addNewDesktop() {
-        mdsModel.addDesktop();
+        mdsModel.addNewDesktop();
     }
 
     function action_removeLastDesktop() {
-        mdsModel.removeDesktop();
+        mdsModel.removeLastDesktop();
     }
 
     function action_removeCurrentDesktop() {

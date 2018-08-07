@@ -40,7 +40,7 @@ Component {
             desktopAmount = desktopNames.length;
         }
 
-        function onDesktopChanged(desktopNumber) {
+        function onCurrentDesktopChanged(desktopNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopEntry = desktopEntries[i];
                 desktopEntry.activeDesktop = desktopNumber == i + 1;

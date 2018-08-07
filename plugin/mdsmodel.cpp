@@ -7,7 +7,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
-                     this, &MDSModel::desktopChanged);
+                     this, &MDSModel::currentDesktopChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
                      this, &MDSModel::desktopAmountChanged);
@@ -17,29 +17,29 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
 
     actionCollection = new KActionCollection(this);
 
-    actionAddDesktop = actionCollection->addAction(QStringLiteral("addDesktop"));
-    actionAddDesktop->setText("Add New Virtual Desktop");
-    actionAddDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
-    connect(actionAddDesktop, &QAction::triggered, this, [this]() {
-        addDesktop();
+    actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
+    actionAddNewDesktop->setText("Add New Virtual Desktop");
+    actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
+        addNewDesktop();
     });
-    KGlobalAccel::setGlobalShortcut(actionAddDesktop, QKeySequence());
+    KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
 
-    actionRemoveDesktop = actionCollection->addAction(QStringLiteral("removeDesktop"));
-    actionRemoveDesktop->setText("Remove Last Virtual Desktop");
-    actionRemoveDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    connect(actionRemoveDesktop, &QAction::triggered, this, [this]() {
-        removeDesktop();
+    actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
+    actionRemoveLastDesktop->setText("Remove Last Virtual Desktop");
+    actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
+    connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
+        removeLastDesktop();
     });
-    KGlobalAccel::setGlobalShortcut(actionRemoveDesktop, QKeySequence());
+    KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
 
-    actionRenameDesktop = actionCollection->addAction(QStringLiteral("renameDesktop"));
-    actionRenameDesktop->setText("Rename Current Virtual Desktop");
-    actionRenameDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
-    connect(actionRenameDesktop, &QAction::triggered, this, [this]() {
-        emit activated();
+    actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
+    actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
+    actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
+    connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
+        emit currentDesktopNameChangeRequested();
     });
-    KGlobalAccel::setGlobalShortcut(actionRenameDesktop, QKeySequence());
+    KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 }
 
 QVariantList MDSModel::getDesktopNames() const {
@@ -67,7 +67,7 @@ void MDSModel::switchToDesktop(int desktopNumber) {
     KWindowSystem::setCurrentDesktop(desktopNumber);
 }
 
-void MDSModel::addDesktop(const QString desktopName) {
+void MDSModel::addNewDesktop(const QString desktopName) {
     int numberOfDesktops = KWindowSystem::numberOfDesktops();
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull()) {
@@ -75,7 +75,7 @@ void MDSModel::addDesktop(const QString desktopName) {
     }
 }
 
-void MDSModel::removeDesktop() {
+void MDSModel::removeLastDesktop() {
     int numberOfDesktops = KWindowSystem::numberOfDesktops();
     if (numberOfDesktops > 1) {
         netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
@@ -86,7 +86,7 @@ void MDSModel::removeDesktop(int desktopNumber) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     if (numberOfDesktops > 1) {
         if (desktopNumber == numberOfDesktops) {
-            removeDesktop();
+            removeLastDesktop();
             return;
         }
 
@@ -110,7 +110,7 @@ void MDSModel::removeDesktop(int desktopNumber) {
             KWindowSystem::setDesktopName(i + 1, desktopName);
         }
 
-        removeDesktop();
+        removeLastDesktop();
     }
 }
 

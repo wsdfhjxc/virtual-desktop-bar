@@ -18,7 +18,7 @@ Item {
         anchors.fill: parent
 
         onClicked: {
-            mdsModel.addDesktop();
+            mdsModel.addNewDesktop();
         }
     }
 
