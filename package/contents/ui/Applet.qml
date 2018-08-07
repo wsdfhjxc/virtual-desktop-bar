@@ -39,21 +39,21 @@ RowLayout {
     }
 
     Component.onCompleted: {
-        plasmoid.setAction("addDesktop", "Add New Virtual Desktop", "list-add");
-        plasmoid.setAction("removeDesktop", "Remove Last Virtual Desktop", "list-remove");
+        plasmoid.setAction("addNewDesktop", "Add New Virtual Desktop", "list-add");
+        plasmoid.setAction("removeLastDesktop", "Remove Last Virtual Desktop", "list-remove");
         plasmoid.setAction("removeCurrentDesktop", "Remove Current Virtual Desktop", "list-remove");
-        plasmoid.setAction("renameDesktop", "Rename Current Virtual Desktop", "edit-rename");
+        plasmoid.setAction("renameCurrentDesktop", "Rename Current Virtual Desktop", "edit-rename");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
         });
     }
 
-    function action_addDesktop() {
+    function action_addNewDesktop() {
         mdsModel.addDesktop();
     }
 
-    function action_removeDesktop() {
+    function action_removeLastDesktop() {
         mdsModel.removeDesktop();
     }
 
@@ -61,7 +61,7 @@ RowLayout {
         mdsModel.removeCurrentDesktop();
     }
 
-    function action_renameDesktop() {
+    function action_renameCurrentDesktop() {
         plasmoid.expanded = true;
     }
 
