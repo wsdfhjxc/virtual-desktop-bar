@@ -41,6 +41,7 @@ private:
     KActionCollection* actionCollection;
     QAction* actionAddNewDesktop;
     QAction* actionRemoveLastDesktop;
+    QAction* actionRemoveCurrentDesktop;
     QAction* actionRenameCurrentDesktop;
 };
 

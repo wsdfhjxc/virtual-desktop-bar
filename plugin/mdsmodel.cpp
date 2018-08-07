@@ -33,6 +33,14 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
 
+    actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
+    actionRemoveCurrentDesktop->setText("Remove Current Virtual Desktop");
+    actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
+    connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
+        removeCurrentDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
+
     actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
     actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
     actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
