@@ -119,7 +119,11 @@ void MDSModel::removeCurrentDesktop() {
     removeDesktop(currentDesktop);
 }
 
+void MDSModel::renameDesktop(const int desktopNumber, const QString desktopName) {
+    KWindowSystem::setDesktopName(desktopNumber, desktopName);
+}
+
 void MDSModel::renameCurrentDesktop(const QString desktopName) {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    KWindowSystem::setDesktopName(currentDesktop, desktopName);
+    const int currentDesktopNumber = KWindowSystem::currentDesktop();
+    renameDesktop(currentDesktopNumber, desktopName);
 }
