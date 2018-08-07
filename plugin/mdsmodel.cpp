@@ -52,15 +52,15 @@ QVariantList MDSModel::getDesktopNames() const {
     return desktopNames;
 }
 
-QVariant MDSModel::getCurrentDesktopNumber() const {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    return QVariant(currentDesktop);
-}
-
 QVariant MDSModel::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
     return QVariant(currentDesktopName);
+}
+
+QVariant MDSModel::getCurrentDesktopNumber() const {
+    const int currentDesktop = KWindowSystem::currentDesktop();
+    return QVariant(currentDesktop);
 }
 
 void MDSModel::switchToDesktop(int desktopNumber) {
