@@ -90,16 +90,11 @@ void MDSModel::removeDesktop(const int desktopNumber) {
     }
 
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
-        const QList<WId> windows = KWindowSystem::windows();
-        for (WId id : windows) {
-            if (KWindowSystem::hasWId(id)) {
-                const KWindowInfo info = KWindowInfo(id, NET::Property::WMDesktop);
-                const int windowDesktopNumber = info.desktop();
-                if (windowDesktopNumber != NET::OnAllDesktops
-                    && windowDesktopNumber > desktopNumber) {
-                    KWindowSystem::setOnDesktop(id, windowDesktopNumber - 1);
-                }
-            }
+        const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
+        for (WId wId : windowsAfterDesktop) {
+            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
+            const int windowDesktopNumber = info.desktop();
+            KWindowSystem::setOnDesktop(wId, windowDesktopNumber - 1);
         }
 
         QVariantList desktopNames = getDesktopNames();
