@@ -180,6 +180,22 @@ void MDSModel::setUpGlobalKeyboardShortcuts() {
         emit currentDesktopNameChangeRequested();
     });
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
+
+    actionMoveCurrentDesktopToLeft = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToLeft"));
+    actionMoveCurrentDesktopToLeft->setText("Move Current Virtual Desktop To Left");
+    actionMoveCurrentDesktopToLeft->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
+    QObject::connect(actionMoveCurrentDesktopToLeft, &QAction::triggered, this, [this]() {
+        moveCurrentDesktopToLeft();
+    });
+    KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToLeft, QKeySequence());
+
+    actionMoveCurrentDesktopToRight = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToRight"));
+    actionMoveCurrentDesktopToRight->setText("Move Current Virtual Desktop To Right");
+    actionMoveCurrentDesktopToRight->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
+    QObject::connect(actionMoveCurrentDesktopToRight, &QAction::triggered, this, [this]() {
+        moveCurrentDesktopToRight();
+    });
+    KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToRight, QKeySequence());
 }
 
 const QList<WId> MDSModel::getWindows(const int desktopNumber, const bool afterDesktop) {
