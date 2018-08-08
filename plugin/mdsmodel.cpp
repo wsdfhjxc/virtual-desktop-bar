@@ -50,9 +50,9 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 }
 
-QVariantList MDSModel::getDesktopNames() const {
+const QVariantList MDSModel::getDesktopNames() const {
     QVariantList desktopNames;
-    int numberOfDesktops = KWindowSystem::numberOfDesktops();
+    const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     for (int desktopNumber = 0; desktopNumber < numberOfDesktops; desktopNumber++) {
         const QString& desktopName = KWindowSystem::desktopName(desktopNumber + 1);
         desktopNames << QVariant(desktopName);
@@ -60,23 +60,23 @@ QVariantList MDSModel::getDesktopNames() const {
     return desktopNames;
 }
 
-QVariant MDSModel::getCurrentDesktopName() const {
+const QVariant MDSModel::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
     return QVariant(currentDesktopName);
 }
 
-QVariant MDSModel::getCurrentDesktopNumber() const {
+const QVariant MDSModel::getCurrentDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
 
-void MDSModel::switchToDesktop(int desktopNumber) {
+void MDSModel::switchToDesktop(const int desktopNumber) {
     KWindowSystem::setCurrentDesktop(desktopNumber);
 }
 
 void MDSModel::addNewDesktop(const QString desktopName) {
-    int numberOfDesktops = KWindowSystem::numberOfDesktops();
+    const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull()) {
         KWindowSystem::setDesktopName(numberOfDesktops + 1, desktopName);
@@ -90,10 +90,10 @@ void MDSModel::removeDesktop(const int desktopNumber) {
     }
 
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
-        QList<WId> windows = KWindowSystem::windows();
+        const QList<WId> windows = KWindowSystem::windows();
         for (WId id : windows) {
             if (KWindowSystem::hasWId(id)) {
-                KWindowInfo info = KWindowInfo(id, NET::Property::WMDesktop);
+                const KWindowInfo info = KWindowInfo(id, NET::Property::WMDesktop);
                 if (info.valid()) {
                     const int windowDesktopNumber = info.desktop();
                     if (windowDesktopNumber != NET::OnAllDesktops

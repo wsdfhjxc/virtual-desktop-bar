@@ -14,11 +14,11 @@ class MDSModel : public QObject {
 public:
     MDSModel(QObject* parent = nullptr);
 
-    Q_INVOKABLE QVariantList getDesktopNames() const;
-    Q_INVOKABLE QVariant getCurrentDesktopName() const;
-    Q_INVOKABLE QVariant getCurrentDesktopNumber() const;
+    Q_INVOKABLE const QVariantList getDesktopNames() const;
+    Q_INVOKABLE const QVariant getCurrentDesktopName() const;
+    Q_INVOKABLE const QVariant getCurrentDesktopNumber() const;
 
-    Q_INVOKABLE void switchToDesktop(int desktopNumber);
+    Q_INVOKABLE void switchToDesktop(const int desktopNumber);
     Q_INVOKABLE void addNewDesktop(const QString desktopName = QString());
 
     Q_INVOKABLE void removeDesktop(const int desktopNumber = 0);
@@ -29,8 +29,8 @@ public:
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
 
 signals:
-    void currentDesktopChanged(int desktopNumber);
-    void desktopAmountChanged(int desktopAmount);
+    void currentDesktopChanged(const int desktopNumber);
+    void desktopAmountChanged(const int desktopAmount);
 
     void currentDesktopNameChangeRequested();
     void desktopNamesChanged();
