@@ -21,7 +21,6 @@ RowLayout {
 
         onCurrentDesktopChanged: {
             plasmoid.compactRepresentationItem.onCurrentDesktopChanged(desktopNumber);
-            plasmoid.fullRepresentationItem.refreshDesktopNameInput();
         }
 
         onDesktopAmountChanged: {
@@ -30,11 +29,11 @@ RowLayout {
 
         onDesktopNamesChanged: {
             plasmoid.compactRepresentationItem.onDesktopNamesChanged();
-            plasmoid.fullRepresentationItem.refreshDesktopNameInput();
         }
 
         onCurrentDesktopNameChangeRequested: {
             plasmoid.expanded = true;
+            plasmoid.fullRepresentationItem.refreshDesktopNameInput();
         }
 
         onDesktopRemoveRequested: {
