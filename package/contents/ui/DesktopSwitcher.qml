@@ -33,8 +33,8 @@ Component {
             for (var i = 0; i < desktopNames.length; i++) {
                 var desktopNumber = i + 1;
                 var desktopName = desktopNames[i];
-                var activeDesktop = currentDesktopNumber == desktopNumber;
-                registerDesktopEntry(desktopName, activeDesktop);
+                var isCurrentDesktop = currentDesktopNumber == desktopNumber;
+                registerDesktopEntry(desktopName, isCurrentDesktop);
             }
 
             desktopAmount = desktopNames.length;
@@ -43,7 +43,7 @@ Component {
         function onCurrentDesktopChanged(desktopNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopEntry = desktopEntries[i];
-                desktopEntry.activeDesktop = desktopNumber == i + 1;
+                desktopEntry.isCurrentDesktop = desktopNumber == i + 1;
             }
         }
 
@@ -69,10 +69,10 @@ Component {
             }
         }
 
-        function registerDesktopEntry(desktopName, activeDesktop) {
+        function registerDesktopEntry(desktopName, isCurrentDesktop) {
             desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
                 "desktopName": desktopName,
-                "activeDesktop": activeDesktop
+                "isCurrentDesktop": isCurrentDesktop
             }));
         }
 

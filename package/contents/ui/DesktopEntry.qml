@@ -10,7 +10,7 @@ Component {
         property int desktopIndicatorThickness: 2
 
         property string desktopName: "Desktop"
-        property bool activeDesktop: false
+        property bool isCurrentDesktop: false
 
         implicitWidth: desktopEntryRect.width > 0 ?
                        desktopEntryRect.width + desktopEntrySpacing : 0
@@ -98,7 +98,7 @@ Component {
             }
 
             state: {
-                if (activeDesktop) {
+                if (isCurrentDesktop) {
                     return "active"
                 }
                 if (mouseArea.containsMouse) {
