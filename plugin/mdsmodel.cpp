@@ -83,21 +83,13 @@ void MDSModel::addNewDesktop(const QString desktopName) {
     }
 }
 
-void MDSModel::removeLastDesktop() {
-    int numberOfDesktops = KWindowSystem::numberOfDesktops();
-    if (numberOfDesktops > 1) {
-        netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
-    }
-}
-
-void MDSModel::removeDesktop(int desktopNumber) {
+void MDSModel::removeDesktop(const int desktopNumber) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
-    if (numberOfDesktops > 1) {
-        if (desktopNumber == numberOfDesktops) {
-            removeLastDesktop();
-            return;
-        }
+    if (numberOfDesktops == 1) {
+        return;
+    }
 
+    if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         QList<WId> windows = KWindowSystem::windows();
         for (WId id : windows) {
             if (KWindowSystem::hasWId(id)) {
@@ -117,14 +109,18 @@ void MDSModel::removeDesktop(int desktopNumber) {
             const QString desktopName = desktopNames.at(i + 1).toString();
             KWindowSystem::setDesktopName(i + 1, desktopName);
         }
-
-        removeLastDesktop();
     }
+
+    netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
 }
 
 void MDSModel::removeCurrentDesktop() {
     const int currentDesktop = KWindowSystem::currentDesktop();
     removeDesktop(currentDesktop);
+}
+
+void MDSModel::removeLastDesktop() {
+    removeDesktop();
 }
 
 void MDSModel::renameDesktop(const int desktopNumber, const QString desktopName) {

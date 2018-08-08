@@ -21,9 +21,9 @@ public:
     Q_INVOKABLE void switchToDesktop(int desktopNumber);
     Q_INVOKABLE void addNewDesktop(const QString desktopName = QString());
 
-    Q_INVOKABLE void removeLastDesktop();
-    Q_INVOKABLE void removeDesktop(int desktopNumber);
+    Q_INVOKABLE void removeDesktop(const int desktopNumber = 0);
     Q_INVOKABLE void removeCurrentDesktop();
+    Q_INVOKABLE void removeLastDesktop();
 
     Q_INVOKABLE void renameDesktop(const int desktopNumber, const QString desktopName);
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
