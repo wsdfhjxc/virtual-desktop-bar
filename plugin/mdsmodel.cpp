@@ -129,3 +129,23 @@ void MDSModel::renameCurrentDesktop(const QString desktopName) {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
 }
+
+const QList<WId> MDSModel::getWindows(const int desktopNumber, const bool afterDesktop) {
+    QList<WId> windows;
+
+    const QList<WId> allWindows = KWindowSystem::windows();
+    for (WId wId : allWindows) {
+        if (KWindowSystem::hasWId(wId)) {
+            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
+            const int windowDesktopNumber = info.desktop();
+
+            if (windowDesktopNumber != NET::OnAllDesktops &&
+                ((afterDesktop && windowDesktopNumber > desktopNumber) ||
+                (!afterDesktop && windowDesktopNumber == desktopNumber))) {
+                windows << wId;
+            }
+        }
+    }
+
+    return windows;
+}

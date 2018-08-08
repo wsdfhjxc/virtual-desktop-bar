@@ -43,6 +43,8 @@ private:
     QAction* actionRemoveLastDesktop;
     QAction* actionRemoveCurrentDesktop;
     QAction* actionRenameCurrentDesktop;
+
+    const QList<WId> getWindows(const int desktopNumber, const bool afterDesktop = false);
 };
 
 #endif // MDSMODEL_H
