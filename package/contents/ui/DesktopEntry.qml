@@ -73,8 +73,15 @@ Component {
                 id: desktopLabel
                 text: desktopName
                 x: desktopLabelMargin
+                width: desktopLabel.implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
                 clip: true
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: 75
+                    }
+                }
             }
 
             Rectangle {
