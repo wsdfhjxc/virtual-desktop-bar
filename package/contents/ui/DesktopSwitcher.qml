@@ -66,7 +66,7 @@ Component {
 
         function onDesktopNamesChanged() {
             var desktopNames = mdsModel.getDesktopNames();
-            for (var i = 0; i < desktopNames.length; i++) {
+            for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopName = desktopNames[i];
                 var desktopEntry = desktopEntries[i];
                 if (desktopEntry.desktopName != desktopName) {
