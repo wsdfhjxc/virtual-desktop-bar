@@ -36,6 +36,10 @@ RowLayout {
         onCurrentDesktopNameChangeRequested: {
             plasmoid.expanded = true;
         }
+
+        onDesktopRemoveRequested: {
+            plasmoid.compactRepresentationItem.onDesktopRemoveRequested(desktopNumber);
+        }
     }
 
     Component.onCompleted: {

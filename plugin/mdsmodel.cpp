@@ -68,7 +68,7 @@ void MDSModel::removeDesktop(const int desktopNumber) {
 
 void MDSModel::removeCurrentDesktop() {
     const int currentDesktop = KWindowSystem::currentDesktop();
-    removeDesktop(currentDesktop);
+    emit desktopRemoveRequested(currentDesktop);
 }
 
 void MDSModel::removeLastDesktop() {
