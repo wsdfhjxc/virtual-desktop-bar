@@ -53,7 +53,7 @@ Component {
             var desktopAmountDifference = desktopAmount - currentDesktopAmount;
             if (desktopAmountDifference > 0) {
                 addDesktops(currentDesktopAmount, desktopAmountDifference);
-            } else {
+            } else if (desktopAmountDifference < 0) {
                 removeDesktops(currentDesktopAmount);
             }
         }
