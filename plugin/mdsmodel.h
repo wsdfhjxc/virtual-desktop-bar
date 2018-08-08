@@ -28,6 +28,12 @@ public:
     Q_INVOKABLE void renameDesktop(const int desktopNumber, const QString desktopName);
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
 
+    Q_INVOKABLE bool moveDesktop(const int desktopNumber, const int moveStep);
+    Q_INVOKABLE bool moveDesktopToLeft(const int desktopNumber);
+    Q_INVOKABLE bool moveDesktopToRight(const int desktopNumber);
+    Q_INVOKABLE void moveCurrentDesktopToLeft();
+    Q_INVOKABLE void moveCurrentDesktopToRight();
+
 signals:
     void currentDesktopChanged(const int desktopNumber);
     void desktopAmountChanged(const int desktopAmount);
@@ -43,6 +49,8 @@ private:
     QAction* actionRemoveLastDesktop;
     QAction* actionRemoveCurrentDesktop;
     QAction* actionRenameCurrentDesktop;
+    QAction* actionMoveCurrentDesktopToLeft;
+    QAction* actionMoveCurrentDesktopToRight;
 
     void setUpSignalForwarding();
     void setUpGlobalKeyboardShortcuts();

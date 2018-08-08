@@ -84,6 +84,56 @@ void MDSModel::renameCurrentDesktop(const QString desktopName) {
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
+bool MDSModel::moveDesktop(const int desktopNumber, const int moveStep) {
+    const int otherDesktopNumber = desktopNumber + moveStep;
+
+    if (otherDesktopNumber == 0 ||
+        otherDesktopNumber == KWindowSystem::numberOfDesktops() + 1) {
+        return false;
+    }
+
+    QList<WId> windowsFromDesktop = getWindows(desktopNumber);
+    QList<WId> windowsFromOtherDesktop = getWindows(otherDesktopNumber);
+
+    for (WId wId : windowsFromDesktop) {
+        KWindowSystem::setOnDesktop(wId, otherDesktopNumber);
+    }
+
+    for (WId wId : windowsFromOtherDesktop) {
+        KWindowSystem::setOnDesktop(wId, desktopNumber);
+    }
+
+    const QString desktopName = KWindowSystem::desktopName(desktopNumber);
+    const QString otherDesktopName = KWindowSystem::desktopName(otherDesktopNumber);
+
+    KWindowSystem::setDesktopName(desktopNumber, otherDesktopName);
+    KWindowSystem::setDesktopName(otherDesktopNumber, desktopName);
+
+    return true;
+}
+
+bool MDSModel::moveDesktopToLeft(const int desktopNumber) {
+    return moveDesktop(desktopNumber, -1);
+}
+
+bool MDSModel::moveDesktopToRight(const int desktopNumber) {
+    return moveDesktop(desktopNumber, 1);
+}
+
+void MDSModel::moveCurrentDesktopToLeft() {
+    const int currentDesktopNumber = KWindowSystem::currentDesktop();
+    if (moveDesktopToLeft(currentDesktopNumber)) {
+        switchToDesktop(currentDesktopNumber - 1);
+    }
+}
+
+void MDSModel::moveCurrentDesktopToRight() {
+    const int currentDesktopNumber = KWindowSystem::currentDesktop();
+    if (moveDesktopToRight(currentDesktopNumber)) {
+        switchToDesktop(currentDesktopNumber + 1);
+    }
+}
+
 void MDSModel::setUpSignalForwarding() {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
