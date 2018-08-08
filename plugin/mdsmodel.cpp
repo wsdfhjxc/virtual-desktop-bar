@@ -5,49 +5,8 @@
 
 MDSModel::MDSModel(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
-
-    QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
-                     this, &MDSModel::currentDesktopChanged);
-
-    QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
-                     this, &MDSModel::desktopAmountChanged);
-
-    QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
-                     this, &MDSModel::desktopNamesChanged);
-
-    actionCollection = new KActionCollection(this);
-
-    actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
-    actionAddNewDesktop->setText("Add New Virtual Desktop");
-    actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
-    QObject::connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
-        addNewDesktop();
-    });
-    KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
-
-    actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
-    actionRemoveLastDesktop->setText("Remove Last Virtual Desktop");
-    actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
-        removeLastDesktop();
-    });
-    KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
-
-    actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
-    actionRemoveCurrentDesktop->setText("Remove Current Virtual Desktop");
-    actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
-        removeCurrentDesktop();
-    });
-    KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
-
-    actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
-    actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
-    actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
-    QObject::connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
-        emit currentDesktopNameChangeRequested();
-    });
-    KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
+    setUpSignalForwarding();
+    setUpGlobalKeyboardShortcuts();
 }
 
 const QVariantList MDSModel::getDesktopNames() const {
@@ -123,6 +82,54 @@ void MDSModel::renameDesktop(const int desktopNumber, const QString desktopName)
 void MDSModel::renameCurrentDesktop(const QString desktopName) {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
+}
+
+void MDSModel::setUpSignalForwarding() {
+
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
+                     this, &MDSModel::currentDesktopChanged);
+
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
+                     this, &MDSModel::desktopAmountChanged);
+
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
+                     this, &MDSModel::desktopNamesChanged);
+}
+
+void MDSModel::setUpGlobalKeyboardShortcuts() {
+    actionCollection = new KActionCollection(this);
+
+    actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
+    actionAddNewDesktop->setText("Add New Virtual Desktop");
+    actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    QObject::connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
+        addNewDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
+
+    actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
+    actionRemoveLastDesktop->setText("Remove Last Virtual Desktop");
+    actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
+    QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
+        removeLastDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
+
+    actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
+    actionRemoveCurrentDesktop->setText("Remove Current Virtual Desktop");
+    actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
+    QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
+        removeCurrentDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
+
+    actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
+    actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
+    actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
+    QObject::connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
+        emit currentDesktopNameChangeRequested();
+    });
+    KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 }
 
 const QList<WId> MDSModel::getWindows(const int desktopNumber, const bool afterDesktop) {

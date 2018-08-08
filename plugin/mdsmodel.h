@@ -44,6 +44,9 @@ private:
     QAction* actionRemoveCurrentDesktop;
     QAction* actionRenameCurrentDesktop;
 
+    void setUpSignalForwarding();
+    void setUpGlobalKeyboardShortcuts();
+
     const QList<WId> getWindows(const int desktopNumber, const bool afterDesktop = false);
 };
 
