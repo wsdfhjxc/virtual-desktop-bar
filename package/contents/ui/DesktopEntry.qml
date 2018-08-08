@@ -4,7 +4,7 @@ import QtQuick.Controls 1.4
 
 Component {
     Item {
-        id: desktopEntry
+        id: self
 
         property int desktopLabelMargin: 2
         property int desktopIndicatorThickness: 2
@@ -92,7 +92,7 @@ Component {
                 anchors.fill: parent
 
                 onClicked: {
-                    var desktopNumber = getDesktopNumberForDesktopEntry(desktopEntry);
+                    var desktopNumber = getDesktopNumberForDesktopEntry(self);
                     mdsModel.switchToDesktop(desktopNumber)
                 }
             }
