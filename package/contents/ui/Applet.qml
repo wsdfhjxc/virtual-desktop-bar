@@ -40,6 +40,8 @@ RowLayout {
 
     Component.onCompleted: {
         plasmoid.setAction("addNewDesktop", "Add New Virtual Desktop", "list-add");
+        plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Virtual Desktop To Left", "arrow-left");
+        plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Virtual Desktop To Right", "arrow-right");
         plasmoid.setAction("renameCurrentDesktop", "Rename Current Virtual Desktop", "edit-rename");
         plasmoid.setAction("removeCurrentDesktop", "Remove Current Virtual Desktop", "list-remove");
         plasmoid.setAction("removeLastDesktop", "Remove Last Virtual Desktop", "list-remove");
@@ -51,6 +53,14 @@ RowLayout {
 
     function action_addNewDesktop() {
         mdsModel.addNewDesktop();
+    }
+
+    function action_moveCurrentDesktopToLeft() {
+        mdsModel.moveCurrentDesktopToLeft();
+    }
+
+    function action_moveCurrentDesktopToRight() {
+        mdsModel.moveCurrentDesktopToRight()
     }
 
     function action_removeLastDesktop() {
