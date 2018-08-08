@@ -42,11 +42,11 @@ RowLayout {
 
     Component.onCompleted: {
         plasmoid.setAction("addNewDesktop", "Add New Virtual Desktop", "list-add");
+        plasmoid.setAction("removeLastDesktop", "Remove Last Virtual Desktop", "list-remove");
+        plasmoid.setAction("removeCurrentDesktop", "Remove Current Virtual Desktop", "list-remove");
         plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Virtual Desktop To Left", "arrow-left");
         plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Virtual Desktop To Right", "arrow-right");
         plasmoid.setAction("renameCurrentDesktop", "Rename Current Virtual Desktop", "edit-rename");
-        plasmoid.setAction("removeCurrentDesktop", "Remove Current Virtual Desktop", "list-remove");
-        plasmoid.setAction("removeLastDesktop", "Remove Last Virtual Desktop", "list-remove");
         plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
