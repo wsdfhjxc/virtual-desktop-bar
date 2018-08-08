@@ -20,7 +20,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
     actionAddNewDesktop->setText("Add New Virtual Desktop");
     actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
-    connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
+    QObject::connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
         addNewDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
@@ -28,7 +28,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
     actionRemoveLastDesktop->setText("Remove Last Virtual Desktop");
     actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
+    QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
         removeLastDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
@@ -36,7 +36,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
     actionRemoveCurrentDesktop->setText("Remove Current Virtual Desktop");
     actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
-    connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
+    QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
         removeCurrentDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
@@ -44,7 +44,7 @@ MDSModel::MDSModel(QObject* parent) : QObject(parent),
     actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
     actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
     actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
-    connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
+    QObject::connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
         emit currentDesktopNameChangeRequested();
     });
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
