@@ -32,8 +32,7 @@ RowLayout {
         }
 
         onCurrentDesktopNameChangeRequested: {
-            plasmoid.expanded = true;
-            plasmoid.fullRepresentationItem.refreshDesktopNameInput();
+            action_renameCurrentDesktop();
         }
 
         onDesktopRemoveRequested: {
@@ -76,6 +75,7 @@ RowLayout {
 
     function action_renameCurrentDesktop() {
         plasmoid.expanded = true;
+        plasmoid.fullRepresentationItem.refreshDesktopNameInput();
     }
 
     function action_openDesktopSettings() {
