@@ -99,17 +99,17 @@ Component {
 
             state: {
                 if (isCurrentDesktop) {
-                    return "active"
+                    return "current"
                 }
                 if (mouseArea.containsMouse) {
                     return "hovered"
                 }
-                return "inactive"
+                return "default"
             }
 
             states: [
                 State {
-                    name: "inactive"
+                    name: "default"
                     PropertyChanges {
                         target: desktopLabel
                         opacity: 0.7
@@ -121,7 +121,7 @@ Component {
                 },
 
                 State {
-                    name: "active"
+                    name: "current"
                     PropertyChanges {
                         target: desktopLabel
                         opacity: 1
@@ -147,42 +147,42 @@ Component {
 
             transitions: [
                 Transition {
+                    to: "default"
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: desktopLabel
+                            property: "opacity"
+                            duration: 300
+                        }
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 300
+                        }
+                    }
+                },
+
+                Transition {
+                    to: "current"
+                    ParallelAnimation {
+                        NumberAnimation {
+                            target: desktopLabel
+                            property: "opacity"
+                            duration: 150
+                        }
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 150
+                        }
+                    }
+                },
+
+                Transition {
                     to: "hovered"
                     ParallelAnimation {
                         NumberAnimation {
                             target: desktopLabel
-                            property: "opacity"
-                            duration: 150
-                        }
-                    }
-                },
-
-                Transition {
-                    to: "inactive"
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: desktopLabel
-                            property: "opacity"
-                            duration: 300
-                        }
-                        NumberAnimation {
-                            target: desktopIndicator
-                            property: "opacity"
-                            duration: 300
-                        }
-                    }
-                },
-
-                Transition {
-                    to: "active"
-                    ParallelAnimation {
-                        NumberAnimation {
-                            target: desktopLabel
-                            property: "opacity"
-                            duration: 150
-                        }
-                        NumberAnimation {
-                            target: desktopIndicator
                             property: "opacity"
                             duration: 150
                         }
