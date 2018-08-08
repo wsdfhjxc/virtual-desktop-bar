@@ -94,12 +94,10 @@ void MDSModel::removeDesktop(const int desktopNumber) {
         for (WId id : windows) {
             if (KWindowSystem::hasWId(id)) {
                 const KWindowInfo info = KWindowInfo(id, NET::Property::WMDesktop);
-                if (info.valid()) {
-                    const int windowDesktopNumber = info.desktop();
-                    if (windowDesktopNumber != NET::OnAllDesktops
-                        && windowDesktopNumber > desktopNumber) {
-                        KWindowSystem::setOnDesktop(id, windowDesktopNumber - 1);
-                    }
+                const int windowDesktopNumber = info.desktop();
+                if (windowDesktopNumber != NET::OnAllDesktops
+                    && windowDesktopNumber > desktopNumber) {
+                    KWindowSystem::setOnDesktop(id, windowDesktopNumber - 1);
                 }
             }
         }
