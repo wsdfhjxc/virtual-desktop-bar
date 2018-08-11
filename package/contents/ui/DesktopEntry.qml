@@ -7,7 +7,7 @@ Component {
         id: self
 
         property int desktopLabelMargin: 2
-        property int desktopIndicatorThickness: 2
+        property int desktopIndicatorThickness: 3
 
         property string desktopName: "Desktop"
         property bool isCurrentDesktop: false
