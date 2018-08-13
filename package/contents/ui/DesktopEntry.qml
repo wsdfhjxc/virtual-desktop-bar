@@ -134,7 +134,7 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        opacity: 1
+                        opacity: 0.7
                     }
                 },
 
