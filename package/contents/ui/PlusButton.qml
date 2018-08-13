@@ -31,7 +31,7 @@ Item {
             name: "default"
             PropertyChanges {
                 target: label
-                opacity: 0.7
+                opacity: 0.8
             }
         },
 

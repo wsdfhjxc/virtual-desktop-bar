@@ -118,7 +118,7 @@ Component {
                     name: "default"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: 0.7
+                        opacity: 0.8
                     }
                     PropertyChanges {
                         target: desktopIndicator
