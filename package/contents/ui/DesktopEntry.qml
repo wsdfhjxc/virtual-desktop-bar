@@ -6,7 +6,7 @@ Component {
     Item {
         id: self
 
-        property int desktopLabelMargin: 2
+        property int desktopLabelMargin: 6
         property int desktopIndicatorThickness: 3
 
         property string desktopName: "Desktop"

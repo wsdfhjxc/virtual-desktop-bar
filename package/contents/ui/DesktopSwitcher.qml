@@ -11,7 +11,7 @@ Component {
 
         property int desktopAmount: 0
         property var desktopEntries: []
-        property int desktopEntrySpacing: 12
+        property int desktopEntrySpacing: 8
 
         DesktopEntry {
             id: desktopEntryComponent
