@@ -122,7 +122,8 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        opacity: 0
+                        color: theme.textColor
+                        opacity: 0.15
                     }
                 },
 
@@ -146,7 +147,8 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        opacity: 0
+                        color: theme.buttonFocusColor
+                        opacity: 0.5
                     }
                 }
             ]
@@ -165,6 +167,11 @@ Component {
                             property: "opacity"
                             duration: 300
                         }
+                        ColorAnimation {
+                            target: desktopIndicator
+                            property: "color"
+                            duration: 300
+                        }
                     }
                 },
 
@@ -181,6 +188,11 @@ Component {
                             property: "opacity"
                             duration: 150
                         }
+                        ColorAnimation {
+                            target: desktopIndicator
+                            property: "color"
+                            duration: 150
+                        }
                     }
                 },
 
@@ -190,6 +202,16 @@ Component {
                         NumberAnimation {
                             target: desktopLabel
                             property: "opacity"
+                            duration: 150
+                        }
+                        NumberAnimation {
+                            target: desktopIndicator
+                            property: "opacity"
+                            duration: 150
+                        }
+                        ColorAnimation {
+                            target: desktopIndicator
+                            property: "color"
                             duration: 150
                         }
                     }
