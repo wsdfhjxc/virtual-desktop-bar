@@ -12,5 +12,7 @@ The plasmoid displays virtual desktop entries as text labels with their names. T
 * moving current virtual desktop to right
 * renaming current virtual desktop
 
-### Screenshot
+### Screenshots
 ![](screenshot.png)
+
+![](screenshot2.png)
