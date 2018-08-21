@@ -16,3 +16,12 @@ The plasmoid displays virtual desktop entries as text labels with their names. T
 ![](screenshot.png)
 
 ![](screenshot2.png)
+
+### Installation
+```
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) ..
+make
+sudo make install
+```
