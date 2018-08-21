@@ -1,2 +1,2 @@
-module org.kde.plasma.private.mds
-plugin mdsplugin
+module org.kde.plasma.private.vdb
+plugin vdbplugin

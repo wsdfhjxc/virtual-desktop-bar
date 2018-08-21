@@ -1,15 +1,15 @@
-#include "mdsmodel.h"
+#include "vdbmodel.h"
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
 
-MDSModel::MDSModel(QObject* parent) : QObject(parent),
+VDBModel::VDBModel(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
     setUpSignalForwarding();
     setUpGlobalKeyboardShortcuts();
 }
 
-const QVariantList MDSModel::getDesktopNames() const {
+const QVariantList VDBModel::getDesktopNames() const {
     QVariantList desktopNames;
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     for (int desktopNumber = 0; desktopNumber < numberOfDesktops; desktopNumber++) {
@@ -19,22 +19,22 @@ const QVariantList MDSModel::getDesktopNames() const {
     return desktopNames;
 }
 
-const QVariant MDSModel::getCurrentDesktopName() const {
+const QVariant VDBModel::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
     return QVariant(currentDesktopName);
 }
 
-const QVariant MDSModel::getCurrentDesktopNumber() const {
+const QVariant VDBModel::getCurrentDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
 
-void MDSModel::switchToDesktop(const int desktopNumber) {
+void VDBModel::switchToDesktop(const int desktopNumber) {
     KWindowSystem::setCurrentDesktop(desktopNumber);
 }
 
-void MDSModel::addNewDesktop(const QString desktopName) {
+void VDBModel::addNewDesktop(const QString desktopName) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull()) {
@@ -42,7 +42,7 @@ void MDSModel::addNewDesktop(const QString desktopName) {
     }
 }
 
-void MDSModel::removeDesktop(const int desktopNumber) {
+void VDBModel::removeDesktop(const int desktopNumber) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     if (numberOfDesktops == 1) {
         return;
@@ -66,25 +66,25 @@ void MDSModel::removeDesktop(const int desktopNumber) {
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
 }
 
-void MDSModel::removeCurrentDesktop() {
+void VDBModel::removeCurrentDesktop() {
     const int currentDesktop = KWindowSystem::currentDesktop();
     emit desktopRemoveRequested(currentDesktop);
 }
 
-void MDSModel::removeLastDesktop() {
+void VDBModel::removeLastDesktop() {
     removeDesktop();
 }
 
-void MDSModel::renameDesktop(const int desktopNumber, const QString desktopName) {
+void VDBModel::renameDesktop(const int desktopNumber, const QString desktopName) {
     KWindowSystem::setDesktopName(desktopNumber, desktopName);
 }
 
-void MDSModel::renameCurrentDesktop(const QString desktopName) {
+void VDBModel::renameCurrentDesktop(const QString desktopName) {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
-bool MDSModel::moveDesktop(const int desktopNumber, const int moveStep) {
+bool VDBModel::moveDesktop(const int desktopNumber, const int moveStep) {
     const int otherDesktopNumber = desktopNumber + moveStep;
 
     if (otherDesktopNumber == 0 ||
@@ -112,41 +112,41 @@ bool MDSModel::moveDesktop(const int desktopNumber, const int moveStep) {
     return true;
 }
 
-bool MDSModel::moveDesktopToLeft(const int desktopNumber) {
+bool VDBModel::moveDesktopToLeft(const int desktopNumber) {
     return moveDesktop(desktopNumber, -1);
 }
 
-bool MDSModel::moveDesktopToRight(const int desktopNumber) {
+bool VDBModel::moveDesktopToRight(const int desktopNumber) {
     return moveDesktop(desktopNumber, 1);
 }
 
-void MDSModel::moveCurrentDesktopToLeft() {
+void VDBModel::moveCurrentDesktopToLeft() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     if (moveDesktopToLeft(currentDesktopNumber)) {
         switchToDesktop(currentDesktopNumber - 1);
     }
 }
 
-void MDSModel::moveCurrentDesktopToRight() {
+void VDBModel::moveCurrentDesktopToRight() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     if (moveDesktopToRight(currentDesktopNumber)) {
         switchToDesktop(currentDesktopNumber + 1);
     }
 }
 
-void MDSModel::setUpSignalForwarding() {
+void VDBModel::setUpSignalForwarding() {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
-                     this, &MDSModel::currentDesktopChanged);
+                     this, &VDBModel::currentDesktopChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
-                     this, &MDSModel::desktopAmountChanged);
+                     this, &VDBModel::desktopAmountChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
-                     this, &MDSModel::desktopNamesChanged);
+                     this, &VDBModel::desktopNamesChanged);
 }
 
-void MDSModel::setUpGlobalKeyboardShortcuts() {
+void VDBModel::setUpGlobalKeyboardShortcuts() {
     actionCollection = new KActionCollection(this);
 
     actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
@@ -198,7 +198,7 @@ void MDSModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToRight, QKeySequence());
 }
 
-const QList<WId> MDSModel::getWindows(const int desktopNumber, const bool afterDesktop) {
+const QList<WId> VDBModel::getWindows(const int desktopNumber, const bool afterDesktop) {
     QList<WId> windows;
 
     const QList<WId> allWindows = KWindowSystem::windows();

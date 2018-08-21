@@ -1,5 +1,5 @@
-#ifndef MDSMODEL_H
-#define MDSMODEL_H
+#ifndef VDBMODEL_H
+#define VDBMODEL_H
 
 #include <QObject>
 #include <QVariantList>
@@ -8,11 +8,11 @@
 #include <QAction>
 #include <KActionCollection>
 
-class MDSModel : public QObject {
+class VDBModel : public QObject {
     Q_OBJECT
 
 public:
-    MDSModel(QObject* parent = nullptr);
+    VDBModel(QObject* parent = nullptr);
 
     Q_INVOKABLE const QVariantList getDesktopNames() const;
     Q_INVOKABLE const QVariant getCurrentDesktopName() const;
@@ -59,4 +59,4 @@ private:
     const QList<WId> getWindows(const int desktopNumber, const bool afterDesktop = false);
 };
 
-#endif // MDSMODEL_H
+#endif // VDBMODEL_H

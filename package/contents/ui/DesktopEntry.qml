@@ -99,7 +99,7 @@ Component {
 
                 onClicked: {
                     var desktopNumber = getDesktopNumberForDesktopEntry(self);
-                    mdsModel.switchToDesktop(desktopNumber)
+                    vdbModel.switchToDesktop(desktopNumber)
                 }
             }
 

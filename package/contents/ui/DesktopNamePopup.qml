@@ -21,7 +21,7 @@ RowLayout {
         text: "Desktop"
 
         onAccepted: {
-            mdsModel.renameCurrentDesktop(text);
+            vdbModel.renameCurrentDesktop(text);
             plasmoid.expanded = false;
         }
     }
@@ -43,7 +43,7 @@ RowLayout {
     }
 
     function refreshDesktopNameInput() {
-        desktopNameInput.text = mdsModel.getCurrentDesktopName();
+        desktopNameInput.text = vdbModel.getCurrentDesktopName();
         desktopNameInput.selectAll();
     }
 }

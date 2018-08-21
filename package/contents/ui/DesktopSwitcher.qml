@@ -27,8 +27,8 @@ Component {
         PlusButton {}
 
         Component.onCompleted: {
-            var desktopNames = mdsModel.getDesktopNames();
-            var currentDesktopNumber = mdsModel.getCurrentDesktopNumber();
+            var desktopNames = vdbModel.getDesktopNames();
+            var currentDesktopNumber = vdbModel.getCurrentDesktopNumber();
 
             for (var i = 0; i < desktopNames.length; i++) {
                 var desktopNumber = i + 1;
@@ -60,12 +60,12 @@ Component {
 
         function onDesktopRemoveRequested(desktopNumber) {
             removeDesktop(desktopNumber);
-            mdsModel.removeDesktop(desktopNumber);
+            vdbModel.removeDesktop(desktopNumber);
             onCurrentDesktopChanged(desktopNumber);
         }
 
         function onDesktopNamesChanged() {
-            var desktopNames = mdsModel.getDesktopNames();
+            var desktopNames = vdbModel.getDesktopNames();
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopName = desktopNames[i];
                 var desktopEntry = desktopEntries[i];
@@ -83,7 +83,7 @@ Component {
         }
 
         function addDesktops(currentDesktopAmount, addDesktopAmount) {
-            var desktopNames = mdsModel.getDesktopNames();
+            var desktopNames = vdbModel.getDesktopNames();
             for (var i = 1; i <= addDesktopAmount; i++) {
                 var desktopNumber = currentDesktopAmount + i;
                 var desktopName = desktopNames[desktopNumber - 1];

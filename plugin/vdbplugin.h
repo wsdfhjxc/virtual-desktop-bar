@@ -1,10 +1,10 @@
-#ifndef MDSPLUGIN_H
-#define MDSPLUGIN_H
+#ifndef VDBPLUGIN_H
+#define VDBPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
 class QQmlEngine;
-class MDSPlugin : public QQmlExtensionPlugin {
+class VDBPlugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
@@ -12,4 +12,4 @@ public:
     void registerTypes(const char* uri);
 };
 
-#endif // MDSPLUGIN_H
+#endif // VDBPLUGIN_H

@@ -2,14 +2,14 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.private.mds 2.0
+import org.kde.plasma.private.vdb 2.0
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 
 RowLayout {
     id: root
 
-    MDSModel {
-        id: mdsModel
+    VDBModel {
+        id: vdbModel
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}
@@ -17,7 +17,7 @@ RowLayout {
     Plasmoid.toolTipItem: Item { width: -999; height: -999 }
 
     Connections {
-        target: mdsModel
+        target: vdbModel
 
         onCurrentDesktopChanged: {
             plasmoid.compactRepresentationItem.onCurrentDesktopChanged(desktopNumber);
@@ -56,23 +56,23 @@ RowLayout {
     }
 
     function action_addNewDesktop() {
-        mdsModel.addNewDesktop();
+        vdbModel.addNewDesktop();
     }
 
     function action_moveCurrentDesktopToLeft() {
-        mdsModel.moveCurrentDesktopToLeft();
+        vdbModel.moveCurrentDesktopToLeft();
     }
 
     function action_moveCurrentDesktopToRight() {
-        mdsModel.moveCurrentDesktopToRight()
+        vdbModel.moveCurrentDesktopToRight()
     }
 
     function action_removeLastDesktop() {
-        mdsModel.removeLastDesktop();
+        vdbModel.removeLastDesktop();
     }
 
     function action_removeCurrentDesktop() {
-        mdsModel.removeCurrentDesktop();
+        vdbModel.removeCurrentDesktop();
     }
 
     function action_renameCurrentDesktop() {
