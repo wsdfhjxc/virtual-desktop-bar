@@ -1,9 +1,11 @@
 [Desktop Entry]
 Name=Virtual Desktop Bar
+Comment=Switch between and manage virtual desktops
 Type=Service
 Icon=vdb_plasma_applet
 ServiceTypes=Plasma/Applet
 X-KDE-PluginInfo-Name=org.kde.plasma.vdb
+X-KDE-PluginInfo-Author=wsdfhjxc
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ServiceTypes=Plasma/Applet
 X-KDE-FormFactors=desktop
