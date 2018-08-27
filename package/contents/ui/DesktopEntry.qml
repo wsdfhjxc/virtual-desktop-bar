@@ -1,6 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
+import org.kde.plasma.core 2.0 as PlasmaCore
 
 Component {
     Item {
@@ -88,7 +89,8 @@ Component {
                 id: desktopIndicator
                 width: parent.width
                 height: desktopIndicatorThickness
-                anchors.bottom: parent.bottom
+                y: plasmoid.location == PlasmaCore.Types.TopEdge ?
+                   parent.height - height : 0
                 color: theme.buttonFocusColor
             }
 
