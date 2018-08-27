@@ -8,7 +8,8 @@ Item {
 
     Label {
         id: label
-        text: "＋"
+        text: "+"
+        font.pixelSize: 18
         anchors.verticalCenter: parent.verticalCenter
     }
 
