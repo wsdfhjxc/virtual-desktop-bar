@@ -59,9 +59,11 @@ Component {
         }
 
         function onDesktopRemoveRequested(desktopNumber) {
-            removeDesktop(desktopNumber);
-            vdbModel.removeDesktop(desktopNumber);
-            onCurrentDesktopChanged(desktopNumber);
+            if (desktopAmount > 1) {
+                removeDesktop(desktopNumber);
+                vdbModel.removeDesktop(desktopNumber);
+                onCurrentDesktopChanged(desktopNumber);
+            }
         }
 
         function onDesktopNamesChanged() {
