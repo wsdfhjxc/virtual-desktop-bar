@@ -7,6 +7,7 @@ Item {
 
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_switchToNewDesktop: switchToNewDesktop.checked
+    property alias cfg_renameNewDesktop: renameNewDesktop.checked
 
     GridLayout {
         columns: 1
@@ -20,6 +21,13 @@ Item {
         CheckBox {
             id: switchToNewDesktop
             text: "Automatically switch to a new Virtual Desktop"
+            Layout.columnSpan: 1
+        }
+
+        CheckBox {
+            id: renameNewDesktop
+            text: "Prompt to rename a new Virtual Desktop"
+            enabled: switchToNewDesktop.checked
             Layout.columnSpan: 1
         }
     }

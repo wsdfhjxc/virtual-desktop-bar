@@ -93,7 +93,10 @@ Component {
                 registerDesktopEntry(desktopName);
             }
             if (plasmoid.configuration.switchToNewDesktop) {
-                vdbModel.switchToDesktop(desktopNumber)
+                vdbModel.switchToDesktop(desktopNumber);
+                if (plasmoid.configuration.renameNewDesktop) {
+                    root.action_renameCurrentDesktop();
+                }
             }
         }
 
