@@ -5,6 +5,7 @@ import QtQuick.Controls 1.4
 Item {
     implicitWidth: label.width
     implicitHeight: parent.height
+    visible: plasmoid.configuration.showPlusButton
 
     Label {
         id: label
