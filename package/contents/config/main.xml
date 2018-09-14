@@ -9,5 +9,8 @@
     <entry name="showPlusButton" type="Bool">
       <default>true</default>
     </entry>
+    <entry name="switchToNewDesktop" type="Bool">
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>

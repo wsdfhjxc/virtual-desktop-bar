@@ -86,10 +86,14 @@ Component {
 
         function addDesktops(currentDesktopAmount, addDesktopAmount) {
             var desktopNames = vdbModel.getDesktopNames();
+            var desktopNumber = 1;
             for (var i = 1; i <= addDesktopAmount; i++) {
-                var desktopNumber = currentDesktopAmount + i;
+                desktopNumber = currentDesktopAmount + i;
                 var desktopName = desktopNames[desktopNumber - 1];
                 registerDesktopEntry(desktopName);
+            }
+            if (plasmoid.configuration.switchToNewDesktop) {
+                vdbModel.switchToDesktop(desktopNumber)
             }
         }
 
