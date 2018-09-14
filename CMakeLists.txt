@@ -15,7 +15,7 @@ set(KF5_MIN_VERSION 5.0.0)
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Qml X11Extras)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Plasma GlobalAccel XmlGui)
 
-plasma_install_package(package org.kde.plasma.vdb)
+plasma_install_package(package com.github.wsdfhjxc.virtualdesktopbar)
 
 set(vdb_SRCS
     plugin/vdbmodel.cpp
@@ -26,7 +26,7 @@ add_library(vdbplugin SHARED ${vdb_SRCS})
 
 target_link_libraries(vdbplugin Qt5::Qml Qt5::X11Extras KF5::Plasma KF5::WindowSystem KF5::GlobalAccel KF5::XmlGui)
 
-install(TARGETS vdbplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/vdb)
-install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/private/vdb)
+install(TARGETS vdbplugin DESTINATION ${QML_INSTALL_DIR}/com/github/wsdfhjxc/virtualdesktopbar)
+install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/com/github/wsdfhjxc/virtualdesktopbar)
 
 ecm_install_icons(ICONS icons/sc-apps-vdb_plasma_applet.svg DESTINATION ${ICON_INSTALL_DIR})

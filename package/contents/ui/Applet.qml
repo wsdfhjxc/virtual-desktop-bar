@@ -2,7 +2,7 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.private.vdb 2.0
+import com.github.wsdfhjxc.virtualdesktopbar 2.0
 import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 
 RowLayout {
