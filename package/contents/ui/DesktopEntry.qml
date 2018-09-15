@@ -73,7 +73,7 @@ Component {
             Label {
                 id: desktopLabel
                 text: plasmoid.configuration.prependDesktopNumber ?
-                      getDesktopNumberForDesktopEntry(self) + ": " + desktopName : desktopName
+                      getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName : desktopName
                 x: desktopLabelMargin
                 width: desktopLabel.implicitWidth
                 anchors.verticalCenter: parent.verticalCenter

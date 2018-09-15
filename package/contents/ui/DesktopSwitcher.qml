@@ -120,13 +120,13 @@ Component {
             desktopEntries.splice(desktopNumber - 1, 1);
         }
 
-        function getDesktopNumberForDesktopEntry(desktopEntry) {
+        function getDesktopNumberForDesktopEntry(desktopEntry, nextNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 if (desktopEntries[i] == desktopEntry) {
                     return i + 1;
                 }
             }
-            return -1;
+            return nextNumber ? desktopEntries.length + 1 : -1;
         }
     }
 }
