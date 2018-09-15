@@ -84,6 +84,12 @@ Component {
             }));
         }
 
+        Timer {
+            id: renameNewDesktopTimer
+            interval: 100
+            onTriggered: root.action_renameCurrentDesktop()
+        }
+
         function addDesktops(currentDesktopAmount, addDesktopAmount) {
             var desktopNames = vdbModel.getDesktopNames();
             var desktopNumber = 1;
@@ -95,7 +101,7 @@ Component {
             if (plasmoid.configuration.switchToNewDesktop) {
                 vdbModel.switchToDesktop(desktopNumber);
                 if (plasmoid.configuration.renameNewDesktop) {
-                    root.action_renameCurrentDesktop();
+                    renameNewDesktopTimer.start();
                 }
             }
         }
