@@ -15,5 +15,8 @@
     <entry name="renameNewDesktop" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="prependDesktopNumber" type="Bool">
+      <default>false</default>
+    </entry>
   </group>
 </kcfg>

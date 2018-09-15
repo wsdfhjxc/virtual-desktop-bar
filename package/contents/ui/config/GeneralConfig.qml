@@ -8,6 +8,7 @@ Item {
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_switchToNewDesktop: switchToNewDesktop.checked
     property alias cfg_renameNewDesktop: renameNewDesktop.checked
+    property alias cfg_prependDesktopNumber: prependDesktopNumber.checked
 
     GridLayout {
         columns: 1
@@ -28,6 +29,12 @@ Item {
             id: renameNewDesktop
             text: "Prompt to rename a new Virtual Desktop"
             enabled: switchToNewDesktop.checked
+            Layout.columnSpan: 1
+        }
+
+        CheckBox {
+            id: prependDesktopNumber
+            text: "Prepend desktop number before its name"
             Layout.columnSpan: 1
         }
     }
