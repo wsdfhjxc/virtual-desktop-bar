@@ -222,6 +222,17 @@ Component {
             ]
         }
 
+        function setDesktopName(desktopName) {
+            this.desktopName = desktopName;
+            desktopLabel.text =  plasmoid.configuration.prependDesktopNumber ?
+                getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName :
+                desktopName;
+        }
+
+        function setIsCurrentDesktop(isCurrentDesktop) {
+            this.isCurrentDesktop = isCurrentDesktop;
+        }
+
         function remove() {
             removeTimer1.start();
             removeTimer2.start();

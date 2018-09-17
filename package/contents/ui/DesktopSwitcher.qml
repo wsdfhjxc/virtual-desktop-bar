@@ -43,7 +43,7 @@ Component {
         function onCurrentDesktopChanged(desktopNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopEntry = desktopEntries[i];
-                desktopEntry.isCurrentDesktop = desktopNumber == i + 1;
+                desktopEntry.setIsCurrentDesktop(desktopNumber == i + 1);
             }
         }
 
@@ -71,17 +71,15 @@ Component {
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopName = desktopNames[i];
                 var desktopEntry = desktopEntries[i];
-                if (desktopEntry.desktopName != desktopName) {
-                    desktopEntry.desktopName = desktopName;
-                }
+                desktopEntry.setDesktopName(desktopName);
             }
         }
 
         function registerDesktopEntry(desktopName, isCurrentDesktop) {
-            desktopEntries.push(desktopEntryComponent.createObject(desktopEntriesLayout, {
-                "desktopName": desktopName,
-                "isCurrentDesktop": isCurrentDesktop
-            }));
+            var desktopEntry = desktopEntryComponent.createObject(desktopEntriesLayout);
+            desktopEntry.setDesktopName(desktopName);
+            desktopEntry.setIsCurrentDesktop(!!isCurrentDesktop);
+            desktopEntries.push(desktopEntry);
         }
 
         Timer {
