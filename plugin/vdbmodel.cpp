@@ -2,6 +2,9 @@
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
+#include <QDBusInterface>
+#include <QDBusReply>
+#include <QTimer>
 
 VDBModel::VDBModel(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
@@ -64,6 +67,10 @@ void VDBModel::removeDesktop(const int desktopNumber) {
     }
 
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
+
+    if (isFahoTilingLoaded()) {
+        refreshFahoTiling();
+    }
 }
 
 void VDBModel::removeCurrentDesktop() {
@@ -108,6 +115,10 @@ bool VDBModel::moveDesktop(const int desktopNumber, const int moveStep) {
 
     KWindowSystem::setDesktopName(desktopNumber, otherDesktopName);
     KWindowSystem::setDesktopName(otherDesktopNumber, desktopName);
+
+    if (isFahoTilingLoaded()) {
+        refreshFahoTiling();
+    }
 
     return true;
 }
@@ -216,4 +227,16 @@ const QList<WId> VDBModel::getWindows(const int desktopNumber, const bool afterD
     }
 
     return windows;
+}
+
+bool VDBModel::isFahoTilingLoaded() {
+    QDBusInterface interface("org.kde.KWin", "/Scripting", "");
+    return (QDBusReply<bool>) interface.call("isScriptLoaded", "kwin-script-tiling");
+}
+
+void VDBModel::refreshFahoTiling() {
+    QTimer::singleShot(100, [=] {
+        QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
+        interface.call("invokeShortcut", "TILING: Refresh Tiles");
+    });
 }

@@ -57,6 +57,9 @@ private:
     void setUpGlobalKeyboardShortcuts();
 
     const QList<WId> getWindows(const int desktopNumber, const bool afterDesktop = false);
+
+    bool isFahoTilingLoaded();
+    void refreshFahoTiling();
 };
 
 #endif // VDBMODEL_H
