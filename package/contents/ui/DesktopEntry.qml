@@ -72,8 +72,7 @@ Component {
 
             Label {
                 id: desktopLabel
-                text: plasmoid.configuration.prependDesktopNumber ?
-                      getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName : desktopName
+                text: desktopName
                 x: desktopLabelMargin
                 width: desktopLabel.implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
@@ -224,9 +223,11 @@ Component {
 
         function setDesktopName(desktopName) {
             this.desktopName = desktopName;
-            desktopLabel.text =  plasmoid.configuration.prependDesktopNumber ?
-                getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName :
-                desktopName;
+            desktopLabel.text = Qt.binding(function() {
+                return plasmoid.configuration.prependDesktopNumber ?
+                    getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName :
+                    desktopName;
+            });
         }
 
         function setIsCurrentDesktop(isCurrentDesktop) {
