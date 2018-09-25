@@ -25,3 +25,7 @@ cmake -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) ..
 make
 sudo make install
 ```
+### Tiling scripts compatibility
+There are several tiling scripts for KWin which may be popular among people who use virtual desktops. Those scripts were designed to work with static virtual desktops or use their own abstraction layer to keep track of them. That means there is a problem with removing a virtual desktop or moving it to left or right while using those scripts, as it may result in tiling being messed up and broken.
+
+If you intend not to remove virtual desktops or move them to left or right through this applet, then you should be fine with any of available tiling scripts. But if you want to take advantage of dynamic virtual desktop management and use these features, then you might want to try a [patched version of faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/refresh-tiles) which should behave more or less correctly in such cases.
