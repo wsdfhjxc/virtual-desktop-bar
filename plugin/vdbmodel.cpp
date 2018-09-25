@@ -158,10 +158,10 @@ void VDBModel::setUpSignalForwarding() {
 }
 
 void VDBModel::setUpGlobalKeyboardShortcuts() {
-    actionCollection = new KActionCollection(this);
+    actionCollection = new KActionCollection(this, QStringLiteral("kwin"));
 
     actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
-    actionAddNewDesktop->setText("Add New Virtual Desktop");
+    actionAddNewDesktop->setText("Add New Desktop");
     actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     QObject::connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
         addNewDesktop();
@@ -169,7 +169,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
 
     actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
-    actionRemoveLastDesktop->setText("Remove Last Virtual Desktop");
+    actionRemoveLastDesktop->setText("Remove Last Desktop");
     actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
         removeLastDesktop();
@@ -177,7 +177,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
 
     actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
-    actionRemoveCurrentDesktop->setText("Remove Current Virtual Desktop");
+    actionRemoveCurrentDesktop->setText("Remove Current Desktop");
     actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
         removeCurrentDesktop();
@@ -185,7 +185,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
 
     actionRenameCurrentDesktop = actionCollection->addAction(QStringLiteral("renameCurrentDesktop"));
-    actionRenameCurrentDesktop->setText("Rename Current Virtual Desktop");
+    actionRenameCurrentDesktop->setText("Rename Current Desktop");
     actionRenameCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     QObject::connect(actionRenameCurrentDesktop, &QAction::triggered, this, [this]() {
         emit currentDesktopNameChangeRequested();
@@ -193,7 +193,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 
     actionMoveCurrentDesktopToLeft = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToLeft"));
-    actionMoveCurrentDesktopToLeft->setText("Move Current Virtual Desktop To Left");
+    actionMoveCurrentDesktopToLeft->setText("Move Current Desktop To Left");
     actionMoveCurrentDesktopToLeft->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     QObject::connect(actionMoveCurrentDesktopToLeft, &QAction::triggered, this, [this]() {
         moveCurrentDesktopToLeft();
@@ -201,7 +201,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToLeft, QKeySequence());
 
     actionMoveCurrentDesktopToRight = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToRight"));
-    actionMoveCurrentDesktopToRight->setText("Move Current Virtual Desktop To Right");
+    actionMoveCurrentDesktopToRight->setText("Move Current Desktop To Right");
     actionMoveCurrentDesktopToRight->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     QObject::connect(actionMoveCurrentDesktopToRight, &QAction::triggered, this, [this]() {
         moveCurrentDesktopToRight();
