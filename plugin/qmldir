@@ -1,2 +1,2 @@
-module com.github.wsdfhjxc.virtualdesktopbar
+module org.kde.plasma.virtualdesktopbar
 plugin vdbplugin
