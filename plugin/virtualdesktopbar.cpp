@@ -1,4 +1,4 @@
-#include "vdbmodel.h"
+#include "virtualdesktopbar.h"
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
@@ -6,13 +6,13 @@
 #include <QDBusReply>
 #include <QTimer>
 
-VDBModel::VDBModel(QObject* parent) : QObject(parent),
+VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
     setUpSignalForwarding();
     setUpGlobalKeyboardShortcuts();
 }
 
-const QVariantList VDBModel::getDesktopNames() const {
+const QVariantList VirtualDesktopBar::getDesktopNames() const {
     QVariantList desktopNames;
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     for (int desktopNumber = 0; desktopNumber < numberOfDesktops; desktopNumber++) {
@@ -22,22 +22,22 @@ const QVariantList VDBModel::getDesktopNames() const {
     return desktopNames;
 }
 
-const QVariant VDBModel::getCurrentDesktopName() const {
+const QVariant VirtualDesktopBar::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
     return QVariant(currentDesktopName);
 }
 
-const QVariant VDBModel::getCurrentDesktopNumber() const {
+const QVariant VirtualDesktopBar::getCurrentDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     return QVariant(currentDesktop);
 }
 
-void VDBModel::switchToDesktop(const int desktopNumber) {
+void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
     KWindowSystem::setCurrentDesktop(desktopNumber);
 }
 
-void VDBModel::addNewDesktop(const QString desktopName) {
+void VirtualDesktopBar::addNewDesktop(const QString desktopName) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull()) {
@@ -45,7 +45,7 @@ void VDBModel::addNewDesktop(const QString desktopName) {
     }
 }
 
-void VDBModel::removeDesktop(const int desktopNumber) {
+void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     if (numberOfDesktops == 1) {
         return;
@@ -73,25 +73,25 @@ void VDBModel::removeDesktop(const int desktopNumber) {
     }
 }
 
-void VDBModel::removeCurrentDesktop() {
+void VirtualDesktopBar::removeCurrentDesktop() {
     const int currentDesktop = KWindowSystem::currentDesktop();
     emit desktopRemoveRequested(currentDesktop);
 }
 
-void VDBModel::removeLastDesktop() {
+void VirtualDesktopBar::removeLastDesktop() {
     removeDesktop();
 }
 
-void VDBModel::renameDesktop(const int desktopNumber, const QString desktopName) {
+void VirtualDesktopBar::renameDesktop(const int desktopNumber, const QString desktopName) {
     KWindowSystem::setDesktopName(desktopNumber, desktopName);
 }
 
-void VDBModel::renameCurrentDesktop(const QString desktopName) {
+void VirtualDesktopBar::renameCurrentDesktop(const QString desktopName) {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
-bool VDBModel::moveDesktop(const int desktopNumber, const int moveStep) {
+bool VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
     const int otherDesktopNumber = desktopNumber + moveStep;
 
     if (otherDesktopNumber == 0 ||
@@ -123,41 +123,41 @@ bool VDBModel::moveDesktop(const int desktopNumber, const int moveStep) {
     return true;
 }
 
-bool VDBModel::moveDesktopToLeft(const int desktopNumber) {
+bool VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
     return moveDesktop(desktopNumber, -1);
 }
 
-bool VDBModel::moveDesktopToRight(const int desktopNumber) {
+bool VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
     return moveDesktop(desktopNumber, 1);
 }
 
-void VDBModel::moveCurrentDesktopToLeft() {
+void VirtualDesktopBar::moveCurrentDesktopToLeft() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     if (moveDesktopToLeft(currentDesktopNumber)) {
         switchToDesktop(currentDesktopNumber - 1);
     }
 }
 
-void VDBModel::moveCurrentDesktopToRight() {
+void VirtualDesktopBar::moveCurrentDesktopToRight() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
     if (moveDesktopToRight(currentDesktopNumber)) {
         switchToDesktop(currentDesktopNumber + 1);
     }
 }
 
-void VDBModel::setUpSignalForwarding() {
+void VirtualDesktopBar::setUpSignalForwarding() {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
-                     this, &VDBModel::currentDesktopChanged);
+                     this, &VirtualDesktopBar::currentDesktopChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
-                     this, &VDBModel::desktopAmountChanged);
+                     this, &VirtualDesktopBar::desktopAmountChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged,
-                     this, &VDBModel::desktopNamesChanged);
+                     this, &VirtualDesktopBar::desktopNamesChanged);
 }
 
-void VDBModel::setUpGlobalKeyboardShortcuts() {
+void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionCollection = new KActionCollection(this, QStringLiteral("kwin"));
 
     actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
@@ -209,7 +209,7 @@ void VDBModel::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToRight, QKeySequence());
 }
 
-const QList<WId> VDBModel::getWindows(const int desktopNumber, const bool afterDesktop) {
+const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bool afterDesktop) {
     QList<WId> windows;
 
     const QList<WId> allWindows = KWindowSystem::windows();
@@ -229,12 +229,12 @@ const QList<WId> VDBModel::getWindows(const int desktopNumber, const bool afterD
     return windows;
 }
 
-bool VDBModel::isFahoTilingLoaded() {
+bool VirtualDesktopBar::isFahoTilingLoaded() {
     QDBusInterface interface("org.kde.KWin", "/Scripting", "");
     return (QDBusReply<bool>) interface.call("isScriptLoaded", "kwin-script-tiling");
 }
 
-void VDBModel::refreshFahoTiling() {
+void VirtualDesktopBar::refreshFahoTiling() {
     QTimer::singleShot(100, [=] {
         QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
         interface.call("invokeShortcut", "TILING: Refresh Tiles");

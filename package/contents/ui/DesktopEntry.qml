@@ -101,7 +101,7 @@ Component {
 
                 onClicked: {
                     var desktopNumber = getDesktopNumberForDesktopEntry(self);
-                    vdbModel.switchToDesktop(desktopNumber)
+                    virtualDesktopBar.switchToDesktop(desktopNumber)
                 }
             }
 

@@ -7,8 +7,8 @@ import org.kde.kquickcontrolsaddons 2.0 as KQuickControlsAddonsComponents
 RowLayout {
     id: root
 
-    VDBModel {
-        id: vdbModel
+    VirtualDesktopBar {
+        id: virtualDesktopBar
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}
@@ -16,7 +16,7 @@ RowLayout {
     Plasmoid.toolTipItem: Item { width: -999; height: -999 }
 
     Connections {
-        target: vdbModel
+        target: virtualDesktopBar
 
         onCurrentDesktopChanged: {
             plasmoid.compactRepresentationItem.onCurrentDesktopChanged(desktopNumber);
@@ -40,38 +40,38 @@ RowLayout {
     }
 
     Component.onCompleted: {
-        plasmoid.setAction("addNewDesktop", "Add New Virtual Desktop", "list-add");
-        plasmoid.setAction("removeLastDesktop", "Remove Last Virtual Desktop", "list-remove");
+        plasmoid.setAction("addNewDesktop", "Add New Desktop", "list-add");
+        plasmoid.setAction("removeLastDesktop", "Remove Last Desktop", "list-remove");
         plasmoid.setActionSeparator("separator1");
-        plasmoid.setAction("removeCurrentDesktop", "Remove Current Virtual Desktop", "list-remove");
-        plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Virtual Desktop To Left", "arrow-left");
-        plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Virtual Desktop To Right", "arrow-right");
-        plasmoid.setAction("renameCurrentDesktop", "Rename Current Virtual Desktop", "edit-rename");
+        plasmoid.setAction("removeCurrentDesktop", "Remove Current Desktop", "list-remove");
+        plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Desktop To Left", "arrow-left");
+        plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Desktop To Right", "arrow-right");
+        plasmoid.setAction("renameCurrentDesktop", "Rename Current Desktop", "edit-rename");
         plasmoid.setActionSeparator("separator2");
-        plasmoid.setAction("openDesktopSettings", "Configure Virtual Desktops...", "configure");
+        plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
         plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
         });
     }
 
     function action_addNewDesktop() {
-        vdbModel.addNewDesktop();
+        virtualDesktopBar.addNewDesktop();
     }
 
     function action_moveCurrentDesktopToLeft() {
-        vdbModel.moveCurrentDesktopToLeft();
+        virtualDesktopBar.moveCurrentDesktopToLeft();
     }
 
     function action_moveCurrentDesktopToRight() {
-        vdbModel.moveCurrentDesktopToRight()
+        virtualDesktopBar.moveCurrentDesktopToRight()
     }
 
     function action_removeLastDesktop() {
-        vdbModel.removeLastDesktop();
+        virtualDesktopBar.removeLastDesktop();
     }
 
     function action_removeCurrentDesktop() {
-        vdbModel.removeCurrentDesktop();
+        virtualDesktopBar.removeCurrentDesktop();
     }
 
     function action_renameCurrentDesktop() {

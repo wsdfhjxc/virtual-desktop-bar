@@ -1,2 +1,2 @@
 module org.kde.plasma.virtualdesktopbar
-plugin vdbplugin
+plugin virtualdesktopbarplugin

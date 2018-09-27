@@ -19,7 +19,7 @@ Item {
         anchors.fill: parent
 
         onClicked: {
-            vdbModel.addNewDesktop();
+            virtualDesktopBar.addNewDesktop();
         }
     }
 

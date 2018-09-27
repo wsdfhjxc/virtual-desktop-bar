@@ -1,5 +1,5 @@
-#ifndef VDBMODEL_H
-#define VDBMODEL_H
+#ifndef VIRTUALDESKTOPBAR_H
+#define VIRTUALDESKTOPBAR_H
 
 #include <QObject>
 #include <QVariantList>
@@ -8,11 +8,11 @@
 #include <QAction>
 #include <KActionCollection>
 
-class VDBModel : public QObject {
+class VirtualDesktopBar : public QObject {
     Q_OBJECT
 
 public:
-    VDBModel(QObject* parent = nullptr);
+    VirtualDesktopBar(QObject* parent = nullptr);
 
     Q_INVOKABLE const QVariantList getDesktopNames() const;
     Q_INVOKABLE const QVariant getCurrentDesktopName() const;
@@ -62,4 +62,4 @@ private:
     void refreshFahoTiling();
 };
 
-#endif // VDBMODEL_H
+#endif // VIRTUALDESKTOPBAR_H

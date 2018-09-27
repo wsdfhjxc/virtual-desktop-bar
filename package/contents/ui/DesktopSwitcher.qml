@@ -27,8 +27,8 @@ Component {
         PlusButton {}
 
         Component.onCompleted: {
-            var desktopNames = vdbModel.getDesktopNames();
-            var currentDesktopNumber = vdbModel.getCurrentDesktopNumber();
+            var desktopNames = virtualDesktopBar.getDesktopNames();
+            var currentDesktopNumber = virtualDesktopBar.getCurrentDesktopNumber();
 
             for (var i = 0; i < desktopNames.length; i++) {
                 var desktopNumber = i + 1;
@@ -61,13 +61,13 @@ Component {
         function onDesktopRemoveRequested(desktopNumber) {
             if (desktopAmount > 1) {
                 removeDesktop(desktopNumber);
-                vdbModel.removeDesktop(desktopNumber);
+                virtualDesktopBar.removeDesktop(desktopNumber);
                 onCurrentDesktopChanged(desktopNumber);
             }
         }
 
         function onDesktopNamesChanged() {
-            var desktopNames = vdbModel.getDesktopNames();
+            var desktopNames = virtualDesktopBar.getDesktopNames();
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopName = desktopNames[i];
                 var desktopEntry = desktopEntries[i];
@@ -89,7 +89,7 @@ Component {
         }
 
         function addDesktops(currentDesktopAmount, addDesktopAmount) {
-            var desktopNames = vdbModel.getDesktopNames();
+            var desktopNames = virtualDesktopBar.getDesktopNames();
             var desktopNumber = 1;
             for (var i = 1; i <= addDesktopAmount; i++) {
                 desktopNumber = currentDesktopAmount + i;
@@ -97,7 +97,7 @@ Component {
                 registerDesktopEntry(desktopName);
             }
             if (plasmoid.configuration.switchToNewDesktop) {
-                vdbModel.switchToDesktop(desktopNumber);
+                virtualDesktopBar.switchToDesktop(desktopNumber);
                 if (plasmoid.configuration.renameNewDesktop) {
                     renameNewDesktopTimer.start();
                 }

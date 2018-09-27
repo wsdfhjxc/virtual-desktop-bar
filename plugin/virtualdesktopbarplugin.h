@@ -1,10 +1,10 @@
-#ifndef VDBPLUGIN_H
-#define VDBPLUGIN_H
+#ifndef VIRTUALDESKTOPBARPLUGIN_H
+#define VIRTUALDESKTOPBARPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
 class QQmlEngine;
-class VDBPlugin : public QQmlExtensionPlugin {
+class VirtualDesktopBarPlugin : public QQmlExtensionPlugin {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
@@ -12,4 +12,4 @@ public:
     void registerTypes(const char* uri);
 };
 
-#endif // VDBPLUGIN_H
+#endif // VIRTUALDESKTOPBARPLUGIN_H
