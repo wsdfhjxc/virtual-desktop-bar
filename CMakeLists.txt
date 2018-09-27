@@ -6,7 +6,6 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
-include(FeatureSummary)
 include(ECMInstallIcons)
 
 set(REQUIRED_QT_VERSION 5.3.0)
