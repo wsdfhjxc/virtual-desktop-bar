@@ -16,6 +16,24 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 ![](preview.gif)
 
 ### Installation
+In order to install this applet you have to compile it. There are, however, some required libraries which must be installed, because the building process is dependent on them.
+
+For example, following packages should be enough to build the applet on openSUSE:
+* cmake
+* extra-cmake-modules
+* gcc-c++
+* libQt5Core-devel
+* libQt5Widgets-devel
+* libQt5DBus-devel
+* libqt5-qtx11extras-devel
+* kcoreaddons-devel
+* kconfigwidgets-devel
+* kwindowsystem-devel
+* kguiaddons-devel
+
+Package names may differ between distros, so it's necessary to find their counterparts supplied by a given distro.
+
+The actual compilation and installation should be invoked as follows:
 ```
 mkdir build
 cd build
