@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Virtual Desktop Bar
-Comment=Switch between and manage virtual desktops
+Comment=Manage your virtual desktops
 Type=Service
 Icon=virtualdesktopbar_plasma_applet
 ServiceTypes=Plasma/Applet
