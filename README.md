@@ -19,7 +19,7 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 ```
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$(kde4-config --prefix) ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
 make
 sudo make install
 ```
