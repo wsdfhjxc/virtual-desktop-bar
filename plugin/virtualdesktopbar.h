@@ -19,6 +19,8 @@ public:
     Q_INVOKABLE const QVariant getCurrentDesktopNumber() const;
 
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
+    Q_INVOKABLE void switchToRecentDesktop();
+
     Q_INVOKABLE void addNewDesktop(const QString desktopName = QString());
 
     Q_INVOKABLE void removeDesktop(const int desktopNumber = 0);
@@ -46,6 +48,7 @@ private:
     NETRootInfo netRootInfo;
 
     KActionCollection* actionCollection;
+    QAction* actionSwitchToRecentDesktop;
     QAction* actionAddNewDesktop;
     QAction* actionRemoveLastDesktop;
     QAction* actionRemoveCurrentDesktop;
@@ -53,10 +56,15 @@ private:
     QAction* actionMoveCurrentDesktopToLeft;
     QAction* actionMoveCurrentDesktopToRight;
 
+    void onCurrentDesktopChanged(const int desktopNumber);
+
     void setUpSignalForwarding();
     void setUpGlobalKeyboardShortcuts();
 
     const QList<WId> getWindows(const int desktopNumber, const bool afterDesktop = false);
+
+    int currentDesktopNumber;
+    int recentDesktopNumber;
 
     bool isFahoTilingLoaded();
     void refreshFahoTiling();

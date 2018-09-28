@@ -10,6 +10,9 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
     setUpSignalForwarding();
     setUpGlobalKeyboardShortcuts();
+
+    currentDesktopNumber = KWindowSystem::currentDesktop();
+    recentDesktopNumber = currentDesktopNumber;
 }
 
 const QVariantList VirtualDesktopBar::getDesktopNames() const {
@@ -35,6 +38,10 @@ const QVariant VirtualDesktopBar::getCurrentDesktopNumber() const {
 
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
     KWindowSystem::setCurrentDesktop(desktopNumber);
+}
+
+void VirtualDesktopBar::switchToRecentDesktop() {
+    switchToDesktop(recentDesktopNumber);
 }
 
 void VirtualDesktopBar::addNewDesktop(const QString desktopName) {
@@ -145,10 +152,16 @@ void VirtualDesktopBar::moveCurrentDesktopToRight() {
     }
 }
 
+void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
+    recentDesktopNumber = currentDesktopNumber;
+    currentDesktopNumber = desktopNumber;
+    emit currentDesktopChanged(desktopNumber);
+}
+
 void VirtualDesktopBar::setUpSignalForwarding() {
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged,
-                     this, &VirtualDesktopBar::currentDesktopChanged);
+                     this, &VirtualDesktopBar::onCurrentDesktopChanged);
 
     QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged,
                      this, &VirtualDesktopBar::desktopAmountChanged);
@@ -159,6 +172,13 @@ void VirtualDesktopBar::setUpSignalForwarding() {
 
 void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionCollection = new KActionCollection(this, QStringLiteral("kwin"));
+
+    actionSwitchToRecentDesktop = actionCollection->addAction(QStringLiteral("switchToRecentDesktop"));
+    actionSwitchToRecentDesktop->setText("Switch to Recent Desktop");
+    QObject::connect(actionSwitchToRecentDesktop, &QAction::triggered, this, [this]() {
+        switchToRecentDesktop();
+    });
+    KGlobalAccel::setGlobalShortcut(actionSwitchToRecentDesktop, QKeySequence());
 
     actionAddNewDesktop = actionCollection->addAction(QStringLiteral("addNewDesktop"));
     actionAddNewDesktop->setText("Add New Desktop");
