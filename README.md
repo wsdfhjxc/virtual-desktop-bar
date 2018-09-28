@@ -5,6 +5,7 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 
 ### Features
 * switching to a virtual desktop
+* switching to a recent virtual desktop
 * creating a new virtual desktop
 * removing last virtual desktop
 * removing current virtual desktop
