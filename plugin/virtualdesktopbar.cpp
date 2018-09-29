@@ -37,6 +37,9 @@ const QVariant VirtualDesktopBar::getCurrentDesktopNumber() const {
 }
 
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
+    if (desktopNumber < 1 || desktopNumber > KWindowSystem::numberOfDesktops()) {
+        return;
+    }
     KWindowSystem::setCurrentDesktop(desktopNumber);
 }
 
