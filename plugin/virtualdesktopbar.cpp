@@ -123,6 +123,18 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
     KWindowSystem::setDesktopName(desktopNumber, targetDesktopName);
     KWindowSystem::setDesktopName(targetDesktopNumber, desktopName);
 
+    if (currentDesktopNumber == desktopNumber) {
+        currentDesktopNumber = targetDesktopNumber;
+    } else if (currentDesktopNumber == targetDesktopNumber) {
+        currentDesktopNumber = desktopNumber;
+    }
+
+    if (recentDesktopNumber == desktopNumber) {
+        recentDesktopNumber = targetDesktopNumber;
+    } else if (recentDesktopNumber == targetDesktopNumber) {
+        recentDesktopNumber = desktopNumber;
+    }
+
     if (isFahoTilingLoaded()) {
         refreshFahoTiling();
     }
@@ -163,7 +175,9 @@ void VirtualDesktopBar::moveCurrentDesktopToRight() {
 }
 
 void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
-    recentDesktopNumber = currentDesktopNumber;
+    if (desktopNumber != currentDesktopNumber) {
+        recentDesktopNumber = currentDesktopNumber;
+    }
     currentDesktopNumber = desktopNumber;
     emit currentDesktopChanged(desktopNumber);
 }
