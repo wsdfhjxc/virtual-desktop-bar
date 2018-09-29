@@ -30,9 +30,10 @@ public:
     Q_INVOKABLE void renameDesktop(const int desktopNumber, const QString desktopName);
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
 
-    Q_INVOKABLE bool moveDesktop(const int desktopNumber, const int moveStep);
-    Q_INVOKABLE bool moveDesktopToLeft(const int desktopNumber);
-    Q_INVOKABLE bool moveDesktopToRight(const int desktopNumber);
+    Q_INVOKABLE void swapDesktop(const int desktopNumber, const int targetDesktopNumber);
+    Q_INVOKABLE void moveDesktop(const int desktopNumber, const int moveStep);
+    Q_INVOKABLE void moveDesktopToLeft(const int desktopNumber);
+    Q_INVOKABLE void moveDesktopToRight(const int desktopNumber);
     Q_INVOKABLE void moveCurrentDesktopToLeft();
     Q_INVOKABLE void moveCurrentDesktopToRight();
 

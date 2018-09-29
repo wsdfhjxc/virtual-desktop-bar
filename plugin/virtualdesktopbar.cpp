@@ -101,58 +101,65 @@ void VirtualDesktopBar::renameCurrentDesktop(const QString desktopName) {
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
-bool VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
-    const int otherDesktopNumber = desktopNumber + moveStep;
-
-    if (otherDesktopNumber == 0 ||
-        otherDesktopNumber == KWindowSystem::numberOfDesktops() + 1) {
-        return false;
+void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDesktopNumber) {
+    if (targetDesktopNumber == desktopNumber) {
+        return;
     }
 
     QList<WId> windowsFromDesktop = getWindows(desktopNumber);
-    QList<WId> windowsFromOtherDesktop = getWindows(otherDesktopNumber);
+    QList<WId> windowsFromTargetDesktop = getWindows(targetDesktopNumber);
 
     for (WId wId : windowsFromDesktop) {
-        KWindowSystem::setOnDesktop(wId, otherDesktopNumber);
+        KWindowSystem::setOnDesktop(wId, targetDesktopNumber);
     }
 
-    for (WId wId : windowsFromOtherDesktop) {
+    for (WId wId : windowsFromTargetDesktop) {
         KWindowSystem::setOnDesktop(wId, desktopNumber);
     }
 
     const QString desktopName = KWindowSystem::desktopName(desktopNumber);
-    const QString otherDesktopName = KWindowSystem::desktopName(otherDesktopNumber);
+    const QString targetDesktopName = KWindowSystem::desktopName(targetDesktopNumber);
 
-    KWindowSystem::setDesktopName(desktopNumber, otherDesktopName);
-    KWindowSystem::setDesktopName(otherDesktopNumber, desktopName);
+    KWindowSystem::setDesktopName(desktopNumber, targetDesktopName);
+    KWindowSystem::setDesktopName(targetDesktopNumber, desktopName);
 
     if (isFahoTilingLoaded()) {
         refreshFahoTiling();
     }
-
-    return true;
 }
 
-bool VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
-    return moveDesktop(desktopNumber, -1);
+void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
+    int targetDesktopNumber = desktopNumber + moveStep;
+    if (targetDesktopNumber < 1) {
+        targetDesktopNumber = 1;
+    } else if (targetDesktopNumber > KWindowSystem::numberOfDesktops()) {
+        targetDesktopNumber = KWindowSystem::numberOfDesktops();
+    }
+
+    const int modifier = targetDesktopNumber > desktopNumber ? 1 : -1;
+    for (int i = desktopNumber; i != targetDesktopNumber; i += modifier) {
+        swapDesktop(i, i + modifier);
+    }
 }
 
-bool VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
-    return moveDesktop(desktopNumber, 1);
+void VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
+    moveDesktop(desktopNumber, -1);
+}
+
+void VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
+    moveDesktop(desktopNumber, 1);
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToLeft() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
-    if (moveDesktopToLeft(currentDesktopNumber)) {
-        switchToDesktop(currentDesktopNumber - 1);
-    }
+    moveDesktopToLeft(currentDesktopNumber);
+    switchToDesktop(currentDesktopNumber - 1);
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToRight() {
     const int currentDesktopNumber = KWindowSystem::currentDesktop();
-    if (moveDesktopToRight(currentDesktopNumber)) {
-        switchToDesktop(currentDesktopNumber + 1);
-    }
+    moveDesktopToRight(currentDesktopNumber);
+    switchToDesktop(currentDesktopNumber + 1);
 }
 
 void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
