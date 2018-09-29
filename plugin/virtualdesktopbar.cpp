@@ -76,6 +76,12 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         }
     }
 
+    if (recentDesktopNumber == desktopNumber) {
+        recentDesktopNumber = 0;
+    } else if (recentDesktopNumber > desktopNumber) {
+        recentDesktopNumber -= 1;
+    }
+
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
 
     if (isFahoTilingLoaded()) {
