@@ -76,6 +76,10 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         }
     }
 
+    if (desktopNumber == numberOfDesktops && currentDesktopNumber == desktopNumber) {
+        currentDesktopNumber = recentDesktopNumber;
+    }
+
     if (recentDesktopNumber == desktopNumber) {
         recentDesktopNumber = 0;
     } else if (recentDesktopNumber > desktopNumber) {
