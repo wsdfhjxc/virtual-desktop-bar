@@ -17,9 +17,15 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 ![](preview.gif)
 
 ### Installation
-In order to install this applet you have to compile it. There are, however, some required libraries which must be installed, because the building process is dependent on them.
+In order to install this applet you have to compile it. There are, however, some development packages required to build the applet on your system.
 
-For example, following packages should be enough to build the applet on openSUSE:
+Development packages for Kubuntu:
+```
+cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev \
+libqt5x11extras5-dev libkf5plasma-dev  libkf5globalaccel-dev \
+libkf5xmlgui-dev
+```
+Development packages for openSUSE:
 ```
 cmake extra-cmake-modules gcc-c++ libQt5Core-devel libQt5Widgets-devel \
 libQt5DBus-devel libqt5-qtx11extras-devel kcoreaddons-devel \
