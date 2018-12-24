@@ -19,7 +19,7 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 ### Installation
 In order to install this applet you have to compile it. There are, however, some development packages required to build the applet on your system.
 
-Development packages for Kubuntu:
+Development packages for Kubuntu or KDE Neon:
 ```
 cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev \
 libqt5x11extras5-dev libkf5plasma-dev  libkf5globalaccel-dev \
