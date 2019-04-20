@@ -17,30 +17,35 @@ The plasmoid displays virtual desktop entries as text labels with their names an
 ![](preview.gif)
 
 ### Installation
-In order to install this applet you have to compile it. There are, however, some development packages required to build the applet on your system.
+In order to install this applet you have to compile it, following the steps below.
 
-Development packages for Kubuntu or KDE Neon:
+#### Get the source code and create a build directory
 ```
-cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev \
-libqt5x11extras5-dev libkf5plasma-dev  libkf5globalaccel-dev \
-libkf5xmlgui-dev
-```
-Development packages for openSUSE:
-```
-cmake extra-cmake-modules gcc-c++ libQt5Core-devel libQt5Widgets-devel \
-libQt5DBus-devel libqt5-qtx11extras-devel kcoreaddons-devel \
-kconfigwidgets-devel kwindowsystem-devel
-```
-Package names may differ between distros, so it's necessary to find their counterparts supplied by a given distro.
-
-The actual compilation and installation should be invoked as follows:
-```
+git clone https://github.com/wsdfhjxc/virtual-desktop-bar
+cd virtual-desktop-bar
 mkdir build
 cd build
+```
+
+#### Prepare the build environment on Kubuntu or KDE neon
+```
+sudo apt install cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev libkf5plasma-dev  libkf5globalaccel-dev libkf5xmlgui-dev
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
+```
+#### Prepare the build environment on openSUSE
+```
+sudo zypper in cmake extra-cmake-modules gcc-c++ libqt5-qtbase-devel libqt5-qtdeclarative-devel libqt5-qtx11extras-devel plasma-framework-devel kglobalaccel-devel kxmlgui-devel
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DQML_INSTALL_DIR:PATH=/usr/lib64/qt5/qml ..
+```
+
+#### Compile and install the applet
+```
 make
 sudo make install
 ```
+
+If build success, you should be able to find Virtual Desktop Bar in the Widgets menu.
+
 ### Tiling scripts compatibility
 There are several tiling scripts for KWin which may be popular among people who use virtual desktops. Those scripts were designed to work with static virtual desktops or use their own abstraction layer to keep track of them. That means there is a problem with removing a virtual desktop or moving it to left or right while using those scripts, as it may result in tiling being messed up and broken.
 
