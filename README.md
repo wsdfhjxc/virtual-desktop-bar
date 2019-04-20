@@ -29,7 +29,7 @@ cd build
 
 #### Prepare the build environment on Kubuntu or KDE neon
 ```
-sudo apt install cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev libkf5plasma-dev  libkf5globalaccel-dev libkf5xmlgui-dev
+sudo apt install cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev libkf5plasma-dev libkf5globalaccel-dev libkf5xmlgui-dev
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..
 ```
 #### Prepare the build environment on openSUSE
@@ -44,7 +44,7 @@ make
 sudo make install
 ```
 
-If build success, you should be able to find Virtual Desktop Bar in the Widgets menu.
+If build succeeds, you should be able to find Virtual Desktop Bar in the Widgets menu.
 
 ### Tiling scripts compatibility
 There are several tiling scripts for KWin which may be popular among people who use virtual desktops. Those scripts were designed to work with static virtual desktops or use their own abstraction layer to keep track of them. That means there is a problem with removing a virtual desktop or moving it to left or right while using those scripts, as it may result in tiling being messed up and broken.
