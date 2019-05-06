@@ -80,6 +80,7 @@ RowLayout {
     }
 
     function action_openDesktopSettings() {
-        KQuickControlsAddonsComponents.KCMShell.open("desktop");
+        KQuickControlsAddonsComponents.KCMShell.open("desktop"); // old module
+        KQuickControlsAddonsComponents.KCMShell.open("kcm_kwin_virtualdesktops"); // new module
     }
 }
