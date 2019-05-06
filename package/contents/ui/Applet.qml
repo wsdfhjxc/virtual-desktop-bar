@@ -55,6 +55,8 @@ RowLayout {
         });
         plasmoid.action("removeLastDesktop").enabled = binding;
         plasmoid.action("removeCurrentDesktop").enabled = binding;
+        plasmoid.action("moveCurrentDesktopToLeft").enabled = binding;
+        plasmoid.action("moveCurrentDesktopToRight").enabled = binding;
     }
 
     function action_addNewDesktop() {
