@@ -3,8 +3,13 @@ import org.kde.plasma.configuration 2.0
 
 ConfigModel {
     ConfigCategory {
-         name: "General"
-         icon: "virtualdesktopbar_plasma_applet"
-         source: "config/GeneralConfig.qml"
+         name: "Behavior"
+         icon: "preferences-desktop"
+         source: "config/BehaviorConfig.qml"
+    }
+    ConfigCategory {
+         name: "Appearance"
+         icon: "preferences-desktop-display-color"
+         source: "config/AppearanceConfig.qml"
     }
 }
