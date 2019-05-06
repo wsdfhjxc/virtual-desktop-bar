@@ -49,9 +49,12 @@ RowLayout {
         plasmoid.setAction("renameCurrentDesktop", "Rename Current Desktop", "edit-rename");
         plasmoid.setActionSeparator("separator2");
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
-        plasmoid.action("removeDesktop").enabled = Qt.binding(function() {
+        
+        var binding = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
         });
+        plasmoid.action("removeLastDesktop").enabled = binding;
+        plasmoid.action("removeCurrentDesktop").enabled = binding;
     }
 
     function action_addNewDesktop() {
