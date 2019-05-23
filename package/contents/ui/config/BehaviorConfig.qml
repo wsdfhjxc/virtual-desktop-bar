@@ -13,13 +13,13 @@ Item {
 
         CheckBox {
             id: switchToNewDesktop
-            text: "Automatically switch to a new Virtual Desktop"
+            text: "Automatically switch to a new desktop"
             Layout.columnSpan: 1
         }
 
         CheckBox {
             id: renameNewDesktop
-            text: "Prompt to rename a new Virtual Desktop"
+            text: "Prompt to rename the new desktop"
             enabled: switchToNewDesktop.checked
             Layout.columnSpan: 1
         }

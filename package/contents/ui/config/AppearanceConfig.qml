@@ -12,14 +12,14 @@ Item {
         columns: 1
 
         CheckBox {
-            id: showPlusButton
-            text: "Show Add New Virtual Desktop button at the end"
+            id: prependDesktopNumber
+            text: "Show desktop numbers"
             Layout.columnSpan: 1
         }
 
         CheckBox {
-            id: prependDesktopNumber
-            text: "Prepend desktop number before its name"
+            id: showPlusButton
+            text: "Show + button for adding new desktops"
             Layout.columnSpan: 1
         }
     }
