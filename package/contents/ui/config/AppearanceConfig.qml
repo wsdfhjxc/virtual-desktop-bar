@@ -110,6 +110,7 @@ Item {
             id: labelColorDialog
             title: "Choose a color"
             visible: false
+            color: labelColorButton.color
             onAccepted: {
                 labelColorButton.color = labelColorDialog.color;
                 appearanceConfig.cfg_labelColor = labelColorCheckBox.checked ? labelColorButton.color : "";
@@ -160,6 +161,7 @@ Item {
             id: indicatorColorDialog
             title: "Choose a color"
             visible: false
+            color: indicatorColorButton.color
             onAccepted: {
                 indicatorColorButton.color = indicatorColorDialog.color;
                 appearanceConfig.cfg_indicatorColor = indicatorColorCheckBox.checked ? indicatorColorButton.color : "";
