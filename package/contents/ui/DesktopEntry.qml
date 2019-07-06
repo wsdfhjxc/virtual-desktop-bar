@@ -85,8 +85,12 @@ Component {
                 id: desktopIndicator
                 width: parent.width
                 height: desktopIndicatorThickness
-                y: plasmoid.location == PlasmaCore.Types.TopEdge ?
-                   parent.height - height : 0
+                y: {
+                    if (plasmoid.location == PlasmaCore.Types.TopEdge) {
+                        return !plasmoid.configuration.invertIndicator ? parent.height - height : 0;
+                    }
+                    return !plasmoid.configuration.invertIndicator ? 0 : parent.height - height;
+                }
                 color: theme.buttonFocusColor
             }
 
@@ -223,9 +227,12 @@ Component {
         function setDesktopName(desktopName) {
             this.desktopName = desktopName;
             desktopLabel.text = Qt.binding(function() {
-                return plasmoid.configuration.prependDesktopNumber ?
-                    getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName :
-                    desktopName;
+                if (plasmoid.configuration.labelStyle == 0) {
+                    return getDesktopNumberForDesktopEntry(self, true);
+                } else if (plasmoid.configuration.labelStyle == 1) {
+                    return getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName;
+                }
+                return desktopName;
             });
         }
 

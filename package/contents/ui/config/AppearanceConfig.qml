@@ -6,8 +6,9 @@ Item {
     id: appearanceConfig
 
     property alias cfg_enableAnimations: enableAnimations.checked
+    property alias cfg_labelStyle: labelStyle.currentIndex
+    property alias cfg_invertIndicator: invertIndicator.checked
     property alias cfg_showPlusButton: showPlusButton.checked
-    property alias cfg_prependDesktopNumber: prependDesktopNumber.checked
 
     GridLayout {
         columns: 1
@@ -18,9 +19,21 @@ Item {
             Layout.columnSpan: 1
         }
 
+        RowLayout {
+            Label {
+                text: "Desktop label style:"
+            }
+
+            ComboBox {
+                id: labelStyle
+                Layout.fillWidth: true
+                model: [ "Number only", "Number and name", "Name only" ]
+            }
+        }
+
         CheckBox {
-            id: prependDesktopNumber
-            text: "Show desktop numbers"
+            id: invertIndicator
+            text: "Invert desktop indicator position"
             Layout.columnSpan: 1
         }
 
