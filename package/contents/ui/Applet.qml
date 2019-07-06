@@ -50,13 +50,20 @@ RowLayout {
         plasmoid.setActionSeparator("separator2");
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
         
-        var binding = Qt.binding(function() {
+        var removeEnabledBinding = Qt.binding(function() {
             return plasmoid.compactRepresentationItem.desktopAmount > 1;
         });
-        plasmoid.action("removeLastDesktop").enabled = binding;
-        plasmoid.action("removeCurrentDesktop").enabled = binding;
-        plasmoid.action("moveCurrentDesktopToLeft").enabled = binding;
-        plasmoid.action("moveCurrentDesktopToRight").enabled = binding;
+        plasmoid.action("removeLastDesktop").enabled = removeEnabledBinding;
+        plasmoid.action("removeCurrentDesktop").enabled = removeEnabledBinding;
+
+        plasmoid.action("moveCurrentDesktopToLeft").enabled = Qt.binding(function() {
+            return plasmoid.compactRepresentationItem.currentDesktopNumber > 1;
+        });
+
+        plasmoid.action("moveCurrentDesktopToRight").enabled = Qt.binding(function() {
+            var desktopAmount = plasmoid.compactRepresentationItem.desktopAmount;
+            return plasmoid.compactRepresentationItem.currentDesktopNumber < desktopAmount;
+        });
     }
 
     function action_addNewDesktop() {
