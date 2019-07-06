@@ -67,8 +67,8 @@ private:
     int currentDesktopNumber;
     int recentDesktopNumber;
 
-    bool isFahoTilingLoaded();
-    void refreshFahoTiling();
+    void notifyBeforeMovingWindows();
+    void notifyAfterMovingWindows();
 };
 
 #endif // VIRTUALDESKTOPBAR_H

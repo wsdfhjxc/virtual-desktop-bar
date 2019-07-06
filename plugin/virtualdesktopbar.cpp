@@ -61,6 +61,8 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         return;
     }
 
+    notifyBeforeMovingWindows();
+
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
         for (WId wId : windowsAfterDesktop) {
@@ -88,9 +90,7 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
 
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
 
-    if (isFahoTilingLoaded()) {
-        refreshFahoTiling();
-    }
+    notifyAfterMovingWindows();
 }
 
 void VirtualDesktopBar::removeCurrentDesktop() {
@@ -144,10 +144,6 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
     } else if (recentDesktopNumber == targetDesktopNumber) {
         recentDesktopNumber = desktopNumber;
     }
-
-    if (isFahoTilingLoaded()) {
-        refreshFahoTiling();
-    }
 }
 
 void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
@@ -158,10 +154,14 @@ void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep)
         targetDesktopNumber = KWindowSystem::numberOfDesktops();
     }
 
+    notifyBeforeMovingWindows();
+
     const int modifier = targetDesktopNumber > desktopNumber ? 1 : -1;
     for (int i = desktopNumber; i != targetDesktopNumber; i += modifier) {
         swapDesktop(i, i + modifier);
     }
+
+    notifyAfterMovingWindows();
 }
 
 void VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
@@ -283,14 +283,12 @@ const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bo
     return windows;
 }
 
-bool VirtualDesktopBar::isFahoTilingLoaded() {
-    QDBusInterface interface("org.kde.KWin", "/Scripting", "");
-    return (QDBusReply<bool>) interface.call("isScriptLoaded", "kwin-script-tiling");
+void VirtualDesktopBar::notifyBeforeMovingWindows() {
+    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
+    interface.call("invokeShortcut", "notifyBeforeMovingWindows");
 }
 
-void VirtualDesktopBar::refreshFahoTiling() {
-    QTimer::singleShot(100, [=] {
-        QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
-        interface.call("invokeShortcut", "TILING: Refresh Tiles");
-    });
+void VirtualDesktopBar::notifyAfterMovingWindows() {
+    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
+    interface.call("invokeShortcut", "notifyAfterMovingWindows");
 }
