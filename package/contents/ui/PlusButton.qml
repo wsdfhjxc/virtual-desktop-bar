@@ -11,6 +11,7 @@ Item {
         text: "+"
         font.pixelSize: 17
         anchors.verticalCenter: parent.verticalCenter
+        color: theme.textColor
     }
 
     MouseArea {

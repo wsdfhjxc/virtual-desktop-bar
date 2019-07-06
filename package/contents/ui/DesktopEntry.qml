@@ -77,6 +77,7 @@ Component {
                 width: desktopLabel.implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
                 clip: true
+                color: theme.textColor
 
                 Behavior on width {
                     NumberAnimation {
