@@ -70,8 +70,10 @@ Component {
                 x: desktopLabelMargin
                 width: desktopLabel.implicitWidth
                 anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
                 clip: true
-                color: theme.textColor
+                color: plasmoid.configuration.labelColor || theme.textColor
+                font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
 
                 Behavior on width {
                     enabled: plasmoid.configuration.enableAnimations
@@ -91,7 +93,7 @@ Component {
                     }
                     return !plasmoid.configuration.invertIndicator ? 0 : parent.height - height;
                 }
-                color: theme.buttonFocusColor
+                color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
             }
 
             MouseArea {
@@ -124,7 +126,6 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        color: theme.textColor
                         opacity: 0.15
                     }
                 },
@@ -149,7 +150,7 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        color: theme.buttonFocusColor
+                        color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
                         opacity: 0.5
                     }
                 }

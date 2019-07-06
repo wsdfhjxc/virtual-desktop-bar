@@ -9,9 +9,10 @@ Item {
     Label {
         id: label
         text: "+"
-        font.pixelSize: 17
         anchors.verticalCenter: parent.verticalCenter
-        color: theme.textColor
+        font.pixelSize: (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize) + 2
+        color: plasmoid.configuration.labelColor || theme.textColor
+        font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }
 
     MouseArea {

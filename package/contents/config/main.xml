@@ -12,8 +12,20 @@
     <entry name="labelStyle" type="Enum">
       <default>2</default>
     </entry>
+    <entry name="labelFont" type="String">
+      <default></default>
+    </entry>
+    <entry name="labelSize" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="labelColor" type="String">
+      <default></default>
+    </entry>
     <entry name="invertIndicator" type="Bool">
       <default>0</default>
+    </entry>
+    <entry name="indicatorColor" type="String">
+      <default></default>
     </entry>
     <entry name="showPlusButton" type="Bool">
       <default>true</default>
