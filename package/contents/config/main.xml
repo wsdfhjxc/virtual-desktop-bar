@@ -6,6 +6,9 @@
   <kcfgfile name=""/>
 
   <group name="General">
+    <entry name="enableAnimations" type="Bool">
+      <default>true</default>
+    </entry>
     <entry name="showPlusButton" type="Bool">
       <default>true</default>
     </entry>

@@ -5,11 +5,18 @@ import QtQuick.Layouts 1.1
 Item {
     id: appearanceConfig
 
+    property alias cfg_enableAnimations: enableAnimations.checked
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_prependDesktopNumber: prependDesktopNumber.checked
 
     GridLayout {
         columns: 1
+
+        CheckBox {
+            id: enableAnimations
+            text: "Enable plasmoid animations"
+            Layout.columnSpan: 1
+        }
 
         CheckBox {
             id: prependDesktopNumber

@@ -16,27 +16,20 @@ Component {
         implicitWidth: desktopEntryRect.width > 0 ?
                        desktopEntryRect.width + desktopEntrySpacing : 0
         implicitHeight: parent.height
-        opacity: 0
+        opacity: plasmoid.configuration.enableAnimations ? 0 : 1
 
         Behavior on opacity {
-            NumberAnimation {
+            enabled: plasmoid.configuration.enableAnimations
+            animation: NumberAnimation {
                 duration: 150
             }
         }
 
         Timer {
             interval: 75
-            running: true
+            running: plasmoid.configuration.enableAnimations
             onTriggered: {
                 opacity = 1
-            }
-        }
-
-        Timer {
-            id: removeTimer1
-            interval: 0
-            onTriggered: {
-                opacity = 0;
             }
         }
 
@@ -51,7 +44,7 @@ Component {
         }
 
         Timer {
-            id: removeTimer2
+            id: removeTimer
             interval: 150
             onTriggered: {
                 desktopEntryRect.width = 0
@@ -65,7 +58,8 @@ Component {
             color: "transparent"
 
             Behavior on width {
-                NumberAnimation {
+                enabled: plasmoid.configuration.enableAnimations
+                animation: NumberAnimation {
                     duration: 75
                 }
             }
@@ -80,7 +74,8 @@ Component {
                 color: theme.textColor
 
                 Behavior on width {
-                    NumberAnimation {
+                    enabled: plasmoid.configuration.enableAnimations
+                    animation: NumberAnimation {
                         duration: 75
                     }
                 }
@@ -158,6 +153,7 @@ Component {
 
             transitions: [
                 Transition {
+                    enabled: plasmoid.configuration.enableAnimations
                     to: "default"
                     ParallelAnimation {
                         NumberAnimation {
@@ -179,6 +175,7 @@ Component {
                 },
 
                 Transition {
+                    enabled: plasmoid.configuration.enableAnimations
                     to: "current"
                     ParallelAnimation {
                         NumberAnimation {
@@ -200,6 +197,7 @@ Component {
                 },
 
                 Transition {
+                    enabled: plasmoid.configuration.enableAnimations
                     to: "hovered"
                     ParallelAnimation {
                         NumberAnimation {
@@ -236,9 +234,13 @@ Component {
         }
 
         function remove() {
-            removeTimer1.start();
-            removeTimer2.start();
-            destroy(500);
+            if (plasmoid.configuration.enableAnimations) {
+                opacity = 0;
+                removeTimer.start();
+                destroy(500);
+            } else {
+                destroy(10);
+            }
         }
     }
 }
