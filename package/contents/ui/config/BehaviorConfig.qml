@@ -19,7 +19,7 @@ Item {
 
         CheckBox {
             id: renameNewDesktop
-            text: "Prompt to rename the new desktop"
+            text: "Immediately prompt to rename a new desktop"
             enabled: switchToNewDesktop.checked
             Layout.columnSpan: 1
         }
