@@ -13,10 +13,18 @@ Item {
     GridLayout {
         columns: 1
 
+        Item {
+            height: 5
+        }
+
         CheckBox {
             id: enableAnimations
             text: "Enable plasmoid animations"
             Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 5
         }
 
         RowLayout {
@@ -29,6 +37,10 @@ Item {
                 Layout.fillWidth: true
                 model: [ "Number only", "Number and name", "Name only" ]
             }
+        }
+
+        Item {
+            height: 5
         }
 
         CheckBox {

@@ -11,6 +11,10 @@ Item {
     GridLayout {
         columns: 1
 
+        Item {
+            height: 5
+        }
+
         CheckBox {
             id: switchToNewDesktop
             text: "Automatically switch to a new desktop"
