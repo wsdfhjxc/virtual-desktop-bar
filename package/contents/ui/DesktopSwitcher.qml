@@ -12,6 +12,7 @@ Component {
         property int desktopAmount: 0
         property var desktopEntries: []
         property int desktopEntrySpacing: 8
+        property int currentDesktopNumber;
 
         DesktopEntry {
             id: desktopEntryComponent
@@ -28,7 +29,7 @@ Component {
 
         Component.onCompleted: {
             var desktopNames = virtualDesktopBar.getDesktopNames();
-            var currentDesktopNumber = virtualDesktopBar.getCurrentDesktopNumber();
+            currentDesktopNumber = virtualDesktopBar.getCurrentDesktopNumber();
 
             for (var i = 0; i < desktopNames.length; i++) {
                 var desktopNumber = i + 1;
@@ -43,7 +44,11 @@ Component {
         function onCurrentDesktopChanged(desktopNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 var desktopEntry = desktopEntries[i];
-                desktopEntry.setIsCurrentDesktop(desktopNumber == i + 1);
+                var isCurrentDesktop = desktopNumber == i + 1;
+                desktopEntry.setIsCurrentDesktop(isCurrentDesktop);
+                if (isCurrentDesktop) {
+                    currentDesktopNumber = i + 1;
+                }
             }
         }
 
