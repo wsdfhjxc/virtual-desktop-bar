@@ -157,11 +157,11 @@ Item {
         }
 
         ColorDialog {
-            id: colorDialog2
+            id: indicatorColorDialog
             title: "Choose a color"
             visible: false
             onAccepted: {
-                indicatorColorButton.color = colorDialog2.color;
+                indicatorColorButton.color = indicatorColorDialog.color;
                 appearanceConfig.cfg_indicatorColor = indicatorColorCheckBox.checked ? indicatorColorButton.color : "";
                 Qt.quit();
             }
@@ -181,7 +181,7 @@ Item {
                 implicitWidth: 20
                 implicitHeight: 15
                 opacity: indicatorColorCheckBox.checked ? 1 : 0.2
-                onClicked: colorDialog2.visible = true;
+                onClicked: indicatorColorDialog.visible = true;
 
                 property var color: cfg_indicatorColor != "" ? cfg_indicatorColor : "red"
                 
