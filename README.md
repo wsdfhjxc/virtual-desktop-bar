@@ -46,7 +46,13 @@ sudo make install
 
 If build succeeds, you should be able to find Virtual Desktop Bar in the Widgets menu.
 
-### Tiling scripts compatibility
-There are several tiling scripts for KWin which may be popular among people who use virtual desktops. Those scripts were designed to work with static virtual desktops or use their own abstraction layer to keep track of them. That means there is a problem with removing a virtual desktop or moving it to left or right while using those scripts, as it may result in tiling being messed up and broken.
+### KWin scripts compatibility
+KWin doesn't have an API for moving virtual desktops or removing particular ones. This plasmoid poorly implements such features by moving windows between existing desktops. It's not possible for a KWin script to know that moving a bunch of windows should be treated as a virtual desktop swap. Therefore, KWin scripts which track positions of windows, especially tiling scripts, may break badly because of a user using these non-standard features.
 
-If you intend not to remove virtual desktops or move them to left or right through this applet, then you should be fine with any of available tiling scripts. But if you want to take advantage of dynamic virtual desktop management and use these features, then you might want to try a [patched version of faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/refresh-tiles) which should behave more or less correctly in such cases.
+However, it's possible to "talk" to a KWin script by invoking a couple of keyboard shortcuts which can be registered by it. There are two potential shortcuts named `notifyBeforeMovingWindows` and `notifyAfterMovingWindows`. As their names suggest, they are invoked by the applet before starting moving windows and after it's finished. For example, a misbehaving script could prepare itself after receiving the first notification and refresh itself after receiving the second one, at least in theory.
+
+In order to receive these so-called notifications within a KWin script, the shortcuts have to be registered with usage of an API provided `registerShortcut` function. There is no need to specify the actual key combination or anything except the shortcut name and a callback function. That's how you can do it:
+```javascript
+registerShortcut("notifyBeforeMovingWindows", "", "", func1);
+registerShortcut("notifyAfterMovingWindows", "", "", func2);
+``` 
