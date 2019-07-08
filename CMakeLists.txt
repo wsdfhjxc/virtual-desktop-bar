@@ -25,6 +25,11 @@ add_library(virtualdesktopbarplugin SHARED ${virtualdesktopbar_SRCS})
 
 target_link_libraries(virtualdesktopbarplugin Qt5::Qml Qt5::X11Extras KF5::Plasma KF5::WindowSystem KF5::GlobalAccel KF5::XmlGui)
 
+file(STRINGS /etc/os-release distro REGEX "^NAME=.*$")
+if(distro MATCHES ".*openSUSE.*")
+    set(QML_INSTALL_DIR "/usr/lib64/qt5/qml" CACHE STRING "" FORCE)
+endif()
+
 install(TARGETS virtualdesktopbarplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/virtualdesktopbar)
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/virtualdesktopbar)
 
