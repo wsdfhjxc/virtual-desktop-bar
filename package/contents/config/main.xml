@@ -6,6 +6,18 @@
   <kcfgfile name=""/>
 
   <group name="General">
+    <entry name="keepOneEmptyDesktop" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="dropRedundantDesktops" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="switchToNewDesktop" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="renameNewDesktop" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="enableAnimations" type="Bool">
       <default>true</default>
     </entry>
@@ -29,12 +41,6 @@
     </entry>
     <entry name="showPlusButton" type="Bool">
       <default>true</default>
-    </entry>
-    <entry name="switchToNewDesktop" type="Bool">
-      <default>true</default>
-    </entry>
-    <entry name="renameNewDesktop" type="Bool">
-      <default>false</default>
     </entry>
   </group>
 </kcfg>

@@ -17,6 +17,7 @@ public:
     Q_INVOKABLE const QVariantList getDesktopNames() const;
     Q_INVOKABLE const QVariant getCurrentDesktopName() const;
     Q_INVOKABLE const QVariant getCurrentDesktopNumber() const;
+    Q_INVOKABLE const QVariant getEmptyDesktopsAmount() const;
 
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
     Q_INVOKABLE void switchToRecentDesktop();
@@ -37,6 +38,17 @@ public:
     Q_INVOKABLE void moveCurrentDesktopToLeft();
     Q_INVOKABLE void moveCurrentDesktopToRight();
 
+    Q_PROPERTY(bool cfg_keepOneEmptyDesktop
+               MEMBER cfg_keepOneEmptyDesktop
+               NOTIFY cfg_keepOneEmptyDesktopChanged)
+
+    Q_PROPERTY(bool cfg_dropRedundantDesktops
+               MEMBER cfg_dropRedundantDesktops
+               NOTIFY cfg_dropRedundantDesktopsChanged)
+
+    void cfg_keepOneEmptyDesktopChanged();
+    void cfg_dropRedundantDesktopsChanged();
+
 signals:
     void currentDesktopChanged(const int desktopNumber);
     void desktopAmountChanged(const int desktopAmount);
@@ -48,6 +60,9 @@ signals:
 private:
     NETRootInfo netRootInfo;
 
+    bool cfg_keepOneEmptyDesktop;
+    bool cfg_dropRedundantDesktops;
+
     KActionCollection* actionCollection;
     QAction* actionSwitchToRecentDesktop;
     QAction* actionAddNewDesktop;
@@ -58,6 +73,7 @@ private:
     QAction* actionMoveCurrentDesktopToRight;
 
     void onCurrentDesktopChanged(const int desktopNumber);
+    void onDesktopAmountChanged(const int desktopAmount);
 
     void setUpSignalForwarding();
     void setUpGlobalKeyboardShortcuts();
@@ -66,6 +82,13 @@ private:
 
     int currentDesktopNumber;
     int recentDesktopNumber;
+
+    const QList<int> getEmptyDesktops() const;
+    void removeEmptyDesktops();
+
+    void onWindowAdded(WId);
+    void onWindowChanged(WId, NET::Properties properties, NET::Properties2);
+    void onWindowRemoved(WId);
 
     void notifyBeforeMovingWindows();
     void notifyAfterMovingWindows();

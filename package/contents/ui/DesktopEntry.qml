@@ -26,6 +26,7 @@ Component {
         }
 
         Timer {
+            id: initTimer1
             interval: 75
             running: plasmoid.configuration.enableAnimations
             onTriggered: {
@@ -34,6 +35,7 @@ Component {
         }
 
         Timer {
+            id: initTimer2
             interval: 0
             running: true
             onTriggered: {
@@ -243,6 +245,8 @@ Component {
 
         function remove() {
             if (plasmoid.configuration.enableAnimations) {
+                initTimer1.stop();
+                initTimer2.stop();
                 opacity = 0;
                 removeTimer.start();
                 destroy(500);

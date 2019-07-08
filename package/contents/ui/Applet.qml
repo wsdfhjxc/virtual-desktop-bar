@@ -9,6 +9,8 @@ RowLayout {
 
     VirtualDesktopBar {
         id: virtualDesktopBar
+        cfg_dropRedundantDesktops: plasmoid.configuration.dropRedundantDesktops
+        cfg_keepOneEmptyDesktop: plasmoid.configuration.keepOneEmptyDesktop
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}

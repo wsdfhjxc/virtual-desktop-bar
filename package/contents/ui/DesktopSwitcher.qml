@@ -102,6 +102,11 @@ Component {
                 registerDesktopEntry(desktopName);
             }
             if (plasmoid.configuration.switchToNewDesktop) {
+                if (plasmoid.configuration.keepOneEmptyDesktop &&
+                    virtualDesktopBar.getEmptyDesktopsAmount() == 1) {
+                    return;
+                }
+
                 virtualDesktopBar.switchToDesktop(desktopNumber);
                 if (plasmoid.configuration.renameNewDesktop) {
                     renameNewDesktopTimer.start();
