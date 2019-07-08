@@ -47,5 +47,17 @@ sudo make install
 
 After that, you should be able to find Virtual Desktop Bar in the Widgets menu.
 
+### Configuration
+The plasmoid has some options regarding its behavior and visuals. You'll find them in the configuration dialog.
+
+There are also global keyboard shortcuts, which you can define in the Global Shortcuts System Settings Module. They should be available under KWin or Plasma component, depending on the shell version. The shortcuts are named like this:
+* Switch to Recent Desktop
+* Add New Desktop
+* Remove Last Desktop
+* Remove Current Desktop
+* Rename Current Desktop
+* Move Current Desktop To Left
+* Move Current Desktop To Right
+
 ### KWin scripts compatibility
 If you want to use this applet with some KWin scripts (tiling scripts or the like), please read [this](KWIN.md) before.
