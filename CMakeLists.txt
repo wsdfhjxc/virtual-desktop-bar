@@ -29,3 +29,11 @@ install(TARGETS virtualdesktopbarplugin DESTINATION ${QML_INSTALL_DIR}/org/kde/p
 install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/virtualdesktopbar)
 
 ecm_install_icons(ICONS icons/sc-apps-virtualdesktopbar_plasma_applet.svg DESTINATION ${ICON_INSTALL_DIR})
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
+endif()
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "/usr" CACHE STRING "" FORCE)
+endif()
