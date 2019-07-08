@@ -9,7 +9,7 @@ class VirtualDesktopBarPlugin : public QQmlExtensionPlugin {
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
 public:
-    void registerTypes(const char* uri);
+    virtual void registerTypes(const char* uri) Q_DECL_OVERRIDE;
 };
 
 #endif // VIRTUALDESKTOPBARPLUGIN_H
