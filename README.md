@@ -25,15 +25,9 @@ To install the applet you have to build it.
 
 First, you need to install some required dependencies.
 
-If you are on Kubuntu or KDE neon, it's:
-```
-sudo apt install cmake extra-cmake-modules g++ qtbase5-dev qtdeclarative5-dev libqt5x11extras5-dev libkf5plasma-dev libkf5globalaccel-dev libkf5xmlgui-dev
-```
+For Kubuntu or KDE neon, run: `./install-ubuntu-deps.sh`
 
-If you are on openSUSE, it's:
-```
-sudo zypper in cmake extra-cmake-modules gcc-c++ libqt5-qtbase-devel libqt5-qtdeclarative-devel libqt5-qtx11extras-devel plasma-framework-devel kglobalaccel-devel kxmlgui-devel
-```
+For openSUSE, run: `./install-opensuse-deps.sh`
 
 Then, compile the source code and install the applet:
 
