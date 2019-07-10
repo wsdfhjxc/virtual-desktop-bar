@@ -50,7 +50,8 @@ Item {
                 id: labelFontCheckBox
                 text: "Custom desktop label font:"
                 checked: appearanceConfig.cfg_labelFont != ""
-                onCheckedChanged: appearanceConfig.cfg_labelFont = labelFontCheckBox.checked ? appearanceConfig.cfg_labelFont : "";
+                onCheckedChanged: appearanceConfig.cfg_labelFont = labelFontCheckBox.checked ?
+                                  labelFontComboBox.model[labelFontComboBox.currentIndex].value : "";
             }
 
             ComboBox {
@@ -66,16 +67,17 @@ Item {
                     }
                     model = arr;
 
-                    for (var i = 0; i < labelFontComboBox.model.length; i++) {
-                        if (labelFontComboBox.model[i].value == appearanceConfig.cfg_labelFont) {
-                            labelFontComboBox.currentIndex = i;
-                            break;
-                        }
+                    var foundIndex = labelFontComboBox.find(appearanceConfig.cfg_labelFont);
+                    if (foundIndex == -1) {
+                        foundIndex = labelFontComboBox.find(theme.defaultFont.family);
                     }
+                    if (foundIndex >= 0) {
+                        labelFontComboBox.currentIndex = foundIndex;
+                    } 
                 }
 
                 onCurrentIndexChanged: {
-                    if (currentIndex) {
+                    if (enabled && currentIndex) {
                         appearanceConfig.cfg_labelFont = model[currentIndex].value;
                     }
                 }
@@ -94,7 +96,7 @@ Item {
                 id: labelSize
                 enabled: labelSizeCheckBox.checked
                 Layout.fillWidth: true
-                value: appearanceConfig.cfg_labelSize
+                value: appearanceConfig.cfg_labelSize || theme.defaultFont.pixelSize
                 minimumValue: 8
                 maximumValue: 64
                 suffix: " px"
@@ -131,10 +133,10 @@ Item {
                 enabled: labelColorCheckBox.checked
                 implicitWidth: 20
                 implicitHeight: 15
-                opacity: labelColorCheckBox.checked ? 1 : 0.2
+                opacity: labelColorCheckBox.checked ? 1 : 0.3
                 onClicked: labelColorDialog.visible = true;
 
-                property var color: cfg_labelColor != "" ? cfg_labelColor : "red"
+                property var color: cfg_labelColor != "" ? cfg_labelColor : theme.textColor
                 
                 style: ButtonStyle {
                     background: Rectangle {
@@ -182,10 +184,10 @@ Item {
                 enabled: indicatorColorCheckBox.checked
                 implicitWidth: 20
                 implicitHeight: 15
-                opacity: indicatorColorCheckBox.checked ? 1 : 0.2
+                opacity: indicatorColorCheckBox.checked ? 1 : 0.3
                 onClicked: indicatorColorDialog.visible = true;
 
-                property var color: cfg_indicatorColor != "" ? cfg_indicatorColor : "red"
+                property var color: cfg_indicatorColor != "" ? cfg_indicatorColor : theme.buttonFocusColor
                 
                 style: ButtonStyle {
                     background: Rectangle {
