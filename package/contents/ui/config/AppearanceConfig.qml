@@ -87,7 +87,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: labelSizeCheckBox
-                text: "Custom desktop label size:"
+                text: "Custom desktop label font size:"
                 checked: appearanceConfig.cfg_labelSize > 0
                 onCheckedChanged: appearanceConfig.cfg_labelSize = labelSizeCheckBox.checked ? labelSize.value : 0;
             }
@@ -131,8 +131,8 @@ Item {
             Button {
                 id: labelColorButton
                 enabled: labelColorCheckBox.checked
-                implicitWidth: 20
-                implicitHeight: 15
+                implicitWidth: 25
+                implicitHeight: 20
                 opacity: labelColorCheckBox.checked ? 1 : 0.3
                 onClicked: labelColorDialog.visible = true;
 
@@ -182,8 +182,8 @@ Item {
             Button {
                 id: indicatorColorButton
                 enabled: indicatorColorCheckBox.checked
-                implicitWidth: 20
-                implicitHeight: 15
+                implicitWidth: 25
+                implicitHeight: 20
                 opacity: indicatorColorCheckBox.checked ? 1 : 0.3
                 onClicked: indicatorColorDialog.visible = true;
 
@@ -206,7 +206,7 @@ Item {
 
         CheckBox {
             id: showPlusButton
-            text: "Show a button for adding new desktops (+)"
+            text: "Show + button for adding new desktops"
             Layout.columnSpan: 1
         }
     }
