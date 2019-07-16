@@ -316,6 +316,8 @@ void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
         if (getEmptyDesktopsAmount() == 0) {
             addNewDesktop();
         }
+    } else {
+        cfg_dropRedundantDesktops = false;
     }
 }
 
