@@ -341,10 +341,7 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
             const int windowDesktopNumber = info.desktop();
 
             if (!(info.state() & NET::SkipTaskbar)) {
-                //qInfo() << "Non empty desktop: " << QString::number(windowDesktopNumber);
                 emptyDesktops.removeAll(windowDesktopNumber);
-            } else {
-                //qInfo() << "Empty desktop: " << QString::number(windowDesktopNumber);
             }
         }
     }
