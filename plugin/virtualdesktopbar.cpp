@@ -56,7 +56,7 @@ void VirtualDesktopBar::addNewDesktop(const QString desktopName) {
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull()) {
-        KWindowSystem::setDesktopName(numberOfDesktops + 1, desktopName);
+        renameDesktop(numberOfDesktops + 1, desktopName);
     }
 }
 
@@ -79,7 +79,7 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         QVariantList desktopNames = getDesktopNames();
         for (int i = desktopNumber - 1; i < numberOfDesktops - 1; i++) {
             const QString desktopName = desktopNames.at(i + 1).toString();
-            KWindowSystem::setDesktopName(i + 1, desktopName);
+            renameDesktop(i + 1, desktopName);
         }
     }
 
@@ -135,8 +135,8 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
     const QString desktopName = KWindowSystem::desktopName(desktopNumber);
     const QString targetDesktopName = KWindowSystem::desktopName(targetDesktopNumber);
 
-    KWindowSystem::setDesktopName(desktopNumber, targetDesktopName);
-    KWindowSystem::setDesktopName(targetDesktopNumber, desktopName);
+    renameDesktop(desktopNumber, targetDesktopName);
+    renameDesktop(targetDesktopNumber, desktopName);
 
     if (currentDesktopNumber == desktopNumber) {
         currentDesktopNumber = targetDesktopNumber;
