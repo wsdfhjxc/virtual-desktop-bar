@@ -3,8 +3,6 @@
 #include <KWindowSystem>
 #include <KGlobalAccel>
 #include <QDBusInterface>
-#include <QDBusReply>
-#include <QTimer>
 
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
                                       netRootInfo(QX11Info::connection(), 0) {
