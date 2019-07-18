@@ -320,7 +320,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
 const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bool afterDesktop) {
     QList<WId> windows;
 
-    const QList<WId> allWindows = KWindowSystem::windows();
+    const QList<WId> allWindows = KWindowSystem::stackingOrder();
     for (WId wId : allWindows) {
         if (KWindowSystem::hasWId(wId)) {
             const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
