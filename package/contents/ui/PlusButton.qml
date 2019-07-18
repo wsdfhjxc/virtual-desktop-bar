@@ -10,7 +10,7 @@ Item {
         id: label
         text: "+"
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize) + 2
+        font.pixelSize: (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize) + 4
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }
