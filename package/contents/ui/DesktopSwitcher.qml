@@ -14,6 +14,11 @@ Component {
         property int desktopEntrySpacing: 8
         property int currentDesktopNumber;
 
+        Rectangle {
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+        }
+
         DesktopEntry {
             id: desktopEntryComponent
         }
