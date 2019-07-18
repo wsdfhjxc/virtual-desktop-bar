@@ -1,5 +1,7 @@
 #include "virtualdesktopbar.h"
 
+#include "kwindbusdesktopshim.h"
+
 #include <KWindowSystem>
 #include <KGlobalAccel>
 #include <QDBusInterface>
@@ -107,6 +109,32 @@ void VirtualDesktopBar::removeLastDesktop() {
 
 void VirtualDesktopBar::renameDesktop(const int desktopNumber, const QString desktopName) {
     KWindowSystem::setDesktopName(desktopNumber, desktopName);
+
+    // See issue #6.
+    renameDesktopDBus(desktopNumber, desktopName);
+}
+
+void VirtualDesktopBar::renameDesktopDBus(const int desktopNumber, const QString desktopName) {
+    QDBusInterface interface("org.kde.KWin", "/VirtualDesktopManager", "");
+    QDBusMessage reply = interface.call("Get", "org.kde.KWin.VirtualDesktopManager", "desktops");
+    if (reply.type() != QDBusMessage::ReplyMessage) {
+        return;
+    }
+
+    QDBusVariant var = reply.arguments().at(0).value<QDBusVariant>();
+    QDBusArgument arg = var.variant().value<QDBusArgument>();
+    if (arg.currentType() != QDBusArgument::ArrayType) {
+        return;
+    }
+
+    QList<KWinDBusDesktopShim> list;
+    arg >> list;
+    for (const KWinDBusDesktopShim& shim : list) {
+        if (shim.number + 1 == desktopNumber) {
+            interface.call("setDesktopName", shim.id, desktopName);
+            break;
+        }
+    }
 }
 
 void VirtualDesktopBar::renameCurrentDesktop(const QString desktopName) {

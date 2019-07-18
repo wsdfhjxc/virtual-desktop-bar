@@ -92,6 +92,8 @@ private:
 
     void notifyBeforeMovingWindows();
     void notifyAfterMovingWindows();
+
+    void renameDesktopDBus(const int desktopNumber, const QString desktopName);
 };
 
 #endif // VIRTUALDESKTOPBAR_H
