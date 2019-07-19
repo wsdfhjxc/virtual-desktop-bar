@@ -342,14 +342,14 @@ void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
         if (getEmptyDesktopsAmount() == 0) {
             addNewDesktop();
         }
-    } else {
-        cfg_dropRedundantDesktops = false;
+        if (cfg_dropRedundantDesktops) {
+            removeEmptyDesktops();
+        }
     }
 }
 
 void VirtualDesktopBar::cfg_dropRedundantDesktopsChanged() {
-    if (cfg_dropRedundantDesktops) {
-        cfg_keepOneEmptyDesktop = true;
+    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         removeEmptyDesktops();
     }
 }
@@ -402,7 +402,7 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
 }
 
 void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Properties2) {
-    if (cfg_dropRedundantDesktops && (properties & NET::Property::WMDesktop)) {
+    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops && (properties & NET::Property::WMDesktop)) {
         if (getEmptyDesktopsAmount() == 0) {
             addNewDesktop();
         }
@@ -411,7 +411,7 @@ void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Pr
 }
 
 void VirtualDesktopBar::onWindowRemoved(WId) {
-    if (cfg_dropRedundantDesktops) {
+    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         removeEmptyDesktops();
     }
 }
