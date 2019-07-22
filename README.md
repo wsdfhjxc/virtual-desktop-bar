@@ -1,7 +1,7 @@
 ## Virtual Desktop Bar
-This is an applet, a.k.a. plasmoid, for KDE Plasma panel which lets you switch between virtual desktops and also invoke some common actions to dynamically manage them in a convenient way. Those actions can be accessed through applet's context menu or user-defined global keyboard shortcuts. There is also support for some GNOME-like features.
+This is an applet, a.k.a. plasmoid, for KDE Plasma panel, which lets you switch between virtual desktops and also invoke some common actions to dynamically manage them in a convenient way. Those actions can be accessed through applet's context menu or user-defined global keyboard shortcuts. There is also support for some GNOME-like features.
 
-The plasmoid displays virtual desktop entries as text labels with their names and optionally prepended numbers. That means there's no icons or window previews like in the Plasma's default pager applet. The intention is to keep it simple.
+The plasmoid displays virtual desktop entries as text labels with their numbers, names or both of them. That means there's no icons or window previews like in the Plasma's default pager applet. The intention is to keep it simple.
 
 ### Features
 * switching to a virtual desktop
@@ -27,6 +27,8 @@ First, you need to install some required dependencies.
 
 For Kubuntu or KDE neon, run: `./install-ubuntu-deps.sh`
 
+For Arch or Manjaro, run: `./install-arch-deps.sh`
+
 For openSUSE, run: `./install-opensuse-deps.sh`
 
 Then, compile the source code and install the applet:
@@ -49,9 +51,9 @@ There are also global keyboard shortcuts, which you can define in the Global Sho
 * Add New Desktop
 * Remove Last Desktop
 * Remove Current Desktop
-* Rename Current Desktop
 * Move Current Desktop To Left
 * Move Current Desktop To Right
+* Rename Current Desktop
 
-### KWin scripts compatibility
+### Compatibility with KWin scripts
 If you want to use this applet with some KWin scripts (tiling scripts or the like), please read [this](KWIN.md) before.
