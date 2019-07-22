@@ -141,5 +141,45 @@ Component {
             }
             return nextNumber ? desktopEntries.length + 1 : -1;
         }
+
+        MouseArea {
+            anchors.fill: parent
+            propagateComposedEvents: true
+            property int wheelDelta: 0
+            property int wheelDeltaLimit: 120
+
+            onWheel: {
+                if (!plasmoid.configuration.switchWithWheel) {
+                    return;
+                }
+
+                var change = wheel.angleDelta.y || wheel.angleDelta.x;
+                if (plasmoid.configuration.invertWheelSwitch) {
+                    change = -change;
+                }
+
+                wheelDelta += change;
+
+                while (wheelDelta >= wheelDeltaLimit) {
+                    wheelDelta -= wheelDeltaLimit;
+                    var nextDesktopNumber = currentDesktopNumber + 1;
+                    if (nextDesktopNumber <= desktopAmount) {
+                        virtualDesktopBar.switchToDesktop(nextDesktopNumber);
+                    } else if (plasmoid.configuration.wheelSwitchWrap) {
+                        virtualDesktopBar.switchToDesktop(1);
+                    }
+                }
+
+                while (wheelDelta <= -wheelDeltaLimit) {
+                    wheelDelta += wheelDeltaLimit;
+                    var nextDesktopNumber = currentDesktopNumber - 1;
+                    if (nextDesktopNumber >= 1) {
+                        virtualDesktopBar.switchToDesktop(nextDesktopNumber);
+                    } else if (plasmoid.configuration.wheelSwitchWrap) {
+                        virtualDesktopBar.switchToDesktop(desktopAmount);
+                    }
+                }
+            }
+        }
     }
 }

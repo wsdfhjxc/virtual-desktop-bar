@@ -18,6 +18,15 @@
     <entry name="renameNewDesktop" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="switchWithWheel" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="invertWheelSwitch" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="wheelSwitchWrap" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="enableAnimations" type="Bool">
       <default>true</default>
     </entry>
