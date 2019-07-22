@@ -46,8 +46,8 @@ RowLayout {
         plasmoid.setAction("removeLastDesktop", "Remove Last Desktop", "list-remove");
         plasmoid.setActionSeparator("separator1");
         plasmoid.setAction("removeCurrentDesktop", "Remove Current Desktop", "list-remove");
-        plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Desktop To Left", "arrow-left");
-        plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Desktop To Right", "arrow-right");
+        plasmoid.setAction("moveCurrentDesktopToLeft", "Move Current Desktop to Left", "arrow-left");
+        plasmoid.setAction("moveCurrentDesktopToRight", "Move Current Desktop to Right", "arrow-right");
         plasmoid.setAction("renameCurrentDesktop", "Rename Current Desktop", "edit-rename");
         plasmoid.setActionSeparator("separator2");
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");

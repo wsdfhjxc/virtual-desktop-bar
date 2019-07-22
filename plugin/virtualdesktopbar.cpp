@@ -301,7 +301,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 
     actionMoveCurrentDesktopToLeft = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToLeft"));
-    actionMoveCurrentDesktopToLeft->setText("Move Current Desktop To Left");
+    actionMoveCurrentDesktopToLeft->setText("Move Current Desktop to Left");
     actionMoveCurrentDesktopToLeft->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     QObject::connect(actionMoveCurrentDesktopToLeft, &QAction::triggered, this, [this]() {
         moveCurrentDesktopToLeft();
@@ -309,7 +309,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToLeft, QKeySequence());
 
     actionMoveCurrentDesktopToRight = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToRight"));
-    actionMoveCurrentDesktopToRight->setText("Move Current Desktop To Right");
+    actionMoveCurrentDesktopToRight->setText("Move Current Desktop to Right");
     actionMoveCurrentDesktopToRight->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     QObject::connect(actionMoveCurrentDesktopToRight, &QAction::triggered, this, [this]() {
         moveCurrentDesktopToRight();
