@@ -108,44 +108,41 @@ Item {
             }
         }
 
-        ColorDialog {
-            id: labelColorDialog
-            title: "Choose a color"
-            visible: false
-            color: labelColorButton.color
-            onAccepted: {
-                labelColorButton.color = labelColorDialog.color;
-                appearanceConfig.cfg_labelColor = labelColorCheckBox.checked ? labelColorButton.color : "";
-                Qt.quit();
-            }
-        }
-
-        RowLayout {
+        Row {
             CheckBox {
                 id: labelColorCheckBox
                 text: "Custom desktop label color:"
-                checked: appearanceConfig.cfg_labelColor != ""
-                onCheckedChanged: appearanceConfig.cfg_labelColor = labelColorCheckBox.checked ? labelColorButton.color : "";
-            }
+                onCheckedChanged: {
+                    cfg_labelColor = checked ? labelColorButton.getColor() : "";
+                    labelColorButton.setEnabled(checked);
+                }
 
-            Button {
-                id: labelColorButton
-                enabled: labelColorCheckBox.checked
-                implicitWidth: 25
-                implicitHeight: 20
-                opacity: labelColorCheckBox.checked ? 1 : 0.3
-                onClicked: labelColorDialog.visible = true;
-
-                property var color: cfg_labelColor != "" ? cfg_labelColor : theme.textColor
-                
-                style: ButtonStyle {
-                    background: Rectangle {
-                        radius: 4
-                        color: labelColorButton.color
-                        border.width: 1
-                        border.color: "gray"
+                Component.onCompleted: {
+                    if (cfg_labelColor != "") {
+                        checked = true;
                     }
                 }
+            }
+
+            MyColorButton {
+                id: labelColorButton
+                anchors.left: labelColorCheckBox.right
+            }
+
+            MyColorDialog {
+                id: labelColorDialog
+            }
+
+            Component.onCompleted: {
+                labelColorButton.setEnabled(labelColorCheckBox.checked);
+                labelColorButton.setColor(cfg_labelColor != "" ? cfg_labelColor : theme.textColor);
+                labelColorButton.setDialog(labelColorDialog);
+
+                labelColorDialog.setColor(labelColorButton.getColor());
+                labelColorDialog.setColorButton(labelColorButton);
+                labelColorDialog.setAcceptedCallback(function(color) {
+                    cfg_labelColor = color;
+                });
             }
         }
 
@@ -169,44 +166,41 @@ Item {
             Layout.columnSpan: 1
         }
 
-        ColorDialog {
-            id: indicatorColorDialog
-            title: "Choose a color"
-            visible: false
-            color: indicatorColorButton.color
-            onAccepted: {
-                indicatorColorButton.color = indicatorColorDialog.color;
-                appearanceConfig.cfg_indicatorColor = indicatorColorCheckBox.checked ? indicatorColorButton.color : "";
-                Qt.quit();
-            }
-        }
-
-        RowLayout {
+        Row {
             CheckBox {
                 id: indicatorColorCheckBox
                 text: "Custom desktop indicator color:"
-                checked: appearanceConfig.cfg_indicatorColor != ""
-                onCheckedChanged: appearanceConfig.cfg_indicatorColor = indicatorColorCheckBox.checked ? indicatorColorButton.color : "";
-            }
+                onCheckedChanged:  {
+                    cfg_indicatorColor = checked ? indicatorColorButton.getColor() : "";
+                    indicatorColorButton.setEnabled(checked);
+                }
 
-            Button {
-                id: indicatorColorButton
-                enabled: indicatorColorCheckBox.checked
-                implicitWidth: 25
-                implicitHeight: 20
-                opacity: indicatorColorCheckBox.checked ? 1 : 0.3
-                onClicked: indicatorColorDialog.visible = true;
-
-                property var color: cfg_indicatorColor != "" ? cfg_indicatorColor : theme.buttonFocusColor
-                
-                style: ButtonStyle {
-                    background: Rectangle {
-                        radius: 4
-                        color: indicatorColorButton.color
-                        border.width: 1
-                        border.color: "gray"
+                Component.onCompleted: {
+                    if (cfg_indicatorColor != "") {
+                        checked = true;
                     }
                 }
+            }
+
+            MyColorButton {
+                id: indicatorColorButton
+                anchors.left: indicatorColorCheckBox.right
+            }
+
+            MyColorDialog {
+                id: indicatorColorDialog
+            }
+
+            Component.onCompleted: {
+                indicatorColorButton.setEnabled(labelColorCheckBox.checked);
+                indicatorColorButton.setColor(cfg_indicatorColor != "" ? cfg_indicatorColor : theme.buttonFocusColor);
+                indicatorColorButton.setDialog(indicatorColorDialog);
+
+                indicatorColorDialog.setColor(indicatorColorButton.getColor());
+                indicatorColorDialog.setColorButton(indicatorColorButton);
+                indicatorColorDialog.setAcceptedCallback(function(color) {
+                    cfg_indicatorColor = color;
+                });
             }
         }
 
