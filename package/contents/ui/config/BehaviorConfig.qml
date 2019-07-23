@@ -13,6 +13,8 @@ Item {
     property alias cfg_invertWheelSwitch: invertWheelSwitch.checked
     property alias cfg_wheelSwitchWrap: wheelSwitchWrap.checked
 
+    property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
+
     GridLayout {
         columns: 1
 
@@ -22,7 +24,7 @@ Item {
 
         Label {
             text: "GNOME-like"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 
@@ -49,7 +51,7 @@ Item {
 
         Label {
             text: "Adding new desktops"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 
@@ -76,7 +78,7 @@ Item {
 
         Label {
             text: "Mouse wheel handling"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 

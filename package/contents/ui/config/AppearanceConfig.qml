@@ -16,6 +16,8 @@ Item {
     property string cfg_indicatorColor: ""
     property alias cfg_showPlusButton: showPlusButton.checked
 
+    property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
+
     GridLayout {
         columns: 1
 
@@ -25,7 +27,7 @@ Item {
 
         Label {
             text: "Desktop label"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 
@@ -49,8 +51,8 @@ Item {
             CheckBox {
                 id: labelFontCheckBox
                 text: "Custom desktop label font:"
-                checked: appearanceConfig.cfg_labelFont != ""
-                onCheckedChanged: appearanceConfig.cfg_labelFont = labelFontCheckBox.checked ?
+                checked: cfg_labelFont
+                onCheckedChanged: cfg_labelFont = checked ?
                                   labelFontComboBox.model[labelFontComboBox.currentIndex].value : "";
             }
 
@@ -67,18 +69,18 @@ Item {
                     }
                     model = arr;
 
-                    var foundIndex = labelFontComboBox.find(appearanceConfig.cfg_labelFont);
+                    var foundIndex = find(cfg_labelFont);
                     if (foundIndex == -1) {
-                        foundIndex = labelFontComboBox.find(theme.defaultFont.family);
+                        foundIndex = find(theme.defaultFont.family);
                     }
                     if (foundIndex >= 0) {
-                        labelFontComboBox.currentIndex = foundIndex;
+                        currentIndex = foundIndex;
                     } 
                 }
 
                 onCurrentIndexChanged: {
                     if (enabled && currentIndex) {
-                        appearanceConfig.cfg_labelFont = model[currentIndex].value;
+                        cfg_labelFont = model[currentIndex].value;
                     }
                 }
             }
@@ -88,21 +90,21 @@ Item {
             CheckBox {
                 id: labelSizeCheckBox
                 text: "Custom desktop label font size:"
-                checked: appearanceConfig.cfg_labelSize > 0
-                onCheckedChanged: appearanceConfig.cfg_labelSize = labelSizeCheckBox.checked ? labelSize.value : 0;
+                checked: cfg_labelSize > 0
+                onCheckedChanged: cfg_labelSize = checked ? labelSize.value : 0;
             }
 
             SpinBox {
                 id: labelSize
                 enabled: labelSizeCheckBox.checked
                 Layout.fillWidth: true
-                value: appearanceConfig.cfg_labelSize || theme.defaultFont.pixelSize
+                value: cfg_labelSize || theme.defaultFont.pixelSize
                 minimumValue: 8
                 maximumValue: 64
                 suffix: " px"
                 onValueChanged: {
                     if (labelSizeCheckBox.checked) {
-                        appearanceConfig.cfg_labelSize = value;
+                        cfg_labelSize = value;
                     }
                 }
             }
@@ -118,7 +120,7 @@ Item {
                 }
 
                 Component.onCompleted: {
-                    if (cfg_labelColor != "") {
+                    if (cfg_labelColor) {
                         checked = true;
                     }
                 }
@@ -135,7 +137,7 @@ Item {
 
             Component.onCompleted: {
                 labelColorButton.setEnabled(labelColorCheckBox.checked);
-                labelColorButton.setColor(cfg_labelColor != "" ? cfg_labelColor : theme.textColor);
+                labelColorButton.setColor(cfg_labelColor || theme.textColor);
                 labelColorButton.setDialog(labelColorDialog);
 
                 labelColorDialog.setColor(labelColorButton.getColor());
@@ -152,7 +154,7 @@ Item {
 
         Label {
             text: "Desktop indicator"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 
@@ -176,7 +178,7 @@ Item {
                 }
 
                 Component.onCompleted: {
-                    if (cfg_indicatorColor != "") {
+                    if (cfg_indicatorColor) {
                         checked = true;
                     }
                 }
@@ -193,7 +195,7 @@ Item {
 
             Component.onCompleted: {
                 indicatorColorButton.setEnabled(labelColorCheckBox.checked);
-                indicatorColorButton.setColor(cfg_indicatorColor != "" ? cfg_indicatorColor : theme.buttonFocusColor);
+                indicatorColorButton.setColor(cfg_indicatorColor || theme.buttonFocusColor);
                 indicatorColorButton.setDialog(indicatorColorDialog);
 
                 indicatorColorDialog.setColor(indicatorColorButton.getColor());
@@ -210,7 +212,7 @@ Item {
 
         Label {
             text: "Misc"
-            font.pixelSize: theme.defaultFont.pixelSize + 4
+            font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
 
