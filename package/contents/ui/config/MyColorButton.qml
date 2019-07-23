@@ -12,6 +12,7 @@ Item {
         implicitWidth: 25
         implicitHeight: 20
         opacity: enabled ? 1 : 0.3
+        tooltip: "Click to choose a color"
     
         style: ButtonStyle {
             background: Rectangle {
@@ -35,10 +36,6 @@ Item {
 
     function setDialog(dialog) {
         this.dialog = dialog;
-    }
-
-    function setTooltip(tooltip) {
-        button.tooltip = tooltip;
     }
 
     function getColor() {
