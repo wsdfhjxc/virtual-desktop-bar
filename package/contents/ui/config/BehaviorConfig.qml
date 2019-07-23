@@ -61,6 +61,7 @@ Item {
 
         CheckBox {
             id: switchToNewDesktop
+            enabled: !keepOneEmptyDesktop.checked || !dropRedundantDesktops.checked
             text: "Automatically switch to a manually added desktop"
             Layout.columnSpan: 1
         }
@@ -68,7 +69,7 @@ Item {
         CheckBox {
             id: renameNewDesktop
             text: "Immediately prompt to rename a manually added desktop"
-            enabled: switchToNewDesktop.checked
+            enabled: switchToNewDesktop.enabled && switchToNewDesktop.checked
             Layout.columnSpan: 1
         }
 
