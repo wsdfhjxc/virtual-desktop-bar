@@ -11,7 +11,14 @@ Component {
 
         property int desktopAmount: 0
         property var desktopEntries: []
-        property int desktopEntrySpacing: 8
+        property int desktopEntrySpacing: {
+            if (plasmoid.configuration.entrySpacing == 0) {
+                return 4;
+            } else if (plasmoid.configuration.entrySpacing == 1) {
+                return 8;
+            }
+            return 12;
+        }
         property int currentDesktopNumber;
 
         Rectangle {

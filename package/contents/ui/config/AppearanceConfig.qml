@@ -15,11 +15,38 @@ Item {
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
     property alias cfg_showPlusButton: showPlusButton.checked
+    property alias cfg_entrySpacing: entrySpacing.currentIndex 
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
 
     GridLayout {
         columns: 1
+
+        Item {
+            height: 8
+        }
+
+        Label {
+            text: "Desktop entries"
+            font.pixelSize: labelFontPixelSize
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
+        RowLayout {
+            Label {
+                text: "Spacing between desktop entries:"
+            }
+
+            ComboBox {
+                id: entrySpacing
+                Layout.fillWidth: true
+                model: [ "Small", "Medium", "Large" ]
+            }
+        }
 
         Item {
             height: 8
