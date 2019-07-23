@@ -231,5 +231,9 @@ Item {
             text: "Show a plus button for adding new desktops"
             Layout.columnSpan: 1
         }
+
+        Item {
+            height: 8
+        }
     }
 }

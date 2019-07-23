@@ -106,5 +106,9 @@ Item {
             enabled: switchWithWheel.checked
             Layout.columnSpan: 1
         }
+
+        Item {
+            height: 8
+        }
     }
 }
