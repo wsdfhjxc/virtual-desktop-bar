@@ -23,14 +23,14 @@ Item {
             height: 8
         }
 
-        CheckBox {
-            id: enableAnimations
-            text: "Enable plasmoid animations"
+        Label {
+            text: "Desktop label"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
             Layout.columnSpan: 1
         }
 
         Item {
-            height: 8
+            height: 1
         }
 
         RowLayout {
@@ -153,6 +153,16 @@ Item {
             height: 8
         }
 
+        Label {
+            text: "Desktop indicator"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
         CheckBox {
             id: invertIndicator
             text: "Invert desktop indicator position"
@@ -204,9 +214,25 @@ Item {
             height: 8
         }
 
+        Label {
+            text: "Misc"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
+        CheckBox {
+            id: enableAnimations
+            text: "Enable plasmoid animations"
+            Layout.columnSpan: 1
+        }
+
         CheckBox {
             id: showPlusButton
-            text: "Show + button for adding new desktops"
+            text: "Show a plus button for adding new desktops"
             Layout.columnSpan: 1
         }
     }

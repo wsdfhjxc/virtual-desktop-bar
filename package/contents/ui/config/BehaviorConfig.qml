@@ -20,6 +20,16 @@ Item {
             height: 8
         }
 
+        Label {
+            text: "GNOME-like"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
         CheckBox {
             id: keepOneEmptyDesktop
             text: "Always keep at least one empty desktop"
@@ -35,6 +45,16 @@ Item {
 
         Item {
             height: 8
+        }
+
+        Label {
+            text: "Adding new desktops"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
         }
 
         CheckBox {
@@ -54,6 +74,16 @@ Item {
             height: 8
         }
 
+        Label {
+            text: "Mouse wheel handling"
+            font.pixelSize: theme.defaultFont.pixelSize + 4
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
         CheckBox {
             id: switchWithWheel
             text: "Switch desktops with a mouse wheel"
@@ -69,7 +99,7 @@ Item {
 
         CheckBox {
             id: wheelSwitchWrap
-            text: "Wrap switching desktops after reaching first or last one"
+            text: "Wrap desktop navigation after reaching first or last one"
             enabled: switchWithWheel.checked
             Layout.columnSpan: 1
         }
