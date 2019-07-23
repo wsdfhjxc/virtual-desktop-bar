@@ -9,6 +9,7 @@ Item {
     ColorDialog {
         id: dialog
         title: "Choose a color"
+        showAlphaChannel: true
         visible: false
         onAccepted: {
             colorButton.setColor(color);
