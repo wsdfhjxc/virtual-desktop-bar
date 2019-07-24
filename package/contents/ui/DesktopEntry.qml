@@ -134,7 +134,7 @@ Component {
                             }
                             return plasmoid.configuration.labelColor || theme.textColor;
                         }
-                        opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.4 : 0.15
+                        opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
                     }
                 },
 
