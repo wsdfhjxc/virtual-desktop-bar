@@ -7,7 +7,6 @@ Component {
         id: desktopSwitcher
         spacing: 0
         implicitHeight: parent.height
-        anchors.fill: parent
 
         property int desktopAmount: 0
         property var desktopEntries: []
@@ -20,11 +19,6 @@ Component {
             return 12;
         }
         property int currentDesktopNumber;
-
-        Rectangle {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-        }
 
         DesktopEntry {
             id: desktopEntryComponent
