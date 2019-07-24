@@ -137,7 +137,7 @@ Item {
             }
         }
 
-        Row {
+        RowLayout {
             CheckBox {
                 id: labelColorCheckBox
                 text: "Custom desktop label color:"
@@ -155,7 +155,6 @@ Item {
 
             MyColorButton {
                 id: labelColorButton
-                anchors.left: labelColorCheckBox.right
             }
 
             MyColorDialog {
@@ -195,7 +194,7 @@ Item {
             Layout.columnSpan: 1
         }
 
-        Row {
+        RowLayout {
             CheckBox {
                 id: indicatorColorCheckBox
                 text: "Custom desktop indicator color:"
@@ -213,7 +212,6 @@ Item {
 
             MyColorButton {
                 id: indicatorColorButton
-                anchors.left: indicatorColorCheckBox.right
             }
 
             MyColorDialog {
