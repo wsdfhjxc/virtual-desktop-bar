@@ -39,6 +39,10 @@ RowLayout {
         onDesktopRemoveRequested: {
             plasmoid.compactRepresentationItem.onDesktopRemoveRequested(desktopNumber);
         }
+
+        onEmptyDesktopsUpdated: {
+            plasmoid.compactRepresentationItem.onEmptyDesktopsUpdated(desktopNumbers);
+        }
     }
 
     Component.onCompleted: {

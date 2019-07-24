@@ -86,6 +86,21 @@ Component {
             }
         }
 
+        function onEmptyDesktopsUpdated(desktopNumbers) {
+            for (var i = 0; i < desktopEntries.length; i++) {
+                var desktopEntry = desktopEntries[i];
+                desktopEntry.setIsEmptyDesktop(false);
+
+                for (var j = 0; j < desktopNumbers.length; j++) {
+                    var emptyDesktopNumber = desktopNumbers[j];
+                    if (i + 1 == emptyDesktopNumber) {
+                        desktopEntry.setIsEmptyDesktop(true);
+                        break;
+                    }
+                }
+            }
+        }
+
         function registerDesktopEntry(desktopName, isCurrentDesktop) {
             var desktopEntry = desktopEntryComponent.createObject(desktopEntriesLayout);
             desktopEntry.setDesktopName(desktopName);

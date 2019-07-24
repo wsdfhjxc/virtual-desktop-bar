@@ -12,6 +12,7 @@ Component {
 
         property string desktopName: "Desktop"
         property bool isCurrentDesktop: false
+        property bool isEmptyDesktop: true
 
         implicitWidth: desktopEntryRect.width > 0 ?
                        desktopEntryRect.width + desktopEntrySpacing : 0
@@ -95,7 +96,6 @@ Component {
                     }
                     return !plasmoid.configuration.invertIndicator ? 0 : parent.height - height;
                 }
-                color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
             }
 
             MouseArea {
@@ -128,7 +128,13 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
-                        opacity: 0.15
+                        color: {
+                            if (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor) {
+                                return plasmoid.configuration.occupiedIndicatorColor;
+                            }
+                            return plasmoid.configuration.indicatorColor || theme.buttonFocusColor;
+                        }
+                        opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.4 : 0.15
                     }
                 },
 
@@ -140,6 +146,7 @@ Component {
                     }
                     PropertyChanges {
                         target: desktopIndicator
+                        color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
                         opacity: 0.7
                     }
                 },
@@ -241,6 +248,10 @@ Component {
 
         function setIsCurrentDesktop(isCurrentDesktop) {
             this.isCurrentDesktop = isCurrentDesktop;
+        }
+
+        function setIsEmptyDesktop(isEmptyDesktop) {
+            this.isEmptyDesktop = isEmptyDesktop;
         }
 
         function remove() {

@@ -57,6 +57,8 @@ signals:
     void desktopRemoveRequested(int desktopNumber);
     void desktopNamesChanged();
 
+    void emptyDesktopsUpdated(QList<int> desktopNumbers);
+
 private:
     NETRootInfo netRootInfo;
 

@@ -14,6 +14,8 @@ Item {
     property string cfg_labelColor: ""
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
+    property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
+    property string cfg_occupiedIndicatorColor: ""
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_entrySpacing: entrySpacing.currentIndex 
 
@@ -227,6 +229,49 @@ Item {
                 indicatorColorDialog.setColorButton(indicatorColorButton);
                 indicatorColorDialog.setAcceptedCallback(function(color) {
                     cfg_indicatorColor = color;
+                });
+            }
+        }
+
+        CheckBox {
+            id: distinctIndicatorOccupied
+            text: "Distinct desktop indicator for occupied idle desktops"
+            Layout.columnSpan: 1
+        }
+
+        RowLayout {
+            CheckBox {
+                id: occupiedIndicatorColorCheckBox
+                text: "Custom desktop indicator color for occupied idle desktops:"
+                onCheckedChanged:  {
+                    cfg_occupiedIndicatorColor = checked ? occupiedIndicatorColorButton.getColor() : "";
+                    occupiedIndicatorColorButton.setEnabled(checked);
+                }
+
+                Component.onCompleted: {
+                    if (cfg_occupiedIndicatorColor) {
+                        checked = true;
+                    }
+                }
+            }
+
+            MyColorButton {
+                id: occupiedIndicatorColorButton
+            }
+
+            MyColorDialog {
+                id: occupiedIndicatorColorDialog
+            }
+
+            Component.onCompleted: {
+                occupiedIndicatorColorButton.setEnabled(labelColorCheckBox.checked);
+                occupiedIndicatorColorButton.setColor(cfg_occupiedIndicatorColor || theme.buttonFocusColor);
+                occupiedIndicatorColorButton.setDialog(occupiedIndicatorColorDialog);
+
+                occupiedIndicatorColorDialog.setColor(occupiedIndicatorColorButton.getColor());
+                occupiedIndicatorColorDialog.setColorButton(occupiedIndicatorColorButton);
+                occupiedIndicatorColorDialog.setAcceptedCallback(function(color) {
+                    cfg_occupiedIndicatorColor = color;
                 });
             }
         }

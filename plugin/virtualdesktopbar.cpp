@@ -399,14 +399,20 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
             addNewDesktop();
         }
     }
+
+    emit emptyDesktopsUpdated(getEmptyDesktops());
 }
 
 void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Properties2) {
-    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops && (properties & NET::Property::WMDesktop)) {
-        if (getEmptyDesktopsAmount() == 0) {
-            addNewDesktop();
+    if (properties & NET::Property::WMDesktop) {
+        if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
+            if (getEmptyDesktopsAmount() == 0) {
+                addNewDesktop();
+            }
+            removeEmptyDesktops();
         }
-        removeEmptyDesktops();
+
+        emit emptyDesktopsUpdated(getEmptyDesktops());
     }
 }
 
@@ -414,6 +420,7 @@ void VirtualDesktopBar::onWindowRemoved(WId) {
     if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         removeEmptyDesktops();
     }
+    emit emptyDesktopsUpdated(getEmptyDesktops());
 }
 
 void VirtualDesktopBar::notifyBeforeMovingWindows() {
