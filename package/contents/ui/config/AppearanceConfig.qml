@@ -172,6 +172,9 @@ Item {
                 labelColorDialog.setColorButton(labelColorButton);
                 labelColorDialog.setAcceptedCallback(function(color) {
                     cfg_labelColor = color;
+                    if (!occupiedIndicatorColorCheckBox.checked) {
+                        occupiedIndicatorColorButton.setColor(color);
+                    }
                 });
             }
         }
@@ -199,7 +202,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: indicatorColorCheckBox
-                text: "Custom desktop indicator color:"
+                text: "Custom current desktop indicator color:"
                 onCheckedChanged:  {
                     cfg_indicatorColor = checked ? indicatorColorButton.getColor() : "";
                     indicatorColorButton.setEnabled(checked);
@@ -265,7 +268,7 @@ Item {
 
             Component.onCompleted: {
                 occupiedIndicatorColorButton.setEnabled(labelColorCheckBox.checked);
-                occupiedIndicatorColorButton.setColor(cfg_occupiedIndicatorColor || theme.buttonFocusColor);
+                occupiedIndicatorColorButton.setColor(cfg_occupiedIndicatorColor || cfg_labelColor || theme.textColor);
                 occupiedIndicatorColorButton.setDialog(occupiedIndicatorColorDialog);
 
                 occupiedIndicatorColorDialog.setColor(occupiedIndicatorColorButton.getColor());
