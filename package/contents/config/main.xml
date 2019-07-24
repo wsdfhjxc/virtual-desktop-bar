@@ -52,7 +52,7 @@
       <default></default>
     </entry>
     <entry name="distinctIndicatorOccupied" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="occupiedIndicatorColor" type="String">
       <default></default>
