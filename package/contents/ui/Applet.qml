@@ -17,19 +17,22 @@ RowLayout {
     Plasmoid.fullRepresentation: DesktopNamePopup {}
     Plasmoid.toolTipItem: Item { width: -999; height: -999 }
 
+    property var desktopSwitcher: plasmoid.compactRepresentationItem
+    property var desktopNamePopup: plasmoid.fullRepresentationItem
+
     Connections {
         target: virtualDesktopBar
 
         onCurrentDesktopChanged: {
-            plasmoid.compactRepresentationItem.onCurrentDesktopChanged(desktopNumber);
+            desktopSwitcher.onCurrentDesktopChanged(desktopNumber);
         }
 
         onDesktopAmountChanged: {
-            plasmoid.compactRepresentationItem.onDesktopAmountChanged(desktopAmount);
+            desktopSwitcher.onDesktopAmountChanged(desktopAmount);
         }
 
         onDesktopNamesChanged: {
-            plasmoid.compactRepresentationItem.onDesktopNamesChanged();
+            desktopSwitcher.onDesktopNamesChanged();
         }
 
         onCurrentDesktopNameChangeRequested: {
@@ -37,11 +40,11 @@ RowLayout {
         }
 
         onDesktopRemoveRequested: {
-            plasmoid.compactRepresentationItem.onDesktopRemoveRequested(desktopNumber);
+            desktopSwitcher.onDesktopRemoveRequested(desktopNumber);
         }
 
         onEmptyDesktopsUpdated: {
-            plasmoid.compactRepresentationItem.onEmptyDesktopsUpdated(desktopNumbers);
+            desktopSwitcher.onEmptyDesktopsUpdated(desktopNumbers);
         }
     }
 
@@ -57,18 +60,18 @@ RowLayout {
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
         
         var removeEnabledBinding = Qt.binding(function() {
-            return plasmoid.compactRepresentationItem.desktopAmount > 1;
+            return desktopSwitcher.desktopAmount > 1;
         });
         plasmoid.action("removeLastDesktop").enabled = removeEnabledBinding;
         plasmoid.action("removeCurrentDesktop").enabled = removeEnabledBinding;
 
         plasmoid.action("moveCurrentDesktopToLeft").enabled = Qt.binding(function() {
-            return plasmoid.compactRepresentationItem.currentDesktopNumber > 1;
+            return desktopSwitcher.currentDesktopNumber > 1;
         });
 
         plasmoid.action("moveCurrentDesktopToRight").enabled = Qt.binding(function() {
-            var desktopAmount = plasmoid.compactRepresentationItem.desktopAmount;
-            return plasmoid.compactRepresentationItem.currentDesktopNumber < desktopAmount;
+            var desktopAmount = desktopSwitcher.desktopAmount;
+            return desktopSwitcher.currentDesktopNumber < desktopAmount;
         });
     }
 
@@ -94,7 +97,7 @@ RowLayout {
 
     function action_renameCurrentDesktop() {
         plasmoid.expanded = true;
-        plasmoid.fullRepresentationItem.refreshDesktopNameInput();
+        desktopNamePopup.refreshDesktopNameInput();
     }
 
     function action_openDesktopSettings() {
