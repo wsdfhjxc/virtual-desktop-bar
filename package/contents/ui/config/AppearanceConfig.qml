@@ -45,7 +45,6 @@ Item {
 
             ComboBox {
                 id: entrySpacing
-                Layout.fillWidth: true
                 model: [ "Small", "Medium", "Large" ]
             }
         }
@@ -71,7 +70,7 @@ Item {
 
             ComboBox {
                 id: labelStyle
-                Layout.fillWidth: true
+                implicitWidth: 150
                 model: [ "Number only", "Number and name", "Name only" ]
             }
         }
@@ -88,7 +87,7 @@ Item {
             ComboBox {
                 id: labelFontComboBox
                 enabled: labelFontCheckBox.checked
-                Layout.fillWidth: true
+                implicitWidth: 150
 
                 Component.onCompleted: {
                     var arr = [];
@@ -126,7 +125,6 @@ Item {
             SpinBox {
                 id: labelSize
                 enabled: labelSizeCheckBox.checked
-                Layout.fillWidth: true
                 value: cfg_labelSize || theme.defaultFont.pixelSize
                 minimumValue: 8
                 maximumValue: 64
