@@ -28,7 +28,7 @@
       <default>false</default>
     </entry>
     <entry name="entrySpacing" type="Int">
-      <default>2</default>
+      <default>1</default>
     </entry>
     <entry name="enableAnimations" type="Bool">
       <default>true</default>
