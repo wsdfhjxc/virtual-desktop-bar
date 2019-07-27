@@ -58,12 +58,35 @@ RowLayout {
         plasmoid.setAction("renameCurrentDesktop", "Rename Current Desktop", "edit-rename");
         plasmoid.setActionSeparator("separator2");
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
-        
-        var removeEnabledBinding = Qt.binding(function() {
-            return desktopSwitcher.desktopAmount > 1;
+
+        plasmoid.action("addNewDesktop").enabled = Qt.binding(function() {
+            if (desktopSwitcher.desktopAmount == 20) {
+                return false;
+            }
+            return !(plasmoid.configuration.keepOneEmptyDesktop && plasmoid.configuration.dropRedundantDesktops);
         });
-        plasmoid.action("removeLastDesktop").enabled = removeEnabledBinding;
-        plasmoid.action("removeCurrentDesktop").enabled = removeEnabledBinding;
+
+        var removeGuard = function(desktopNumber) {
+            var emptyDesktopAmount = 0;
+            for (var i = 0; i < desktopSwitcher.desktopAmount; i++) {
+                var desktopEntry = desktopSwitcher.desktopEntries[i];
+                if (desktopEntry && desktopEntry.isEmptyDesktop) {
+                    emptyDesktopAmount++;
+                }
+            }
+            var desktopEntry = desktopSwitcher.desktopEntries[desktopNumber - 1];
+            return !(emptyDesktopAmount == 1 && desktopEntry.isEmptyDesktop);
+        };
+
+        plasmoid.action("removeLastDesktop").enabled = Qt.binding(function() {
+            return desktopSwitcher.desktopAmount > 1 &&
+                   (!plasmoid.configuration.keepOneEmptyDesktop || removeGuard(desktopSwitcher.desktopAmount));
+        });
+
+        plasmoid.action("removeCurrentDesktop").enabled = Qt.binding(function() {
+            return desktopSwitcher.desktopAmount > 1 &&
+                   (!plasmoid.configuration.keepOneEmptyDesktop || removeGuard(desktopSwitcher.currentDesktopNumber));
+        });
 
         plasmoid.action("moveCurrentDesktopToLeft").enabled = Qt.binding(function() {
             return desktopSwitcher.currentDesktopNumber > 1;
