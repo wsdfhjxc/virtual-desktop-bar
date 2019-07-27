@@ -59,14 +59,14 @@ Component {
         }
 
         function onDesktopAmountChanged(desktopAmount) {
-            desktopSwitcher.desktopAmount = desktopAmount;
             var currentDesktopAmount = desktopEntries.length;
             var desktopAmountDifference = desktopAmount - currentDesktopAmount;
             if (desktopAmountDifference > 0) {
-                addDesktops(currentDesktopAmount, desktopAmountDifference);
+                addDesktops(desktopAmountDifference);
             } else if (desktopAmountDifference < 0) {
-                removeDesktops(currentDesktopAmount);
+                removeDesktops(-desktopAmountDifference);
             }
+            desktopSwitcher.desktopAmount = desktopEntries.length;
         }
 
         function onDesktopRemoveRequested(desktopNumber) {
@@ -114,11 +114,11 @@ Component {
             onTriggered: root.action_renameCurrentDesktop()
         }
 
-        function addDesktops(currentDesktopAmount, addDesktopAmount) {
+        function addDesktops(desktopAmountDifference) {
             var desktopNames = virtualDesktopBar.getDesktopNames();
             var desktopNumber = 1;
-            for (var i = 1; i <= addDesktopAmount; i++) {
-                desktopNumber = currentDesktopAmount + i;
+            for (var i = 1; i <= desktopAmountDifference; i++) {
+                desktopNumber = desktopEntries.length + i;
                 var desktopName = desktopNames[desktopNumber - 1];
                 registerDesktopEntry(desktopName);
             }
@@ -135,8 +135,9 @@ Component {
             }
         }
 
-        function removeDesktops(currentDesktopAmount) {
-            for (var i = currentDesktopAmount - 1; i >= desktopAmount; i--) {
+        function removeDesktops(desktopAmountDifference) {
+            var newDesktopAmount = desktopEntries.length - desktopAmountDifference;
+            for (var i = desktopEntries.length - 1; i >= newDesktopAmount; i--) {
                 var desktopEntry = desktopEntries[i];
                 desktopEntry.remove();
                 desktopEntries.splice(i, 1);
