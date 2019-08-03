@@ -71,8 +71,7 @@ Component {
 
         function onDesktopRemoveRequested(desktopNumber) {
             if (desktopAmount > 1) {
-                removeDesktop(desktopNumber);
-                virtualDesktopBar.removeDesktop(desktopNumber);
+                virtualDesktopBar.removeDesktop(desktopNumber, true);
                 onCurrentDesktopChanged(desktopNumber);
             }
         }
