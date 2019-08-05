@@ -7,7 +7,14 @@ Component {
     Item {
         id: self
 
-        property int desktopLabelMargin: 6
+        property int desktopLabelMargin: {
+            if (plasmoid.configuration.entryWidth == 0) {
+                return 3;
+            } else if (plasmoid.configuration.entryWidth == 1) {
+                return 6;
+            }
+            return 9;
+        }
         property int desktopIndicatorThickness: 3
 
         property string desktopName: "Desktop"

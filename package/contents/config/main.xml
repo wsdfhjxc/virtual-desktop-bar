@@ -27,6 +27,9 @@
     <entry name="wheelSwitchWrap" type="Bool">
       <default>false</default>
     </entry>
+    <entry name="entryWidth" type="Int">
+      <default>1</default>
+    </entry>
     <entry name="entrySpacing" type="Int">
       <default>1</default>
     </entry>
