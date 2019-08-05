@@ -1,0 +1,9 @@
+#### 0.4.2
+* Fixed unwanted margin at the right side of the applet
+* Added an option to decrease or increase spacing between desktop entries
+* Added an option to distinct desktop indicator for occupied idle desktops (enabled by default)
+* Added an option to set custom desktop indicator color for occupied idle desktops
+* Changed desktop indicator color for desktops other that the current one to match label color
+
+#### 0.4.1
+* Added support for mouse wheel desktop switching
