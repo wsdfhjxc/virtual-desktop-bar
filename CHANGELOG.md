@@ -1,3 +1,8 @@
+#### 0.4.3
+* Added an option to decrease or increase desktop entry width
+* Fixed default spacing between desktop entries to be medium instead of large
+* Fixed some context menu actions and keyboard shortcuts to be disabled when using GNOME-like features
+
 #### 0.4.2
 * Fixed unwanted margin at the right side of the applet
 * Added an option to decrease or increase spacing between desktop entries
