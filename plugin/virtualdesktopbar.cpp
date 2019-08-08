@@ -19,25 +19,25 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
     recentDesktopNumber = currentDesktopNumber;
 }
 
-const QVariantList VirtualDesktopBar::getDesktopNames() const {
-    QVariantList desktopNames;
+const QList<QString> VirtualDesktopBar::getDesktopNames() const {
+    QList<QString> desktopNames;
     const int numberOfDesktops = KWindowSystem::numberOfDesktops();
     for (int desktopNumber = 0; desktopNumber < numberOfDesktops; desktopNumber++) {
         const QString& desktopName = KWindowSystem::desktopName(desktopNumber + 1);
-        desktopNames << QVariant(desktopName);
+        desktopNames << desktopName;
     }
     return desktopNames;
 }
 
-const QVariant VirtualDesktopBar::getCurrentDesktopName() const {
+const QString VirtualDesktopBar::getCurrentDesktopName() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
     const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
-    return QVariant(currentDesktopName);
+    return currentDesktopName;
 }
 
-const QVariant VirtualDesktopBar::getCurrentDesktopNumber() const {
+int VirtualDesktopBar::getCurrentDesktopNumber() const {
     const int currentDesktop = KWindowSystem::currentDesktop();
-    return QVariant(currentDesktop);
+    return currentDesktop;
 }
 
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
@@ -93,9 +93,9 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
             KWindowSystem::setOnDesktop(wId, windowDesktopNumber - 1);
         }
 
-        QVariantList desktopNames = getDesktopNames();
+        QList<QString> desktopNames = getDesktopNames();
         for (int i = desktopNumber - 1; i < numberOfDesktops - 1; i++) {
-            const QString desktopName = desktopNames.at(i + 1).toString();
+            const QString desktopName = desktopNames[i + 1];
             renameDesktop(i + 1, desktopName);
         }
     }

@@ -14,9 +14,9 @@ class VirtualDesktopBar : public QObject {
 public:
     VirtualDesktopBar(QObject* parent = nullptr);
 
-    Q_INVOKABLE const QVariantList getDesktopNames() const;
-    Q_INVOKABLE const QVariant getCurrentDesktopName() const;
-    Q_INVOKABLE const QVariant getCurrentDesktopNumber() const;
+    Q_INVOKABLE const QList<QString> getDesktopNames() const;
+    Q_INVOKABLE const QString getCurrentDesktopName() const;
+    Q_INVOKABLE int getCurrentDesktopNumber() const;
     Q_INVOKABLE const QList<int> getEmptyDesktops() const;
 
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
