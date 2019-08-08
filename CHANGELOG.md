@@ -1,3 +1,6 @@
+#### 0.4.4
+* Fixed initially missing empty desktop indicator after loading the applet
+
 #### 0.4.3
 * Added an option to decrease or increase desktop entry width
 * Fixed default spacing between desktop entries to be medium instead of large
