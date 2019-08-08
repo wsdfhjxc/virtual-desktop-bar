@@ -17,7 +17,7 @@ public:
     Q_INVOKABLE const QVariantList getDesktopNames() const;
     Q_INVOKABLE const QVariant getCurrentDesktopName() const;
     Q_INVOKABLE const QVariant getCurrentDesktopNumber() const;
-    Q_INVOKABLE const QVariant getEmptyDesktopsAmount() const;
+    Q_INVOKABLE const QList<int> getEmptyDesktops() const;
 
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
     Q_INVOKABLE void switchToRecentDesktop();
@@ -85,7 +85,6 @@ private:
     int currentDesktopNumber;
     int recentDesktopNumber;
 
-    const QList<int> getEmptyDesktops() const;
     void removeEmptyDesktops();
 
     void onWindowAdded(WId);

@@ -45,6 +45,9 @@ Component {
             }
 
             desktopAmount = desktopNames.length;
+
+            var emptyDesktops = virtualDesktopBar.getEmptyDesktops();
+            onEmptyDesktopsUpdated(emptyDesktops);
         }
 
         function onCurrentDesktopChanged(desktopNumber) {
@@ -123,7 +126,7 @@ Component {
             }
             if (plasmoid.configuration.switchToNewDesktop) {
                 if (plasmoid.configuration.keepOneEmptyDesktop &&
-                    virtualDesktopBar.getEmptyDesktopsAmount() == 1) {
+                    virtualDesktopBar.getEmptyDesktops().length == 1) {
                     return;
                 }
 

@@ -40,11 +40,6 @@ const QVariant VirtualDesktopBar::getCurrentDesktopNumber() const {
     return QVariant(currentDesktop);
 }
 
-const QVariant VirtualDesktopBar::getEmptyDesktopsAmount() const {
-    const QList<int> emptyDesktops = getEmptyDesktops();
-    return emptyDesktops.length();
-}
-
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
     if (desktopNumber < 1 || desktopNumber > KWindowSystem::numberOfDesktops()) {
         return;
@@ -247,7 +242,7 @@ void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
 
 void VirtualDesktopBar::onDesktopAmountChanged(const int desktopAmount) {
     if (cfg_keepOneEmptyDesktop) {
-        if (getEmptyDesktopsAmount() == 0) {
+        if (getEmptyDesktops().length() == 0) {
             addNewDesktop();
         }
         if (cfg_dropRedundantDesktops) {
@@ -361,7 +356,7 @@ const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bo
 
 void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
     if (cfg_keepOneEmptyDesktop) {
-        if (getEmptyDesktopsAmount() == 0) {
+        if (getEmptyDesktops().length() == 0) {
             addNewDesktop();
         }
         if (cfg_dropRedundantDesktops) {
@@ -417,7 +412,7 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
         } else {
             return;
         }
-        if (getEmptyDesktopsAmount() == 0) {
+        if (getEmptyDesktops().length() == 0) {
             addNewDesktop();
         }
     }
@@ -428,7 +423,7 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
 void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Properties2) {
     if (properties & NET::Property::WMDesktop) {
         if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
-            if (getEmptyDesktopsAmount() == 0) {
+            if (getEmptyDesktops().length() == 0) {
                 addNewDesktop();
             }
             removeEmptyDesktops();
