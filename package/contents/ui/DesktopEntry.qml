@@ -24,32 +24,13 @@ Component {
         implicitWidth: desktopEntryRect.width > 0 ?
                        desktopEntryRect.width + desktopEntrySpacing : 0
         implicitHeight: parent.height
-        opacity: plasmoid.configuration.enableAnimations ? 0 : 1
-
-        Behavior on opacity {
-            enabled: plasmoid.configuration.enableAnimations
-            animation: NumberAnimation {
-                duration: 150
-            }
-        }
 
         Timer {
-            id: initTimer1
+            id: initTimer
             interval: 75
             running: plasmoid.configuration.enableAnimations
             onTriggered: {
-                opacity = 1
-            }
-        }
-
-        Timer {
-            id: initTimer2
-            interval: 0
-            running: true
-            onTriggered: {
-                desktopEntryRect.width = Qt.binding(function() {
-                    return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
-                });
+                desktopEntryRect.opacity = 1;
             }
         }
 
@@ -61,11 +42,25 @@ Component {
             }
         }
 
+        Component.onCompleted: {
+            desktopEntryRect.width = Qt.binding(function() {
+                return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
+            });
+        }
+
         Rectangle {
             id: desktopEntryRect
             width: 0
             height: parent.height
             color: "transparent"
+            opacity: plasmoid.configuration.enableAnimations ? 0 : 1
+
+            Behavior on opacity {
+                enabled: plasmoid.configuration.enableAnimations
+                animation: NumberAnimation {
+                    duration: 150
+                }
+            }
 
             Behavior on width {
                 enabled: plasmoid.configuration.enableAnimations
@@ -263,9 +258,7 @@ Component {
 
         function remove() {
             if (plasmoid.configuration.enableAnimations) {
-                initTimer1.stop();
-                initTimer2.stop();
-                opacity = 0;
+                desktopEntryRect.opacity = 0;
                 removeTimer.start();
                 destroy(500);
             } else {
