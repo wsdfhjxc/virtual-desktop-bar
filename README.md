@@ -21,13 +21,20 @@ The plasmoid displays virtual desktop entries as text labels with their numbers,
 ![](preview.gif)
 
 ### Installation
-To install the applet you have to build it.
+Installing the applet directly from the Plasma Add-On Installer will not work. You have to either get the applet as a distro specific package, or follow some simple instructions and build it manually.
 
+#### Distro packages
+Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks 
+cupnoodles).
+
+Currently, there are no preconfigured or prebuilt packages for other distributions.
+
+#### Manual installation
 First, you need to install some required dependencies.
 
 For Kubuntu or KDE neon, run: `./install-ubuntu-deps.sh`
 
-For Arch or Manjaro, run: `./install-arch-deps.sh`
+For Arch Linux or Manjaro, run: `./install-arch-deps.sh`
 
 For openSUSE, run: `./install-opensuse-deps.sh`
 
