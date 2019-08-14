@@ -22,11 +22,11 @@ public:
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
     Q_INVOKABLE void switchToRecentDesktop();
 
-    Q_INVOKABLE void addNewDesktop(const QString desktopName = QString(), bool guard = false);
+    Q_INVOKABLE void addNewDesktop(bool guard = true, const QString desktopName = QString());
 
-    Q_INVOKABLE void removeDesktop(const int desktopNumber = 0, bool guard = false);
-    Q_INVOKABLE void removeCurrentDesktop(bool guard = false);
-    Q_INVOKABLE void removeLastDesktop(bool guard = false);
+    Q_INVOKABLE void removeDesktop(const int desktopNumber);
+    Q_INVOKABLE void removeCurrentDesktop();
+    Q_INVOKABLE void removeLastDesktop();
 
     Q_INVOKABLE void renameDesktop(const int desktopNumber, const QString desktopName);
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
@@ -83,6 +83,8 @@ private:
 
     int currentDesktopNumber;
     int recentDesktopNumber;
+
+    bool canRemoveDesktop(const int desktopNumber);
 
     void removeEmptyDesktops();
 

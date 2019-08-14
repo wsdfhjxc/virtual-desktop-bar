@@ -21,7 +21,7 @@ Item {
         anchors.fill: parent
 
         onClicked: {
-            virtualDesktopBar.addNewDesktop("", true);
+            virtualDesktopBar.addNewDesktop();
         }
     }
 
