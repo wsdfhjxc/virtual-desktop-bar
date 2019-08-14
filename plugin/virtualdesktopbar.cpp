@@ -30,14 +30,11 @@ const QList<QString> VirtualDesktopBar::getDesktopNames() const {
 }
 
 const QString VirtualDesktopBar::getCurrentDesktopName() const {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
-    return currentDesktopName;
+    return KWindowSystem::desktopName(currentDesktopNumber);
 }
 
 int VirtualDesktopBar::getCurrentDesktopNumber() const {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    return currentDesktop;
+    return currentDesktopNumber;
 }
 
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
@@ -116,8 +113,7 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
 }
 
 void VirtualDesktopBar::removeCurrentDesktop(bool guard) {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    removeDesktop(currentDesktop, guard);
+    removeDesktop(currentDesktopNumber, guard);
 }
 
 void VirtualDesktopBar::removeLastDesktop(bool guard) {
@@ -155,7 +151,6 @@ void VirtualDesktopBar::renameDesktopDBus(const int desktopNumber, const QString
 }
 
 void VirtualDesktopBar::renameCurrentDesktop(const QString desktopName) {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
@@ -196,10 +191,8 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
 
 void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
     int targetDesktopNumber = desktopNumber + moveStep;
-    if (targetDesktopNumber < 1) {
-        targetDesktopNumber = 1;
-    } else if (targetDesktopNumber > KWindowSystem::numberOfDesktops()) {
-        targetDesktopNumber = KWindowSystem::numberOfDesktops();
+    if (targetDesktopNumber < 1 || targetDesktopNumber > KWindowSystem::numberOfDesktops()) {
+        return;
     }
 
     notifyBeforeMovingWindows();
@@ -221,13 +214,11 @@ void VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToLeft() {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
     moveDesktopToLeft(currentDesktopNumber);
     switchToDesktop(currentDesktopNumber - 1);
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToRight() {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
     moveDesktopToRight(currentDesktopNumber);
     switchToDesktop(currentDesktopNumber + 1);
 }
