@@ -39,10 +39,6 @@ RowLayout {
             action_renameCurrentDesktop();
         }
 
-        onDesktopRemoveRequested: {
-            desktopSwitcher.onDesktopRemoveRequested(desktopNumber);
-        }
-
         onEmptyDesktopsUpdated: {
             desktopSwitcher.onEmptyDesktopsUpdated(desktopNumbers);
         }

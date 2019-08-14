@@ -115,9 +115,9 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
     notifyAfterMovingWindows();
 }
 
-void VirtualDesktopBar::removeCurrentDesktop(bool) {
+void VirtualDesktopBar::removeCurrentDesktop(bool guard) {
     const int currentDesktop = KWindowSystem::currentDesktop();
-    emit desktopRemoveRequested(currentDesktop);
+    removeDesktop(currentDesktop, guard);
 }
 
 void VirtualDesktopBar::removeLastDesktop(bool guard) {

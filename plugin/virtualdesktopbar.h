@@ -54,7 +54,6 @@ signals:
     void desktopAmountChanged(const int desktopAmount);
 
     void currentDesktopNameChangeRequested();
-    void desktopRemoveRequested(int desktopNumber);
     void desktopNamesChanged();
 
     void emptyDesktopsUpdated(QList<int> desktopNumbers);
