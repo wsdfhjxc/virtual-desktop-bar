@@ -63,4 +63,4 @@ There are also global keyboard shortcuts, which you can define in the Global Sho
 * Rename Current Desktop
 
 ### Compatibility with KWin scripts
-If you want to use this applet with some KWin scripts, for example tiling scripts, they will probably end up broken. This is related to some non-standard features that Virtual Desktop Bar provides. It can be fixed, but requires a little bit work from the KWin script developer, since some code adjustments are needed. Read [this](KWIN.md) for more details.
+If you want to use this applet with some KWin scripts, for example tiling scripts, they will probably end up broken. This is related to some non-standard features that Virtual Desktop Bar provides. It can be fixed, but requires a little bit work from the KWin script developer. If you are interested, read [this document](KWIN.md) for more details.
