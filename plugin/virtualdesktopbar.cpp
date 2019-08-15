@@ -414,10 +414,19 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
 
 void VirtualDesktopBar::removeEmptyDesktops() {
     const QList<int> emptyDesktops = getEmptyDesktops();
+    if (emptyDesktops.length() == 0) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-Before");
+    QThread::msleep(100);
+
     for (int i = emptyDesktops.length() - 1; i >= 1; i--) {
         int emptyDesktopNumber = emptyDesktops[i];
         removeDesktop(emptyDesktopNumber);
     }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-After");
 }
 
 void VirtualDesktopBar::onWindowAdded(WId wId) {
