@@ -7,6 +7,7 @@
 #include <QX11Info>
 #include <QAction>
 #include <KActionCollection>
+#include <QDBusInterface>
 
 class VirtualDesktopBar : public QObject {
     Q_OBJECT
@@ -73,6 +74,8 @@ private:
     QAction* actionMoveCurrentDesktopToLeft;
     QAction* actionMoveCurrentDesktopToRight;
 
+    QDBusInterface dbusInterface;
+
     void onCurrentDesktopChanged(const int desktopNumber);
     void onDesktopAmountChanged(const int desktopAmount);
 
@@ -91,9 +94,6 @@ private:
     void onWindowAdded(WId);
     void onWindowChanged(WId, NET::Properties properties, NET::Properties2);
     void onWindowRemoved(WId);
-
-    void notifyBeforeMovingWindows();
-    void notifyAfterMovingWindows();
 
     void renameDesktopDBus(const int desktopNumber, const QString desktopName);
 };

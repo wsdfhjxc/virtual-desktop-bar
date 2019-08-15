@@ -4,10 +4,11 @@
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
-#include <QDBusInterface>
+#include <QThread>
 
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
-                                      netRootInfo(QX11Info::connection(), 0) {
+                                     netRootInfo(QX11Info::connection(), 0),
+                                     dbusInterface("org.kde.kglobalaccel", "/component/kwin", "") {
 
     cfg_keepOneEmptyDesktop = false;
     cfg_dropRedundantDesktops = false;
@@ -86,8 +87,6 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         return;
     }
 
-    notifyBeforeMovingWindows();
-
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
         for (WId wId : windowsAfterDesktop) {
@@ -114,19 +113,27 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
     }
 
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
-
-    notifyAfterMovingWindows();
 }
 
 void VirtualDesktopBar::removeCurrentDesktop() {
+    if (currentDesktopNumber == KWindowSystem::numberOfDesktops()) {
+        removeLastDesktop();
+        return;
+    }
     if (canRemoveDesktop(currentDesktopNumber)) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-Before");
+        QThread::msleep(100);
         removeDesktop(currentDesktopNumber);
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-After");
     }
 }
 
 void VirtualDesktopBar::removeLastDesktop() {
     if (canRemoveDesktop(KWindowSystem::numberOfDesktops())) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-Before");
+        QThread::msleep(100);
         removeDesktop(KWindowSystem::numberOfDesktops());
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-After");
     }
 }
 
@@ -205,14 +212,10 @@ void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep)
         return;
     }
 
-    notifyBeforeMovingWindows();
-
     const int modifier = targetDesktopNumber > desktopNumber ? 1 : -1;
     for (int i = desktopNumber; i != targetDesktopNumber; i += modifier) {
         swapDesktop(i, i + modifier);
     }
-
-    notifyAfterMovingWindows();
 }
 
 void VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
@@ -224,13 +227,27 @@ void VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToLeft() {
+    if (currentDesktopNumber == 1) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-Before");
+    QThread::msleep(100);
     moveDesktopToLeft(currentDesktopNumber);
-    switchToDesktop(currentDesktopNumber - 1);
+    switchToDesktop(currentDesktopNumber);
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-After");
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToRight() {
+    if (currentDesktopNumber == KWindowSystem::numberOfDesktops()) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-Before");
+    QThread::msleep(100);
     moveDesktopToRight(currentDesktopNumber);
-    switchToDesktop(currentDesktopNumber + 1);
+    switchToDesktop(currentDesktopNumber);
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-After");
 }
 
 void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
@@ -439,14 +456,4 @@ void VirtualDesktopBar::onWindowRemoved(WId) {
         removeEmptyDesktops();
     }
     emit emptyDesktopsUpdated(getEmptyDesktops());
-}
-
-void VirtualDesktopBar::notifyBeforeMovingWindows() {
-    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
-    interface.call("invokeShortcut", "notifyBeforeMovingWindows");
-}
-
-void VirtualDesktopBar::notifyAfterMovingWindows() {
-    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
-    interface.call("invokeShortcut", "notifyAfterMovingWindows");
 }
