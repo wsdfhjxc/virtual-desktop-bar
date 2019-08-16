@@ -414,7 +414,7 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
 
 void VirtualDesktopBar::removeEmptyDesktops() {
     const QList<int> emptyDesktops = getEmptyDesktops();
-    if (emptyDesktops.length() == 0) {
+    if (emptyDesktops.length() <= 1) {
         return;
     }
 
