@@ -18,6 +18,7 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
 
     currentDesktopNumber = KWindowSystem::currentDesktop();
     recentDesktopNumber = currentDesktopNumber;
+    movingWindows = false;
 }
 
 const QList<QString> VirtualDesktopBar::getDesktopNames() const {
@@ -87,6 +88,7 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         return;
     }
 
+    movingWindows = true;
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
         for (WId wId : windowsAfterDesktop) {
@@ -113,6 +115,7 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
     }
 
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
+    movingWindows = false;
 }
 
 void VirtualDesktopBar::removeCurrentDesktop() {
@@ -212,10 +215,12 @@ void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep)
         return;
     }
 
+    movingWindows = true;
     const int modifier = targetDesktopNumber > desktopNumber ? 1 : -1;
     for (int i = desktopNumber; i != targetDesktopNumber; i += modifier) {
         swapDesktop(i, i + modifier);
     }
+    movingWindows = false;
 }
 
 void VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
@@ -448,7 +453,7 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
 }
 
 void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Properties2) {
-    if (properties & NET::Property::WMDesktop) {
+    if (!movingWindows && (properties & NET::Property::WMDesktop)) {
         if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
             if (getEmptyDesktops().length() == 0) {
                 addNewDesktop(false);

@@ -86,6 +86,7 @@ private:
 
     int currentDesktopNumber;
     int recentDesktopNumber;
+    bool movingWindows;
 
     bool canRemoveDesktop(const int desktopNumber);
 
