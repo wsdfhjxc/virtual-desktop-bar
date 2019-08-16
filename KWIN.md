@@ -13,8 +13,12 @@ The expected keyboard shortcuts are named like this:
 * `VDB-Event-MoveCurrentDesktopToLeft-After`
 * `VDB-Event-MoveCurrentDesktopToRight-Before`
 * `VDB-Event-MoveCurrentDesktopToRight-After`
+* `VDB-Event-RemoveEmptyDesktops-Before`
+* `VDB-Event-RemoveEmptyDesktops-After`
 
 They all have a common prefix, an action name and a suffix, being either `Before` or `After`. The `Before` suffix tells that the action is going to be performed very soon (in 100 ms), and the `After` suffix tells that the action has been actually performed. This should be enough to know what's going to happen, prepare the script and adjust something when a `Before` event is noticed, and do other things when an `After` event is noticed.
+
+Because you might ask yourself "What am I supposed to do with this bullshit?", particular events have been briefly explained in the next section. The code snippet contains some comments that can give you inspiration.
 
 ### Example of integration
 In order to receive fake input of these keyboard shortcuts within a KWin script, the shortcuts have to be registered with usage of a `registerShortcut` function provided by KWin. If your script has support for keyboard shortcuts, you're already familiar with that. Anyway, there is no need to specify the actual key combination or anything else, except the shortcut name and a JavaScript callback function.
@@ -23,32 +27,40 @@ Here are some ideas about what you could do, to keep everything (more or less) f
 ```javascript
 KWin.registerShortcut("VDB-Event-RemoveLastDesktop-Before", "", "", function() {
     var lastDesktop = workspace.desktops;
+
     // The last desktop is going to be removed.
     // All windows from that desktop will be moved to lastDesktop - 1.
-    // Temporarily disable capturing KWin signals related to window desktop changes.
-    // If you keep track of available windows, update your data structures.
-    // If you have an array of desktops containing window objects, relocate them.
+    // Total number of desktops will be reduced by one.
+
+    // If your script supports variable number of desktops and can process KWin
+    // signals related to window desktop changes, you can totally skip this event.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveLastDesktop-After", "", "", function() {
     // The last desktop has been removed.
     // All windows from that desktop have been moved.
-    // Restore previously disabled capturing of KWin signals.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-Before", "", "", function() {
     var currentDesktop = workspace.currentDesktop;
-    // The first or non-last desktop is going to be removed.
-    // All windows from that desktop will be moved to currentDesktop + 1.
-    // Temporarily disable capturing KWin signals related to window desktop changes.
+    var lastDesktop = workspace.desktops;
+
+    // The first or an intermediate, non-last desktop is going to be removed.
+    // All windows from currentDesktop + 1 up to lastDesktop will be moved one desktop back.
+    // Total number of desktops will be reduced by one.
+    
+    // This event is not so simple as the last desktop removal.
+    // Stop processing KWin signals related to window desktop changes.
     // If you keep track of available windows, update your data structures.
     // If you have an array of desktops containing window objects, relocate them.
+    // For a tiling script, if you keep track of tiling layouts, relocate them as well.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-After", "", "", function() {
     // One of the desktops has been removed.
-    // All windows from that desktop have been moved.
-    // Restore previously disabled capturing of KWin signals.
+    // All windows past that desktop have been moved.
+
+    // Restore previously stopped processing of KWin signals.
 });
 
 KWin.registerShortcut("VDB-Event-MoveCurrentDesktopToLeft-Before", "", "", function() {
@@ -56,28 +68,52 @@ KWin.registerShortcut("VDB-Event-MoveCurrentDesktopToLeft-Before", "", "", funct
     // All windows from currentDesktop will be moved to currentDesktop - 1.
     // All windows from currentDesktop - 1 will be moved to currentDesktop.
 
-    // Temporarily ignore KWin signals related to window desktop changes.
+    // Stop processing KWin signals related to window desktop changes.
+    // If you keep track of available windows, update your data structures.
     // If you have an array of desktops containing window objects, relocate them.
     // For a tiling script, if you keep track of tiling layouts, relocate them as well.
-
     // Basically, everything regarding your data structures that is tied to currentDesktop
-    // should be now tied to currentDesktop - 1, and everything tied to currentDesktop - 1
-    // should be now tied to currentDesktop.
+    // should be now tied to currentDesktop - 1, and vice versa, that is, everything tied
+    // to currentDesktop - 1 should be now tied to currentDesktop.
 });
 
 KWin.registerShortcut("VDB-Event-MoveCurrentDesktopToLeft-After", "", "", function() {
     // The current desktop has been swapped with currentDesktop - 1.
     // All windows from these desktops have been moved.
-    // Restore previously disabled capturing of KWin signals.
+
+    // Restore previously stopped processing of KWin signals.
 });
 
 KWin.registerShortcut("VDB-Event-MoveCurrentDesktopToRight-Before", "", "", function() {
     // The current desktop is going to be swapped with currentDesktop + 1.
-    // Similar as the left variant, just different direction.
+    // Similar to the left variant, just different direction.
 });
 
-registerShortcut("VDB-Event-MoveCurrentDesktopToRight-After", "", "", function() {
-    // Similar as the left variant, just different direction.
+Kwin.registerShortcut("VDB-Event-MoveCurrentDesktopToRight-After", "", "", function() {
+    // Similar to the left variant, just different direction.
+});
+
+KWin.registerShortcut("VDB-Event-RemoveEmptyDesktops-Before", "", "", function() {
+    // All empty desktops, except one, are going to be removed.
+    // Empty desktop with the lowest number is the one to be spared.
+    // Windows from desktops past that one desktop will be moved back.
+    // Total number of desktops will be reduced by number of empty desktops - 1.
+
+    // This event is quite similar to the current desktop removal.
+    // Stop processing KWin signals related to window desktop changes.
+    // Find and identify the empty desktop with the lowest number.
+    // Find and identify the remaining empty desktops, put them in an array.
+    // For each desktop in the array, update your data structures and adjust
+    // everything that is tied to a particular desktop number, just like in
+    // the RemoveCurrentDesktop-Before event. Adjusting window desktop changes
+    // is not really important here, because only empty desktops will be removed.
+});
+
+KWin.registerShortcut("VDB-Event-RemoveEmptyDesktops-After", "", "", function() {
+    // All empty desktops, except one, have been removed.
+    // Windows from desktops past that one desktop have been moved.
+
+    // Restore previously stopped processing of KWin signals.
 });
 ```
 
