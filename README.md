@@ -24,8 +24,7 @@ The plasmoid displays virtual desktop entries as text labels with their numbers,
 Installing the applet directly from the Plasma Add-On Installer will not work. You have to either get the applet as a distro specific package, or follow some simple instructions and build it manually.
 
 #### Distro packages
-Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks 
-cupnoodles).
+Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks cupnoodles).
 
 Currently, there are no preconfigured or prebuilt packages for other distributions.
 
