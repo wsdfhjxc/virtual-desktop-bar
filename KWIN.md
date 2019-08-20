@@ -54,8 +54,8 @@ KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-Before", "", "", function(
     // If you keep track of available windows, update your data structures.
     // If you have an array of desktops containing window objects, relocate them.
     // For a tiling script, if you keep track of tiling layouts, relocate them as well.
-    // Basically, everything regarding your data structures that is tied to desktop x
-    // should be now tied to desktop x - 1.
+    // Basically, everything regarding your data structures past currentDesktop that is
+    // tied to desktop x should be now tied to desktop x - 1.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-After", "", "", function() {
