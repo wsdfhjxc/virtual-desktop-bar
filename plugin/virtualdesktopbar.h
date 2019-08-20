@@ -8,6 +8,7 @@
 #include <QAction>
 #include <KActionCollection>
 #include <QDBusInterface>
+#include <QPair>
 
 class VirtualDesktopBar : public QObject {
     Q_OBJECT
@@ -86,7 +87,8 @@ private:
 
     int currentDesktopNumber;
     int recentDesktopNumber;
-    bool movingWindows;
+
+    QList<QPair<WId, int>> windowDesktopChangesToIgnore;
 
     bool canRemoveDesktop(const int desktopNumber);
 
