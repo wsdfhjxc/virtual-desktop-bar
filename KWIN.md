@@ -1,7 +1,7 @@
 ## Compatibility with KWin scripts
-KWin doesn't have an API for moving virtual desktops or removing particular ones. This plasmoid poorly implements such features and it involves moving windows between existing desktops to achieve that. It's not possible for a KWin script to know that moving a bunch of windows from one desktop to another, and vice versa, should be interpreted as a virtual desktop swap. Moreover, most KWin scripts which track positions of windows, especially tiling scripts, are designed to work with static virtual desktops. Therefore, they may break badly because of using non-standard features related to dynamic virtual desktop management, such as removing a desktop or moving it to left or right. There is not much I can do about it at the plasmoid level.
+KWin doesn't have an API for moving virtual desktops or removing particular ones. This plasmoid poorly implements such features and it involves moving windows between existing desktops to achieve that. It's not possible for a KWin script to know that moving a bunch of windows from one desktop to another, and vice versa, should be interpreted as a virtual desktop swap. Moreover, most KWin scripts which track positions of windows, especially tiling scripts, are designed to work with static virtual desktops. So, they may break badly because of using non-standard features related to dynamic virtual desktop management, such as removing a desktop or moving it to left or right.
 
-However, as a KWin script developer, you can do the opposite and provide compatibility with Virtual Desktop Bar to your script. It turns out, it's possible to "talk" to a KWin script by invoking keyboard shortcuts that can be registered by it. Because this seems to be the only way to communicate with a KWin script, the applet hopefully expects some specifically named keyboard shortcuts to be available. It will try to invoke them, to notify the potential KWin script about some events.
+However, as a KWin script developer, you can try to provide compatibility with Virtual Desktop Bar to your script. It turns out, it's possible to "talk" to a KWin script by invoking keyboard shortcuts that can be registered by it. Because this seems to be the only way to communicate with a KWin script, the applet hopefully expects some specifically named keyboard shortcuts to be available. It will try to invoke them, to notify the potential KWin script about some events.
 
 ### The poor man's API
 The expected keyboard shortcuts are named like this:
@@ -54,12 +54,15 @@ KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-Before", "", "", function(
     // If you keep track of available windows, update your data structures.
     // If you have an array of desktops containing window objects, relocate them.
     // For a tiling script, if you keep track of tiling layouts, relocate them as well.
+    // Basically, everything regarding your data structures that is tied to desktop x
+    // should be now tied to desktop x - 1.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveCurrentDesktop-After", "", "", function() {
     // One of the desktops has been removed.
     // All windows past that desktop have been moved.
 
+    // Refresh all things affected by latest adjustments.
     // Restore previously stopped processing of KWin signals.
 });
 
@@ -81,6 +84,7 @@ KWin.registerShortcut("VDB-Event-MoveCurrentDesktopToLeft-After", "", "", functi
     // The current desktop has been swapped with currentDesktop - 1.
     // All windows from these desktops have been moved.
 
+    // Refresh all things affected by latest adjustments.
     // Restore previously stopped processing of KWin signals.
 });
 
@@ -104,15 +108,15 @@ KWin.registerShortcut("VDB-Event-RemoveEmptyDesktops-Before", "", "", function()
     // Find and identify the empty desktop with the lowest number.
     // Find and identify the remaining empty desktops, put them in an array.
     // For each desktop in the array, update your data structures and adjust
-    // everything that is tied to a particular desktop number, just like in
-    // the RemoveCurrentDesktop-Before event. Adjusting window desktop changes
-    // is not really important here, because only empty desktops will be removed.
+    // everything that is tied to a particular desktop number, similarly
+    // to what you did in the RemoveCurrentDesktop-Before event.
 });
 
 KWin.registerShortcut("VDB-Event-RemoveEmptyDesktops-After", "", "", function() {
     // All empty desktops, except one, have been removed.
     // Windows from desktops past that one desktop have been moved.
 
+    // Refresh all things affected by latest adjustments.
     // Restore previously stopped processing of KWin signals.
 });
 ```
