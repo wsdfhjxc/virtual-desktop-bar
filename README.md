@@ -13,7 +13,7 @@ The plasmoid displays virtual desktop entries as text labels with their numbers,
 * moving current virtual desktop to right
 * renaming current virtual desktop
 
-### GNOME-like features
+#### GNOME-like features
 * always keeping at least one empty virtual desktop
 * automatically removing redundant empty virtual desktops 
 
@@ -64,3 +64,6 @@ There are also global keyboard shortcuts, which you can define in the Global Sho
 
 ### Compatibility with KWin scripts
 If you want to use this applet with some KWin scripts, for example tiling scripts, they won't work correctly. This is related to some non-standard features that Virtual Desktop Bar provides. However, there is a chance they could work correctly, but that requires a little bit work from a KWin script developer. Please read [this document](KWIN.md) for more details.
+
+#### Compatible KWin scripts
+* [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
