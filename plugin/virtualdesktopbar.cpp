@@ -461,8 +461,9 @@ void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET
         if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
             if (getEmptyDesktops().length() == 0) {
                 addNewDesktop(false);
+            } else {
+                removeEmptyDesktops();
             }
-            removeEmptyDesktops();
         }
 
         emit emptyDesktopsUpdated(getEmptyDesktops());
