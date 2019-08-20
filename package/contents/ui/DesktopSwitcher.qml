@@ -72,13 +72,6 @@ Component {
             desktopSwitcher.desktopAmount = desktopEntries.length;
         }
 
-        function onDesktopRemoveRequested(desktopNumber) {
-            if (desktopAmount > 1) {
-                virtualDesktopBar.removeDesktop(desktopNumber, true);
-                onCurrentDesktopChanged(desktopNumber);
-            }
-        }
-
         function onDesktopNamesChanged() {
             var desktopNames = virtualDesktopBar.getDesktopNames();
             for (var i = 0; i < desktopEntries.length; i++) {

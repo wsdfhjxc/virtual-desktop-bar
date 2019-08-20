@@ -4,10 +4,11 @@
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
-#include <QDBusInterface>
+#include <QThread>
 
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
-                                      netRootInfo(QX11Info::connection(), 0) {
+                                     netRootInfo(QX11Info::connection(), 0),
+                                     dbusInterface("org.kde.kglobalaccel", "/component/kwin", "") {
 
     cfg_keepOneEmptyDesktop = false;
     cfg_dropRedundantDesktops = false;
@@ -17,6 +18,7 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
 
     currentDesktopNumber = KWindowSystem::currentDesktop();
     recentDesktopNumber = currentDesktopNumber;
+    movingWindows = false;
 }
 
 const QList<QString> VirtualDesktopBar::getDesktopNames() const {
@@ -30,14 +32,11 @@ const QList<QString> VirtualDesktopBar::getDesktopNames() const {
 }
 
 const QString VirtualDesktopBar::getCurrentDesktopName() const {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    const QString currentDesktopName = KWindowSystem::desktopName(currentDesktop);
-    return currentDesktopName;
+    return KWindowSystem::desktopName(currentDesktopNumber);
 }
 
 int VirtualDesktopBar::getCurrentDesktopNumber() const {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    return currentDesktop;
+    return currentDesktopNumber;
 }
 
 void VirtualDesktopBar::switchToDesktop(const int desktopNumber) {
@@ -51,7 +50,7 @@ void VirtualDesktopBar::switchToRecentDesktop() {
     switchToDesktop(recentDesktopNumber);
 }
 
-void VirtualDesktopBar::addNewDesktop(const QString desktopName, bool guard) {
+void VirtualDesktopBar::addNewDesktop(bool guard, const QString desktopName) {
     if (guard && cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         return;
     }
@@ -62,13 +61,11 @@ void VirtualDesktopBar::addNewDesktop(const QString desktopName, bool guard) {
     }
 }
 
-void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
-    const int numberOfDesktops = KWindowSystem::numberOfDesktops();
-    if (numberOfDesktops == 1) {
-        return;
+bool VirtualDesktopBar::canRemoveDesktop(const int desktopNumber) {
+    if (KWindowSystem::numberOfDesktops() == 1) {
+        return false;
     }
-
-    if (guard && cfg_keepOneEmptyDesktop) {
+    if (cfg_keepOneEmptyDesktop) {
         bool desktopEmpty = false;
         const QList<int> emptyDesktops = getEmptyDesktops();
         for (int i = 0; i < emptyDesktops.length(); i++) {
@@ -79,12 +76,19 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
             }
         }
         if (desktopEmpty && emptyDesktops.length() == 1) {
-            return;
+            return false;
         }
     }
+    return true;
+}
 
-    notifyBeforeMovingWindows();
+void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
+    const int numberOfDesktops = KWindowSystem::numberOfDesktops();
+    if (numberOfDesktops == 1) {
+        return;
+    }
 
+    movingWindows = true;
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
         for (WId wId : windowsAfterDesktop) {
@@ -111,17 +115,29 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber, bool guard) {
     }
 
     netRootInfo.setNumberOfDesktops(numberOfDesktops - 1);
-
-    notifyAfterMovingWindows();
+    movingWindows = false;
 }
 
-void VirtualDesktopBar::removeCurrentDesktop(bool) {
-    const int currentDesktop = KWindowSystem::currentDesktop();
-    emit desktopRemoveRequested(currentDesktop);
+void VirtualDesktopBar::removeCurrentDesktop() {
+    if (currentDesktopNumber == KWindowSystem::numberOfDesktops()) {
+        removeLastDesktop();
+        return;
+    }
+    if (canRemoveDesktop(currentDesktopNumber)) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-Before");
+        QThread::msleep(100);
+        removeDesktop(currentDesktopNumber);
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-After");
+    }
 }
 
-void VirtualDesktopBar::removeLastDesktop(bool guard) {
-    removeDesktop(0, guard);
+void VirtualDesktopBar::removeLastDesktop() {
+    if (canRemoveDesktop(KWindowSystem::numberOfDesktops())) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-Before");
+        QThread::msleep(100);
+        removeDesktop(KWindowSystem::numberOfDesktops());
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-After");
+    }
 }
 
 void VirtualDesktopBar::renameDesktop(const int desktopNumber, const QString desktopName) {
@@ -155,7 +171,6 @@ void VirtualDesktopBar::renameDesktopDBus(const int desktopNumber, const QString
 }
 
 void VirtualDesktopBar::renameCurrentDesktop(const QString desktopName) {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
     renameDesktop(currentDesktopNumber, desktopName);
 }
 
@@ -196,20 +211,16 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
 
 void VirtualDesktopBar::moveDesktop(const int desktopNumber, const int moveStep) {
     int targetDesktopNumber = desktopNumber + moveStep;
-    if (targetDesktopNumber < 1) {
-        targetDesktopNumber = 1;
-    } else if (targetDesktopNumber > KWindowSystem::numberOfDesktops()) {
-        targetDesktopNumber = KWindowSystem::numberOfDesktops();
+    if (targetDesktopNumber < 1 || targetDesktopNumber > KWindowSystem::numberOfDesktops()) {
+        return;
     }
 
-    notifyBeforeMovingWindows();
-
+    movingWindows = true;
     const int modifier = targetDesktopNumber > desktopNumber ? 1 : -1;
     for (int i = desktopNumber; i != targetDesktopNumber; i += modifier) {
         swapDesktop(i, i + modifier);
     }
-
-    notifyAfterMovingWindows();
+    movingWindows = false;
 }
 
 void VirtualDesktopBar::moveDesktopToLeft(const int desktopNumber) {
@@ -221,15 +232,27 @@ void VirtualDesktopBar::moveDesktopToRight(const int desktopNumber) {
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToLeft() {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
+    if (currentDesktopNumber == 1) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-Before");
+    QThread::msleep(100);
     moveDesktopToLeft(currentDesktopNumber);
-    switchToDesktop(currentDesktopNumber - 1);
+    switchToDesktop(currentDesktopNumber);
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-After");
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToRight() {
-    const int currentDesktopNumber = KWindowSystem::currentDesktop();
+    if (currentDesktopNumber == KWindowSystem::numberOfDesktops()) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-Before");
+    QThread::msleep(100);
     moveDesktopToRight(currentDesktopNumber);
-    switchToDesktop(currentDesktopNumber + 1);
+    switchToDesktop(currentDesktopNumber);
+    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-After");
 }
 
 void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
@@ -243,7 +266,7 @@ void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
 void VirtualDesktopBar::onDesktopAmountChanged(const int desktopAmount) {
     if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
-            addNewDesktop();
+            addNewDesktop(false);
         }
         if (cfg_dropRedundantDesktops) {
             removeEmptyDesktops();
@@ -289,7 +312,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionAddNewDesktop->setText("Add New Desktop");
     actionAddNewDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     QObject::connect(actionAddNewDesktop, &QAction::triggered, this, [this]() {
-        addNewDesktop(QString(), true);
+        addNewDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionAddNewDesktop, QKeySequence());
 
@@ -297,7 +320,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionRemoveLastDesktop->setText("Remove Last Desktop");
     actionRemoveLastDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [this]() {
-        removeLastDesktop(true);
+        removeLastDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
 
@@ -305,7 +328,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionRemoveCurrentDesktop->setText("Remove Current Desktop");
     actionRemoveCurrentDesktop->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [this]() {
-        removeCurrentDesktop(true);
+        removeCurrentDesktop();
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
 
@@ -357,7 +380,7 @@ const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bo
 void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
     if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
-            addNewDesktop();
+            addNewDesktop(false);
         }
         if (cfg_dropRedundantDesktops) {
             removeEmptyDesktops();
@@ -396,10 +419,19 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
 
 void VirtualDesktopBar::removeEmptyDesktops() {
     const QList<int> emptyDesktops = getEmptyDesktops();
+    if (emptyDesktops.length() <= 1) {
+        return;
+    }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-Before");
+    QThread::msleep(100);
+
     for (int i = emptyDesktops.length() - 1; i >= 1; i--) {
         int emptyDesktopNumber = emptyDesktops[i];
         removeDesktop(emptyDesktopNumber);
     }
+
+    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-After");
 }
 
 void VirtualDesktopBar::onWindowAdded(WId wId) {
@@ -413,7 +445,7 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
             return;
         }
         if (getEmptyDesktops().length() == 0) {
-            addNewDesktop();
+            addNewDesktop(false);
         }
     }
 
@@ -421,10 +453,10 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
 }
 
 void VirtualDesktopBar::onWindowChanged(WId, NET::Properties properties, NET::Properties2) {
-    if (properties & NET::Property::WMDesktop) {
+    if (!movingWindows && (properties & NET::Property::WMDesktop)) {
         if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
             if (getEmptyDesktops().length() == 0) {
-                addNewDesktop();
+                addNewDesktop(false);
             }
             removeEmptyDesktops();
         }
@@ -438,14 +470,4 @@ void VirtualDesktopBar::onWindowRemoved(WId) {
         removeEmptyDesktops();
     }
     emit emptyDesktopsUpdated(getEmptyDesktops());
-}
-
-void VirtualDesktopBar::notifyBeforeMovingWindows() {
-    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
-    interface.call("invokeShortcut", "notifyBeforeMovingWindows");
-}
-
-void VirtualDesktopBar::notifyAfterMovingWindows() {
-    QDBusInterface interface("org.kde.kglobalaccel", "/component/kwin", "");
-    interface.call("invokeShortcut", "notifyAfterMovingWindows");
 }

@@ -7,6 +7,7 @@
 #include <QX11Info>
 #include <QAction>
 #include <KActionCollection>
+#include <QDBusInterface>
 
 class VirtualDesktopBar : public QObject {
     Q_OBJECT
@@ -22,11 +23,11 @@ public:
     Q_INVOKABLE void switchToDesktop(const int desktopNumber);
     Q_INVOKABLE void switchToRecentDesktop();
 
-    Q_INVOKABLE void addNewDesktop(const QString desktopName = QString(), bool guard = false);
+    Q_INVOKABLE void addNewDesktop(bool guard = true, const QString desktopName = QString());
 
-    Q_INVOKABLE void removeDesktop(const int desktopNumber = 0, bool guard = false);
-    Q_INVOKABLE void removeCurrentDesktop(bool guard = false);
-    Q_INVOKABLE void removeLastDesktop(bool guard = false);
+    Q_INVOKABLE void removeDesktop(const int desktopNumber);
+    Q_INVOKABLE void removeCurrentDesktop();
+    Q_INVOKABLE void removeLastDesktop();
 
     Q_INVOKABLE void renameDesktop(const int desktopNumber, const QString desktopName);
     Q_INVOKABLE void renameCurrentDesktop(const QString desktopName);
@@ -54,7 +55,6 @@ signals:
     void desktopAmountChanged(const int desktopAmount);
 
     void currentDesktopNameChangeRequested();
-    void desktopRemoveRequested(int desktopNumber);
     void desktopNamesChanged();
 
     void emptyDesktopsUpdated(QList<int> desktopNumbers);
@@ -74,6 +74,8 @@ private:
     QAction* actionMoveCurrentDesktopToLeft;
     QAction* actionMoveCurrentDesktopToRight;
 
+    QDBusInterface dbusInterface;
+
     void onCurrentDesktopChanged(const int desktopNumber);
     void onDesktopAmountChanged(const int desktopAmount);
 
@@ -84,15 +86,15 @@ private:
 
     int currentDesktopNumber;
     int recentDesktopNumber;
+    bool movingWindows;
+
+    bool canRemoveDesktop(const int desktopNumber);
 
     void removeEmptyDesktops();
 
     void onWindowAdded(WId);
     void onWindowChanged(WId, NET::Properties properties, NET::Properties2);
     void onWindowRemoved(WId);
-
-    void notifyBeforeMovingWindows();
-    void notifyAfterMovingWindows();
 
     void renameDesktopDBus(const int desktopNumber, const QString desktopName);
 };
