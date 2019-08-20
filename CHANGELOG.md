@@ -1,5 +1,6 @@
 #### 0.4.5
 * Added some things regarding KWin scripts compatibility
+* Fixed some race conditions related to async signal handling
 
 #### 0.4.4
 * Fixed initially missing empty desktop indicator after loading the applet
