@@ -1,3 +1,6 @@
+#### 0.4.6
+* Fixed broken empty desktop indicators again
+
 #### 0.4.5
 * Added some things regarding KWin scripts compatibility
 * Fixed some race conditions related to async signal handling
