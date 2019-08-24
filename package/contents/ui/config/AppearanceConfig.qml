@@ -31,7 +31,7 @@ Item {
         }
 
         Label {
-            text: "Desktop entries"
+            text: "Desktop buttons"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -42,7 +42,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Desktop entry width:"
+                text: "Desktop button width:"
             }
 
             ComboBox {
@@ -53,13 +53,19 @@ Item {
 
         RowLayout {
             Label {
-                text: "Spacing between desktop entries:"
+                text: "Spacing between desktop buttons:"
             }
 
             ComboBox {
                 id: entrySpacing
                 model: [ "Small", "Medium", "Large" ]
             }
+        }
+
+        CheckBox {
+            id: showPlusButton
+            text: "Show ＋ button for adding new desktops"
+            Layout.columnSpan: 1
         }
 
         Item {
@@ -295,7 +301,7 @@ Item {
         }
 
         Label {
-            text: "Misc"
+            text: "Other"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -306,13 +312,7 @@ Item {
 
         CheckBox {
             id: enableAnimations
-            text: "Enable plasmoid animations"
-            Layout.columnSpan: 1
-        }
-
-        CheckBox {
-            id: showPlusButton
-            text: "Show a plus button for adding new desktops"
+            text: "Enable animations"
             Layout.columnSpan: 1
         }
 
