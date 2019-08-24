@@ -1,7 +1,7 @@
 ## Virtual Desktop Bar
 This is an applet for KDE Plasma panel that lets you switch between virtual desktops and also invoke some actions to dynamically manage them in a convenient way. Those actions can be accessed through applet's context menu or user-defined global keyboard shortcuts. There is also support for some GNOME-like features.
 
-The plasmoid displays virtual desktop entries as text labels with their numbers, names or both of them. That means there's no icons or window previews like in the Plasma's default pager applet. The intention is to keep it simple.
+The plasmoid displays virtual desktops as text labels with their numbers, names or both of them. That means there's no icons or window previews like in the Plasma's default pager applet. The intention is to keep it simple.
 
 ### Features
 * switching to a virtual desktop
