@@ -67,8 +67,7 @@ bool VirtualDesktopBar::canRemoveDesktop(const int desktopNumber) {
     if (cfg_keepOneEmptyDesktop) {
         bool desktopEmpty = false;
         const QList<int> emptyDesktops = getEmptyDesktops();
-        for (int i = 0; i < emptyDesktops.length(); i++) {
-            int emptyDesktopNumber = emptyDesktops[i];
+        for (int emptyDesktopNumber : emptyDesktops) {
             if (emptyDesktopNumber == desktopNumber) {
                 desktopEmpty = true;
                 break;
@@ -89,11 +88,10 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
 
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
-        for (WId wId : windowsAfterDesktop) {
-            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
-            const int windowDesktopNumber = info.desktop();
-            windowDesktopChangesToIgnore << QPair<WId, int>(wId, windowDesktopNumber - 1);
-            KWindowSystem::setOnDesktop(wId, windowDesktopNumber - 1);
+        for (WId id : windowsAfterDesktop) {
+            const KWindowInfo info = KWindowInfo(id, NET::WMDesktop);
+            windowDesktopChangesToIgnore << QPair<WId, int>(id, info.desktop() - 1);
+            KWindowSystem::setOnDesktop(id, info.desktop() - 1);
         }
 
         QList<QString> desktopNames = getDesktopNames();
@@ -180,14 +178,14 @@ void VirtualDesktopBar::swapDesktop(const int desktopNumber, const int targetDes
     QList<WId> windowsFromDesktop = getWindows(desktopNumber);
     QList<WId> windowsFromTargetDesktop = getWindows(targetDesktopNumber);
 
-    for (WId wId : windowsFromDesktop) {
-        windowDesktopChangesToIgnore << QPair<WId, int>(wId, targetDesktopNumber);
-        KWindowSystem::setOnDesktop(wId, targetDesktopNumber);
+    for (WId id : windowsFromDesktop) {
+        windowDesktopChangesToIgnore << QPair<WId, int>(id, targetDesktopNumber);
+        KWindowSystem::setOnDesktop(id, targetDesktopNumber);
     }
 
-    for (WId wId : windowsFromTargetDesktop) {
-        windowDesktopChangesToIgnore << QPair<WId, int>(wId, desktopNumber);
-        KWindowSystem::setOnDesktop(wId, desktopNumber);
+    for (WId id : windowsFromTargetDesktop) {
+        windowDesktopChangesToIgnore << QPair<WId, int>(id, desktopNumber);
+        KWindowSystem::setOnDesktop(id, desktopNumber);
     }
 
     const QString desktopName = KWindowSystem::desktopName(desktopNumber);
@@ -364,15 +362,13 @@ const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bo
     QList<WId> windows;
 
     const QList<WId> allWindows = KWindowSystem::stackingOrder();
-    for (WId wId : allWindows) {
-        if (KWindowSystem::hasWId(wId)) {
-            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
-            const int windowDesktopNumber = info.desktop();
-
-            if (windowDesktopNumber != NET::OnAllDesktops &&
-                ((afterDesktop && windowDesktopNumber > desktopNumber) ||
-                (!afterDesktop && windowDesktopNumber == desktopNumber))) {
-                windows << wId;
+    for (WId id : allWindows) {
+        if (KWindowSystem::hasWId(id)) {
+            const KWindowInfo info = KWindowInfo(id, NET::WMDesktop);
+            if (info.desktop() != NET::OnAllDesktops &&
+                ((afterDesktop && info.desktop() > desktopNumber) ||
+                (!afterDesktop && info.desktop() == desktopNumber))) {
+                windows << id;
             }
         }
     }
@@ -384,8 +380,7 @@ void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
     if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
-        }
-        if (cfg_dropRedundantDesktops) {
+        } else if (cfg_dropRedundantDesktops) {
             removeEmptyDesktops();
         }
     }
@@ -413,13 +408,11 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
     }
 
     const QList<WId> allWindows = KWindowSystem::windows();
-    for (WId wId : allWindows) {
-        if (KWindowSystem::hasWId(wId)) {
-            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop | NET::Property::WMState);
-            const int windowDesktopNumber = info.desktop();
-
-            if (!(info.state() & NET::SkipTaskbar)) {
-                emptyDesktops.removeAll(windowDesktopNumber);
+    for (WId id : allWindows) {
+        if (KWindowSystem::hasWId(id)) {
+            const KWindowInfo info = KWindowInfo(id, NET::WMDesktop | NET::WMState);
+            if (!info.hasState(NET::SkipTaskbar) || info.desktop() == NET::OnAllDesktops) {
+                emptyDesktops.removeAll(info.desktop());
             }
         }
     }
@@ -428,9 +421,8 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
 }
 
 void VirtualDesktopBar::renameEmptyDesktops(const QList<int>& emptyDesktops) {
-    for (int i = 0; i < emptyDesktops.length(); i++) {
-        int emptyDesktopNumber = emptyDesktops[i];
-        renameDesktop(emptyDesktopNumber, cfg_emptyDesktopName);
+    for (int desktopNumber : emptyDesktops) {
+        renameDesktop(desktopNumber, cfg_emptyDesktopName);
     }
 }
 
@@ -451,16 +443,16 @@ void VirtualDesktopBar::removeEmptyDesktops() {
     dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-After");
 }
 
-void VirtualDesktopBar::onWindowAdded(WId wId) {
+void VirtualDesktopBar::onWindowAdded(WId id) {
+    if (!KWindowSystem::hasWId(id)) {
+        return;
+    }
+    const KWindowInfo info = KWindowInfo(id, NET::WMState);
+    if (info.hasState(NET::SkipTaskbar)) {
+        return;
+    }
+
     if (cfg_keepOneEmptyDesktop) {
-        if (KWindowSystem::hasWId(wId)) {
-            const KWindowInfo info = KWindowInfo(wId, NET::Property::WMState);
-            if (info.state() & NET::SkipTaskbar) {
-                return;
-            }
-        } else {
-            return;
-        }
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
             return;
@@ -474,45 +466,66 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
     emit emptyDesktopsUpdated(emptyDesktops);
 }
 
-void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET::Properties2) {
-    if (properties & NET::Property::WMDesktop) {
-        const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
-        const int windowDesktopNumber = info.desktop();
-        if (windowDesktopChangesToIgnore.removeOne(QPair<WId, int>(wId, windowDesktopNumber))) {
-            if (windowDesktopChangesToIgnore.isEmpty()) {
-                const QList<int> emptyDesktops = getEmptyDesktops();
-                if (!cfg_emptyDesktopName.isEmpty()) {
-                    renameEmptyDesktops(emptyDesktops);
-                }
-                emit emptyDesktopsUpdated(emptyDesktops);
-            }
-            return;
-        }
-
-        if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
-            if (getEmptyDesktops().length() == 0) {
-                addNewDesktop(false);
-            } else {
-                removeEmptyDesktops();
-            }
-            return;
-        }
-
-        const QList<int> emptyDesktops = getEmptyDesktops();
-        if (!cfg_emptyDesktopName.isEmpty()) {
-            renameEmptyDesktops(emptyDesktops);
-        }
-        emit emptyDesktopsUpdated(emptyDesktops);
+void VirtualDesktopBar::onWindowChanged(WId id, NET::Properties properties, NET::Properties2) {
+    if (!KWindowSystem::hasWId(id)) {
+        return;
     }
+    if (properties == 0 || !(properties & NET::WMDesktop)) {
+        return;
+    }
+    const KWindowInfo info = KWindowInfo(id, NET::WMDesktop | NET::WMState | NET::WMWindowType | NET::WMName,
+                                         NET::WM2WindowClass);
+    if (info.hasState(NET::SkipTaskbar) ||
+        info.windowClassName() == "plasmashell" ||
+        info.windowClassName() == "latte-dock" ||
+        info.windowClassName() == "krunner") {
+        return;
+    }
+    
+    if (windowDesktopChangesToIgnore.removeOne(QPair<WId, int>(id, info.desktop()))) {
+        if (windowDesktopChangesToIgnore.isEmpty()) {
+            const QList<int> emptyDesktops = getEmptyDesktops();
+            if (!cfg_emptyDesktopName.isEmpty()) {
+                renameEmptyDesktops(emptyDesktops);
+            }
+            emit emptyDesktopsUpdated(emptyDesktops);
+        }
+        return;
+    }
+
+    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
+        if (getEmptyDesktops().length() == 0) {
+            addNewDesktop(false);
+        } else {
+            removeEmptyDesktops();
+        }
+        return;
+    }
+
+    const QList<int> emptyDesktops = getEmptyDesktops();
+    if (!cfg_emptyDesktopName.isEmpty()) {
+        renameEmptyDesktops(emptyDesktops);
+    }
+    emit emptyDesktopsUpdated(emptyDesktops);
 }
 
-void VirtualDesktopBar::onWindowRemoved(WId) {
+void VirtualDesktopBar::onWindowRemoved(WId id) {
+    const KWindowInfo info = KWindowInfo(id, NET::WMState | NET::WMWindowType | NET::WMName,
+                                         NET::WM2WindowClass);
+    if (info.hasState(NET::SkipTaskbar) ||
+        info.windowClassName() == "plasmashell" ||
+        info.windowClassName() == "latte-dock" ||
+        info.windowClassName() == "krunner") {
+        return;
+    }
+
     if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         if (getEmptyDesktops().length() > 0) {
             removeEmptyDesktops();
             return;
         }
     }
+
     const QList<int> emptyDesktops = getEmptyDesktops();
     if (!cfg_emptyDesktopName.isEmpty()) {
         renameEmptyDesktops(emptyDesktops);

@@ -101,9 +101,9 @@ private:
     void removeEmptyDesktops();
     void renameEmptyDesktops(const QList<int>& emptyDesktops);
 
-    void onWindowAdded(WId);
-    void onWindowChanged(WId, NET::Properties properties, NET::Properties2);
-    void onWindowRemoved(WId);
+    void onWindowAdded(WId id);
+    void onWindowChanged(WId id, NET::Properties properties, NET::Properties2);
+    void onWindowRemoved(WId id);
 
     void renameDesktopDBus(const int desktopNumber, const QString desktopName);
 };
