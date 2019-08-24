@@ -47,9 +47,14 @@ public:
     Q_PROPERTY(bool cfg_dropRedundantDesktops
                MEMBER cfg_dropRedundantDesktops
                NOTIFY cfg_dropRedundantDesktopsChanged)
+    
+    Q_PROPERTY(QString cfg_emptyDesktopName
+               MEMBER cfg_emptyDesktopName
+               NOTIFY cfg_emptyDesktopNameChanged)
 
     void cfg_keepOneEmptyDesktopChanged();
     void cfg_dropRedundantDesktopsChanged();
+    void cfg_emptyDesktopNameChanged();
 
 signals:
     void currentDesktopChanged(const int desktopNumber);
@@ -65,6 +70,7 @@ private:
 
     bool cfg_keepOneEmptyDesktop;
     bool cfg_dropRedundantDesktops;
+    QString cfg_emptyDesktopName;
 
     KActionCollection* actionCollection;
     QAction* actionSwitchToRecentDesktop;
@@ -93,6 +99,7 @@ private:
     bool canRemoveDesktop(const int desktopNumber);
 
     void removeEmptyDesktops();
+    void renameEmptyDesktops(const QList<int>& emptyDesktops);
 
     void onWindowAdded(WId);
     void onWindowChanged(WId, NET::Properties properties, NET::Properties2);

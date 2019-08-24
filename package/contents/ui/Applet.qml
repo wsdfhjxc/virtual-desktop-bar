@@ -11,6 +11,7 @@ RowLayout {
         id: virtualDesktopBar
         cfg_dropRedundantDesktops: plasmoid.configuration.dropRedundantDesktops
         cfg_keepOneEmptyDesktop: plasmoid.configuration.keepOneEmptyDesktop
+        cfg_emptyDesktopName: plasmoid.configuration.emptyDesktopName
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}

@@ -7,6 +7,7 @@ Item {
 
     property alias cfg_keepOneEmptyDesktop: keepOneEmptyDesktop.checked
     property alias cfg_dropRedundantDesktops: dropRedundantDesktops.checked
+    property string cfg_emptyDesktopName: ""
     property alias cfg_switchToNewDesktop: switchToNewDesktop.checked
     property alias cfg_renameNewDesktop: renameNewDesktop.checked
     property alias cfg_switchWithWheel: switchWithWheel.checked
@@ -23,7 +24,7 @@ Item {
         }
 
         Label {
-            text: "GNOME-like"
+            text: "Empty desktops"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -43,6 +44,36 @@ Item {
             enabled: keepOneEmptyDesktop.checked
             text: "Automatically remove redundant empty desktops"
             Layout.columnSpan: 1
+        }
+
+        RowLayout {
+            CheckBox {
+                id: emptyDesktopNameCheckBox
+                text: "Automatically rename empty desktops as:"
+                checked: cfg_emptyDesktopName
+                onCheckedChanged: {
+                    if (checked) {
+                        if (emptyDesktopName.text) {
+                            cfg_emptyDesktopName = emptyDesktopName.text;
+                        } else {
+                            cfg_emptyDesktopName = "Empty";
+                        }
+                    } else {
+                        cfg_emptyDesktopName = "";
+                    }
+                }
+            }
+
+            TextField {
+                id: emptyDesktopName
+                enabled: emptyDesktopNameCheckBox.checked
+                maximumLength: 20
+                implicitWidth: 90
+                horizontalAlignment: TextInput.AlignHCenter
+                placeholderText: "Empty"
+                text: cfg_emptyDesktopName
+                onEditingFinished: cfg_emptyDesktopName = text ? text : "Empty"
+            }
         }
 
         Item {

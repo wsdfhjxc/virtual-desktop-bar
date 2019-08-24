@@ -270,6 +270,11 @@ void VirtualDesktopBar::onDesktopAmountChanged(const int desktopAmount) {
             removeEmptyDesktops();
         }
     }
+    const QList<int> emptyDesktops = getEmptyDesktops();
+    if (!cfg_emptyDesktopName.isEmpty()) {
+        renameEmptyDesktops(emptyDesktops);
+    }
+    emit emptyDesktopsUpdated(emptyDesktops);
     emit desktopAmountChanged(desktopAmount);
 }
 
@@ -392,6 +397,13 @@ void VirtualDesktopBar::cfg_dropRedundantDesktopsChanged() {
     }
 }
 
+void VirtualDesktopBar::cfg_emptyDesktopNameChanged() {
+    if (!cfg_emptyDesktopName.isEmpty()) {
+        const QList<int> emptyDesktops = getEmptyDesktops();
+        renameEmptyDesktops(emptyDesktops);
+    }
+}
+
 const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
     QList<int> emptyDesktops;
 
@@ -413,6 +425,13 @@ const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
     }
 
     return emptyDesktops;
+}
+
+void VirtualDesktopBar::renameEmptyDesktops(const QList<int>& emptyDesktops) {
+    for (int i = 0; i < emptyDesktops.length(); i++) {
+        int emptyDesktopNumber = emptyDesktops[i];
+        renameDesktop(emptyDesktopNumber, cfg_emptyDesktopName);
+    }
 }
 
 void VirtualDesktopBar::removeEmptyDesktops() {
@@ -444,10 +463,15 @@ void VirtualDesktopBar::onWindowAdded(WId wId) {
         }
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
+            return;
         }
     }
 
-    emit emptyDesktopsUpdated(getEmptyDesktops());
+    const QList<int> emptyDesktops = getEmptyDesktops();
+    if (!cfg_emptyDesktopName.isEmpty()) {
+        renameEmptyDesktops(emptyDesktops);
+    }
+    emit emptyDesktopsUpdated(emptyDesktops);
 }
 
 void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET::Properties2) {
@@ -456,7 +480,11 @@ void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET
         const int windowDesktopNumber = info.desktop();
         if (windowDesktopChangesToIgnore.removeOne(QPair<WId, int>(wId, windowDesktopNumber))) {
             if (windowDesktopChangesToIgnore.isEmpty()) {
-                emit emptyDesktopsUpdated(getEmptyDesktops());
+                const QList<int> emptyDesktops = getEmptyDesktops();
+                if (!cfg_emptyDesktopName.isEmpty()) {
+                    renameEmptyDesktops(emptyDesktops);
+                }
+                emit emptyDesktopsUpdated(emptyDesktops);
             }
             return;
         }
@@ -467,15 +495,27 @@ void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET
             } else {
                 removeEmptyDesktops();
             }
+            return;
         }
 
-        emit emptyDesktopsUpdated(getEmptyDesktops());
+        const QList<int> emptyDesktops = getEmptyDesktops();
+        if (!cfg_emptyDesktopName.isEmpty()) {
+            renameEmptyDesktops(emptyDesktops);
+        }
+        emit emptyDesktopsUpdated(emptyDesktops);
     }
 }
 
 void VirtualDesktopBar::onWindowRemoved(WId) {
     if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
-        removeEmptyDesktops();
+        if (getEmptyDesktops().length() > 0) {
+            removeEmptyDesktops();
+            return;
+        }
     }
-    emit emptyDesktopsUpdated(getEmptyDesktops());
+    const QList<int> emptyDesktops = getEmptyDesktops();
+    if (!cfg_emptyDesktopName.isEmpty()) {
+        renameEmptyDesktops(emptyDesktops);
+    }
+    emit emptyDesktopsUpdated(emptyDesktops);
 }
