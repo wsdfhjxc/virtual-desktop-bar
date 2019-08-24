@@ -455,6 +455,9 @@ void VirtualDesktopBar::onWindowChanged(WId wId, NET::Properties properties, NET
         const KWindowInfo info = KWindowInfo(wId, NET::Property::WMDesktop);
         const int windowDesktopNumber = info.desktop();
         if (windowDesktopChangesToIgnore.removeOne(QPair<WId, int>(wId, windowDesktopNumber))) {
+            if (windowDesktopChangesToIgnore.isEmpty()) {
+                emit emptyDesktopsUpdated(getEmptyDesktops());
+            }
             return;
         }
 
