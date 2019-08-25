@@ -1,6 +1,7 @@
 #### 0.4.6
-* Fixed broken empty desktop indicators again
-* Added an option to automatically rename empty desktops
+* Fixed broken empty desktop indicators once again...
+* Fixed broken automatic desktop creation when moving a window to an empty desktop
+* Added an option to automatically rename desktops once they become empty (disabled by default)
 
 #### 0.4.5
 * Added some things regarding KWin scripts compatibility
