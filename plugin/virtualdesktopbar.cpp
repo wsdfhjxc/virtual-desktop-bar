@@ -263,9 +263,10 @@ void VirtualDesktopBar::onDesktopAmountChanged(const int desktopAmount) {
     if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
-        }
-        if (cfg_dropRedundantDesktops) {
+            return;
+        } else if (cfg_dropRedundantDesktops) {
             removeEmptyDesktops();
+            return;
         }
     }
     const QList<int> emptyDesktops = getEmptyDesktops();
@@ -493,13 +494,14 @@ void VirtualDesktopBar::onWindowChanged(WId id, NET::Properties properties, NET:
         return;
     }
 
-    if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
+    if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
-        } else {
+            return;
+        } else if (cfg_dropRedundantDesktops) {
             removeEmptyDesktops();
+            return;
         }
-        return;
     }
 
     const QList<int> emptyDesktops = getEmptyDesktops();
