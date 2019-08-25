@@ -61,6 +61,12 @@ There are also global keyboard shortcuts, which you can define in the Global Sho
 * Move Current Desktop to Right
 * Rename Current Desktop
 
+### Known issues
+* Multi monitor support is in unknown state (completely untested)
+* Support for KDE Wayland session isn't there yet (missing API parts)
+* The code behind this applet is a hot mess that begs for a sensible rewrite
+* Dynamic virtual desktop management doesn't play nice with KWin scripts (see below)
+
 ### Compatibility with KWin scripts
 If you want to use this applet with some KWin scripts, for example tiling scripts, they won't work correctly. This is related to some non-standard features that Virtual Desktop Bar provides. However, there is a chance they could work correctly, but that requires a little bit work from a KWin script developer. Please read [this document](KWIN.md) for more details.
 
