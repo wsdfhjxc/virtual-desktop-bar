@@ -139,12 +139,6 @@ Component {
             }
         }
 
-        function removeDesktop(desktopNumber) {
-            var desktopEntry = desktopEntries[desktopNumber - 1];
-            desktopEntry.remove();
-            desktopEntries.splice(desktopNumber - 1, 1);
-        }
-
         function getDesktopNumberForDesktopEntry(desktopEntry, nextNumber) {
             for (var i = 0; i < desktopEntries.length; i++) {
                 if (desktopEntries[i] == desktopEntry) {
