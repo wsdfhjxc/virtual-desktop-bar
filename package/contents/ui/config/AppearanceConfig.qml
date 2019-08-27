@@ -262,7 +262,6 @@ Item {
             }
 
             Component.onCompleted: {
-                indicatorColorButton.setEnabled(labelColorCheckBox.checked);
                 indicatorColorButton.setColor(cfg_indicatorColor || theme.buttonFocusColor);
                 indicatorColorButton.setDialog(indicatorColorDialog);
 
@@ -305,7 +304,6 @@ Item {
             }
 
             Component.onCompleted: {
-                occupiedIndicatorColorButton.setEnabled(labelColorCheckBox.checked);
                 occupiedIndicatorColorButton.setColor(cfg_occupiedIndicatorColor || cfg_labelColor || theme.textColor);
                 occupiedIndicatorColorButton.setDialog(occupiedIndicatorColorDialog);
 
