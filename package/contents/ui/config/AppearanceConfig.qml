@@ -17,6 +17,7 @@ Item {
     property alias cfg_indicatorStyle: indicatorStyle.currentIndex
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
+    property string cfg_idleIndicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
     property string cfg_occupiedIndicatorColor: ""
     property alias cfg_enableAnimations: enableAnimations.checked
@@ -273,10 +274,40 @@ Item {
             }
         }
 
-        CheckBox {
-            id: distinctIndicatorOccupied
-            text: "Distinct desktop indicator for occupied idle desktops"
-            Layout.columnSpan: 1
+        RowLayout {
+            CheckBox {
+                id: idleIndicatorColorCheckBox
+                text: "Custom desktop indicator color for idle desktops:"
+                onCheckedChanged:  {
+                    cfg_idleIndicatorColor = checked ? idleIndicatorColorButton.getColor() : "";
+                    idleIndicatorColorButton.setEnabled(checked);
+                }
+
+                Component.onCompleted: {
+                    if (cfg_idleIndicatorColor) {
+                        checked = true;
+                    }
+                }
+            }
+
+            MyColorButton {
+                id: idleIndicatorColorButton
+            }
+
+            MyColorDialog {
+                id: idleIndicatorColorDialog
+            }
+
+            Component.onCompleted: {
+                idleIndicatorColorButton.setColor(cfg_idleIndicatorColor || cfg_labelColor || theme.textColor);
+                idleIndicatorColorButton.setDialog(idleIndicatorColorDialog);
+
+                idleIndicatorColorDialog.setColor(idleIndicatorColorButton.getColor());
+                idleIndicatorColorDialog.setColorButton(idleIndicatorColorButton);
+                idleIndicatorColorDialog.setAcceptedCallback(function(color) {
+                    cfg_idleIndicatorColor = color;
+                });
+            }
         }
 
         RowLayout {
@@ -313,6 +344,12 @@ Item {
                     cfg_occupiedIndicatorColor = color;
                 });
             }
+        }
+
+        CheckBox {
+            id: distinctIndicatorOccupied
+            text: "Distinct desktop indicator for occupied idle desktops"
+            Layout.columnSpan: 1
         }
 
         Item {

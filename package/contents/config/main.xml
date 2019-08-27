@@ -63,6 +63,9 @@
     <entry name="indicatorColor" type="String">
       <default></default>
     </entry>
+    <entry name="idleIndicatorColor" type="String">
+      <default></default>
+    </entry>
     <entry name="distinctIndicatorOccupied" type="Bool">
       <default>true</default>
     </entry>

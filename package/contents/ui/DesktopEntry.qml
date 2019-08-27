@@ -150,7 +150,8 @@ Component {
                             if (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor) {
                                 return plasmoid.configuration.occupiedIndicatorColor;
                             }
-                            return plasmoid.configuration.labelColor || theme.textColor;
+                            return plasmoid.configuration.idleIndicatorColor ||
+                                   plasmoid.configuration.labelColor || theme.textColor;
                         }
                         opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
                     }
