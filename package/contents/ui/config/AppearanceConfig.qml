@@ -27,7 +27,7 @@ Item {
         columns: 1
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -69,7 +69,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -197,7 +197,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -297,7 +297,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -317,7 +317,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
     }
 }

@@ -20,7 +20,7 @@ Item {
         columns: 1
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -68,8 +68,7 @@ Item {
                 id: emptyDesktopName
                 enabled: emptyDesktopNameCheckBox.checked
                 maximumLength: 20
-                implicitWidth: 90
-                horizontalAlignment: TextInput.AlignHCenter
+                implicitWidth: 85
                 placeholderText: "Empty"
                 text: cfg_emptyDesktopName
                 onEditingFinished: cfg_emptyDesktopName = text ? text : "Empty"
@@ -77,7 +76,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -105,7 +104,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
 
         Label {
@@ -139,7 +138,7 @@ Item {
         }
 
         Item {
-            height: 8
+            height: 16
         }
     }
 }
