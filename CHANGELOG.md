@@ -1,3 +1,8 @@
+#### 0.4.7
+* Added an option to disable desktop label dimming for idle desktops
+* Added an option to choose different desktop indicator style (line, block, rounded)
+* Added an option to set custom desktop indicator color for idle desktops (or hide it, if alpha = 0)
+
 #### 0.4.6
 * Fixed broken empty desktop indicators once again...
 * Fixed broken automatic desktop creation when moving a window to an empty desktop
