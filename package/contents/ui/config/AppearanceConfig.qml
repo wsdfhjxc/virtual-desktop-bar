@@ -13,6 +13,7 @@ Item {
     property string cfg_labelFont: ""
     property int cfg_labelSize: 0
     property string cfg_labelColor: ""
+    property alias cfg_dimLabelForIdle: dimLabelForIdle.checked
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
@@ -194,6 +195,12 @@ Item {
                     }
                 });
             }
+        }
+
+        CheckBox {
+            id: dimLabelForIdle
+            text: "Dim desktop label for idle desktops"
+            Layout.columnSpan: 1
         }
 
         Item {

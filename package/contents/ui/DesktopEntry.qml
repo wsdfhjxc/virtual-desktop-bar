@@ -126,7 +126,7 @@ Component {
                     name: "default"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: 0.8
+                        opacity: plasmoid.configuration.dimLabelForIdle ? 0.8 : 1
                     }
                     PropertyChanges {
                         target: desktopIndicator
@@ -157,7 +157,7 @@ Component {
                     name: "hovered"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: 0.9
+                        opacity: plasmoid.configuration.dimLabelForIdle ? 0.9 : 1
                     }
                     PropertyChanges {
                         target: desktopIndicator
