@@ -14,6 +14,7 @@ Item {
     property int cfg_labelSize: 0
     property string cfg_labelColor: ""
     property alias cfg_dimLabelForIdle: dimLabelForIdle.checked
+    property alias cfg_indicatorStyle: indicatorStyle.currentIndex
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
@@ -217,9 +218,22 @@ Item {
             height: 1
         }
 
+        RowLayout {
+            Label {
+                text: "Desktop indicator style:"
+            }
+
+            ComboBox {
+                id: indicatorStyle
+                implicitWidth: 100
+                model: [ "Line", "Block", "Rounded" ]
+            }
+        }
+
         CheckBox {
             id: invertIndicator
             text: "Invert desktop indicator position"
+            enabled: cfg_indicatorStyle == 0
             Layout.columnSpan: 1
         }
 
