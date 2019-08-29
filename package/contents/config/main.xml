@@ -30,10 +30,10 @@
     <entry name="wheelSwitchWrap" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="entryWidth" type="Int">
+    <entry name="buttonWidth" type="Int">
       <default>1</default>
     </entry>
-    <entry name="entrySpacing" type="Int">
+    <entry name="buttonSpacing" type="Int">
       <default>1</default>
     </entry>
     <entry name="enableAnimations" type="Bool">

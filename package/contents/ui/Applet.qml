@@ -66,13 +66,13 @@ RowLayout {
         var removeGuard = function(desktopNumber) {
             var emptyDesktopAmount = 0;
             for (var i = 0; i < desktopSwitcher.desktopAmount; i++) {
-                var desktopEntry = desktopSwitcher.desktopEntries[i];
-                if (desktopEntry && desktopEntry.isEmptyDesktop) {
+                var desktopButton = desktopSwitcher.desktopButtons[i];
+                if (desktopButton && desktopButton.isEmptyDesktop) {
                     emptyDesktopAmount++;
                 }
             }
-            var desktopEntry = desktopSwitcher.desktopEntries[desktopNumber - 1];
-            return !(emptyDesktopAmount == 1 && desktopEntry.isEmptyDesktop);
+            var desktopButton = desktopSwitcher.desktopButtons[desktopNumber - 1];
+            return !(emptyDesktopAmount == 1 && desktopButton.isEmptyDesktop);
         };
 
         plasmoid.action("removeLastDesktop").enabled = Qt.binding(function() {

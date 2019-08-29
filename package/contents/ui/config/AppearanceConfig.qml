@@ -7,8 +7,8 @@ import QtQuick.Dialogs 1.0
 Item {
     id: appearanceConfig
 
-    property alias cfg_entryWidth: entryWidth.currentIndex
-    property alias cfg_entrySpacing: entrySpacing.currentIndex
+    property alias cfg_buttonWidth: buttonWidth.currentIndex
+    property alias cfg_buttonSpacing: buttonSpacing.currentIndex
     property alias cfg_labelStyle: labelStyle.currentIndex
     property string cfg_labelFont: ""
     property int cfg_labelSize: 0
@@ -49,7 +49,7 @@ Item {
             }
 
             ComboBox {
-                id: entryWidth
+                id: buttonWidth
                 model: [ "Small", "Medium", "Large" ]
             }
         }
@@ -60,7 +60,7 @@ Item {
             }
 
             ComboBox {
-                id: entrySpacing
+                id: buttonSpacing
                 model: [ "Small", "Medium", "Large" ]
             }
         }

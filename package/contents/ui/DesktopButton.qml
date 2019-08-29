@@ -8,9 +8,9 @@ Component {
         id: self
 
         property int desktopLabelMargin: {
-            if (plasmoid.configuration.entryWidth == 0) {
+            if (plasmoid.configuration.buttonWidth == 0) {
                 return 3;
-            } else if (plasmoid.configuration.entryWidth == 1) {
+            } else if (plasmoid.configuration.buttonWidth == 1) {
                 return 6;
             }
             return 9;
@@ -21,8 +21,8 @@ Component {
         property bool isCurrentDesktop: false
         property bool isEmptyDesktop: true
 
-        implicitWidth: desktopEntryRect.width > 0 ?
-                       desktopEntryRect.width + desktopEntrySpacing : 0
+        implicitWidth: desktopButtonRect.width > 0 ?
+                       desktopButtonRect.width + desktopButtonSpacing : 0
         implicitHeight: parent.height
 
         Timer {
@@ -30,7 +30,7 @@ Component {
             interval: 75
             running: plasmoid.configuration.enableAnimations
             onTriggered: {
-                desktopEntryRect.opacity = 1;
+                desktopButtonRect.opacity = 1;
             }
         }
 
@@ -38,18 +38,18 @@ Component {
             id: removeTimer
             interval: 150
             onTriggered: {
-                desktopEntryRect.width = 0
+                desktopButtonRect.width = 0
             }
         }
 
         Component.onCompleted: {
-            desktopEntryRect.width = Qt.binding(function() {
+            desktopButtonRect.width = Qt.binding(function() {
                 return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
             });
         }
 
         Rectangle {
-            id: desktopEntryRect
+            id: desktopButtonRect
             width: 0
             height: parent.height
             color: "transparent"
@@ -122,7 +122,7 @@ Component {
                 anchors.fill: parent
 
                 onClicked: {
-                    var desktopNumber = getDesktopNumberForDesktopEntry(self);
+                    var desktopNumber = getDesktopNumberForDesktopButton(self);
                     virtualDesktopBar.switchToDesktop(desktopNumber)
                 }
             }
@@ -257,9 +257,9 @@ Component {
             this.desktopName = desktopName;
             desktopLabel.text = Qt.binding(function() {
                 if (plasmoid.configuration.labelStyle == 0) {
-                    return getDesktopNumberForDesktopEntry(self, true);
+                    return getDesktopNumberForDesktopButton(self, true);
                 } else if (plasmoid.configuration.labelStyle == 1) {
-                    return getDesktopNumberForDesktopEntry(self, true) + ": " + desktopName;
+                    return getDesktopNumberForDesktopButton(self, true) + ": " + desktopName;
                 }
                 return desktopName;
             });
@@ -275,7 +275,7 @@ Component {
 
         function remove() {
             if (plasmoid.configuration.enableAnimations) {
-                desktopEntryRect.opacity = 0;
+                desktopButtonRect.opacity = 0;
                 removeTimer.start();
                 destroy(500);
             } else {
