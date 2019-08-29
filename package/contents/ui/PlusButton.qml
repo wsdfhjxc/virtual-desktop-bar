@@ -8,9 +8,9 @@ Item {
 
     Label {
         id: label
-        text: "+"
+        text: "➕"
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize) + 4
+        font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }
@@ -34,7 +34,7 @@ Item {
             name: "default"
             PropertyChanges {
                 target: label
-                opacity: 0.8
+                opacity: 0.7
             }
         },
 
@@ -42,7 +42,7 @@ Item {
             name: "hovered"
             PropertyChanges {
                 target: label
-                opacity: 0.9
+                opacity: 0.8
             }
         }
     ]
