@@ -64,12 +64,18 @@ Item {
                 }
             }
 
+            TextInput {
+                id: hiddenTextInput
+                visible: false
+                text: emptyDesktopName.text
+            }
+
             TextField {
                 id: emptyDesktopName
                 enabled: emptyDesktopNameCheckBox.checked
                 maximumLength: 20
-                implicitWidth: 85
-                placeholderText: "Empty"
+                implicitWidth: Math.max(30, hiddenTextInput.contentWidth + 16)
+                horizontalAlignment: TextInput.AlignHCenter
                 text: cfg_emptyDesktopName
                 onEditingFinished: cfg_emptyDesktopName = text ? text : "Empty"
             }
