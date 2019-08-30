@@ -4,7 +4,7 @@ import QtQuick.Controls 1.4
 
 RowLayout {
     Text {
-        anchors.verticalCenter: parent.verticalCenter
+        Layout.alignment: Qt.AlignVCenter
         color: theme.textColor
         text: "Current Desktop Name:"
     }
