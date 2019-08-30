@@ -3,13 +3,13 @@ import org.kde.plasma.configuration 2.0
 
 ConfigModel {
     ConfigCategory {
-         name: "Behavior"
-         icon: "preferences-desktop"
-         source: "config/BehaviorConfig.qml"
+        name: "Behavior"
+        icon: "preferences-desktop"
+        source: "config/BehaviorConfig.qml"
     }
     ConfigCategory {
-         name: "Appearance"
-         icon: "preferences-desktop-display-color"
-         source: "config/AppearanceConfig.qml"
+        name: "Appearance"
+        icon: "preferences-desktop-display-color"
+        source: "config/AppearanceConfig.qml"
     }
 }
