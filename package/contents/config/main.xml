@@ -36,9 +36,6 @@
     <entry name="buttonSpacing" type="Int">
       <default>1</default>
     </entry>
-    <entry name="enableAnimations" type="Bool">
-      <default>true</default>
-    </entry>
     <entry name="labelStyle" type="Enum">
       <default>2</default>
     </entry>

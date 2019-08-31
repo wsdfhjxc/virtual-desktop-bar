@@ -49,7 +49,6 @@ Item {
 
     transitions: [
         Transition {
-            enabled: plasmoid.configuration.enableAnimations
             to: "hovered"
             ParallelAnimation {
                 NumberAnimation {
@@ -61,7 +60,6 @@ Item {
         },
 
         Transition {
-            enabled: plasmoid.configuration.enableAnimations
             to: "default"
             ParallelAnimation {
                 NumberAnimation {

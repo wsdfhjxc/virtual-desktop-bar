@@ -28,7 +28,7 @@ Component {
         Timer {
             id: initTimer
             interval: 75
-            running: plasmoid.configuration.enableAnimations
+            running: true
             onTriggered: {
                 desktopButtonRect.opacity = 1;
             }
@@ -53,17 +53,15 @@ Component {
             width: 0
             height: parent.height
             color: "transparent"
-            opacity: plasmoid.configuration.enableAnimations ? 0 : 1
+            opacity: 0
 
             Behavior on opacity {
-                enabled: plasmoid.configuration.enableAnimations
                 animation: NumberAnimation {
                     duration: 150
                 }
             }
 
             Behavior on width {
-                enabled: plasmoid.configuration.enableAnimations
                 animation: NumberAnimation {
                     duration: 75
                 }
@@ -109,7 +107,6 @@ Component {
                 font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
 
                 Behavior on width {
-                    enabled: plasmoid.configuration.enableAnimations
                     animation: NumberAnimation {
                         duration: 75
                     }
@@ -186,7 +183,6 @@ Component {
 
             transitions: [
                 Transition {
-                    enabled: plasmoid.configuration.enableAnimations
                     to: "default"
                     ParallelAnimation {
                         NumberAnimation {
@@ -208,7 +204,6 @@ Component {
                 },
 
                 Transition {
-                    enabled: plasmoid.configuration.enableAnimations
                     to: "current"
                     ParallelAnimation {
                         NumberAnimation {
@@ -230,7 +225,6 @@ Component {
                 },
 
                 Transition {
-                    enabled: plasmoid.configuration.enableAnimations
                     to: "hovered"
                     ParallelAnimation {
                         NumberAnimation {
@@ -274,13 +268,9 @@ Component {
         }
 
         function remove() {
-            if (plasmoid.configuration.enableAnimations) {
-                desktopButtonRect.opacity = 0;
-                removeTimer.start();
-                destroy(500);
-            } else {
-                destroy(10);
-            }
+            desktopButtonRect.opacity = 0;
+            removeTimer.start();
+            destroy(500);
         }
     }
 }
