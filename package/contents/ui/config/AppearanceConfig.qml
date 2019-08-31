@@ -238,7 +238,7 @@ Item {
 
         CheckBox {
             id: distinctIndicatorOccupied
-            text: "Distinct for occupied idle desktops"
+            text: "Distinct indicator for occupied idle desktops"
             Layout.columnSpan: 1
         }
 
