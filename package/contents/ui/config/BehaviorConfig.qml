@@ -20,7 +20,7 @@ Item {
         columns: 1
 
         Item {
-            height: 16
+            height: 10
         }
 
         Label {
@@ -144,7 +144,7 @@ Item {
         }
 
         Item {
-            height: 16
+            height: 10
         }
     }
 }

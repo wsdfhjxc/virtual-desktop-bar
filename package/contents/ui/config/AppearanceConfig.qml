@@ -30,7 +30,7 @@ Item {
         columns: 1
 
         Item {
-            height: 16
+            height: 10
         }
 
         Label {
@@ -97,10 +97,16 @@ Item {
             }
         }
 
+        CheckBox {
+            id: dimLabelForIdle
+            text: "Dim desktop label for idle desktops"
+            Layout.columnSpan: 1
+        }
+
         RowLayout {
             CheckBox {
                 id: labelFontCheckBox
-                text: "Custom desktop label font:"
+                text: "Custom font:"
                 checked: cfg_labelFont
                 onCheckedChanged: cfg_labelFont = checked ?
                                   labelFontComboBox.model[labelFontComboBox.currentIndex].value : "";
@@ -139,7 +145,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: labelSizeCheckBox
-                text: "Custom desktop label font size:"
+                text: "Custom font size:"
                 checked: cfg_labelSize > 0
                 onCheckedChanged: cfg_labelSize = checked ? labelSize.value : 0;
             }
@@ -162,7 +168,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: labelColorCheckBox
-                text: "Custom desktop label color:"
+                text: "Custom color:"
                 onCheckedChanged: {
                     cfg_labelColor = checked ? labelColorButton.getColor() : "";
                     labelColorButton.setEnabled(checked);
@@ -199,12 +205,6 @@ Item {
             }
         }
 
-        CheckBox {
-            id: dimLabelForIdle
-            text: "Dim desktop label for idle desktops"
-            Layout.columnSpan: 1
-        }
-
         Item {
             height: 16
         }
@@ -238,10 +238,16 @@ Item {
             Layout.columnSpan: 1
         }
 
+        CheckBox {
+            id: distinctIndicatorOccupied
+            text: "Distinct for occupied idle desktops"
+            Layout.columnSpan: 1
+        }
+
         RowLayout {
             CheckBox {
                 id: indicatorColorCheckBox
-                text: "Custom current desktop indicator color:"
+                text: "Custom color for current desktop:"
                 onCheckedChanged:  {
                     cfg_indicatorColor = checked ? indicatorColorButton.getColor() : "";
                     indicatorColorButton.setEnabled(checked);
@@ -277,7 +283,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: idleIndicatorColorCheckBox
-                text: "Custom desktop indicator color for idle desktops:"
+                text: "Custom color for idle desktops:"
                 onCheckedChanged:  {
                     cfg_idleIndicatorColor = checked ? idleIndicatorColorButton.getColor() : "";
                     idleIndicatorColorButton.setEnabled(checked);
@@ -313,7 +319,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: occupiedIndicatorColorCheckBox
-                text: "Custom desktop indicator color for occupied idle desktops:"
+                text: "Custom color for occupied idle desktops:"
                 onCheckedChanged:  {
                     cfg_occupiedIndicatorColor = checked ? occupiedIndicatorColorButton.getColor() : "";
                     occupiedIndicatorColorButton.setEnabled(checked);
@@ -346,12 +352,6 @@ Item {
             }
         }
 
-        CheckBox {
-            id: distinctIndicatorOccupied
-            text: "Distinct desktop indicator for occupied idle desktops"
-            Layout.columnSpan: 1
-        }
-
         Item {
             height: 16
         }
@@ -373,7 +373,7 @@ Item {
         }
 
         Item {
-            height: 16
+            height: 10
         }
     }
 }
