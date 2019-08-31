@@ -52,6 +52,9 @@ public:
                MEMBER cfg_emptyDesktopName
                NOTIFY cfg_emptyDesktopNameChanged)
 
+    Q_PROPERTY(QString cfg_newDesktopCommand
+               MEMBER cfg_newDesktopCommand)
+
     void cfg_keepOneEmptyDesktopChanged();
     void cfg_dropRedundantDesktopsChanged();
     void cfg_emptyDesktopNameChanged();
@@ -71,6 +74,7 @@ private:
     bool cfg_keepOneEmptyDesktop;
     bool cfg_dropRedundantDesktops;
     QString cfg_emptyDesktopName;
+    QString cfg_newDesktopCommand;
 
     KActionCollection* actionCollection;
     QAction* actionSwitchToRecentDesktop;

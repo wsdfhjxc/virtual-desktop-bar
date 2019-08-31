@@ -12,6 +12,7 @@ RowLayout {
         cfg_dropRedundantDesktops: plasmoid.configuration.dropRedundantDesktops
         cfg_keepOneEmptyDesktop: plasmoid.configuration.keepOneEmptyDesktop
         cfg_emptyDesktopName: plasmoid.configuration.emptyDesktopName
+        cfg_newDesktopCommand: plasmoid.configuration.newDesktopCommand
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}

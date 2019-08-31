@@ -5,6 +5,7 @@
 #include <KWindowSystem>
 #include <KGlobalAccel>
 #include <QThread>
+#include <QTimer>
 
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
                                      netRootInfo(QX11Info::connection(), 0),
@@ -57,6 +58,12 @@ void VirtualDesktopBar::addNewDesktop(bool guard, const QString desktopName) {
     netRootInfo.setNumberOfDesktops(numberOfDesktops + 1);
     if (!desktopName.isNull() && !desktopName.isEmpty()) {
         renameDesktop(numberOfDesktops + 1, desktopName);
+    }
+    if (guard && !cfg_dropRedundantDesktops && !cfg_newDesktopCommand.isEmpty()) {
+        QTimer::singleShot(100, [=] {
+            QString command = cfg_newDesktopCommand + " &";
+            system(command.toStdString().c_str());
+        });   
     }
 }
 

@@ -10,6 +10,7 @@ Item {
     property string cfg_emptyDesktopName: ""
     property alias cfg_switchToNewDesktop: switchToNewDesktop.checked
     property alias cfg_renameNewDesktop: renameNewDesktop.checked
+    property string cfg_newDesktopCommand: ""
     property alias cfg_switchWithWheel: switchWithWheel.checked
     property alias cfg_invertWheelSwitch: invertWheelSwitch.checked
     property alias cfg_wheelSwitchWrap: wheelSwitchWrap.checked
@@ -107,6 +108,42 @@ Item {
             text: "Immediately prompt to rename a manually added desktop"
             enabled: switchToNewDesktop.enabled && switchToNewDesktop.checked
             Layout.columnSpan: 1
+        }
+
+        RowLayout {
+            CheckBox {
+                id: newDesktopCommandCheckBox
+                text: "Immediately execute a command:"
+                enabled: !dropRedundantDesktops.checked
+                checked: cfg_newDesktopCommand
+                onCheckedChanged: {
+                    if (checked) {
+                        if (newDesktopCommand.text) {
+                            cfg_newDesktopCommand = newDesktopCommand.text;
+                        } else {
+                            cfg_newDesktopCommand = "qdbus org.kde.krunner /App display";
+                        }
+                    } else {
+                        cfg_newDesktopCommand = "";
+                    }
+                }
+            }
+
+            TextInput {
+                id: hiddenTextInput2
+                visible: false
+                text: newDesktopCommand.text
+            }
+
+            TextField {
+                id: newDesktopCommand
+                enabled: newDesktopCommandCheckBox.enabled && newDesktopCommandCheckBox.checked
+                maximumLength: 255
+                implicitWidth: Math.max(30, hiddenTextInput2.contentWidth + 16)
+                horizontalAlignment: TextInput.AlignHCenter
+                text: cfg_newDesktopCommand
+                onEditingFinished: cfg_newDesktopCommand = text ? text : ""
+            }
         }
 
         Item {
