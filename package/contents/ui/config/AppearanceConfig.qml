@@ -225,14 +225,14 @@ Item {
             ComboBox {
                 id: indicatorStyle
                 implicitWidth: 100
-                model: [ "Line", "Block", "Rounded" ]
+                model: [ "Line", "Side", "Block", "Rounded" ]
             }
         }
 
         CheckBox {
             id: invertIndicator
             text: "Invert desktop indicator position"
-            enabled: cfg_indicatorStyle == 0
+            enabled: cfg_indicatorStyle < 2
             Layout.columnSpan: 1
         }
 

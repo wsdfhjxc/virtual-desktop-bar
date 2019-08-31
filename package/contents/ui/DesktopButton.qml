@@ -69,16 +69,30 @@ Component {
 
             Rectangle {
                 id: desktopIndicator
-                width: parent.width
+                width: {
+                    if (plasmoid.configuration.indicatorStyle == 1) {
+                        return desktopIndicatorThickness;
+                    }
+                    return parent.width;
+                }
                 height: {
-                    if (plasmoid.configuration.indicatorStyle > 0) {
+                    if (plasmoid.configuration.indicatorStyle == 1) {
+                        return parent.height - 16;
+                    } else if (plasmoid.configuration.indicatorStyle > 1) {
                         return parent.height - 10;
                     }
                     return desktopIndicatorThickness;
                 }
+                x: {
+                    if (plasmoid.configuration.indicatorStyle == 1 &&
+                        plasmoid.configuration.invertIndicator) {
+                        return parent.width - width;
+                    }
+                    return 0;
+                }
                 y: {
                     if (plasmoid.configuration.indicatorStyle > 0) {
-                        return 5;
+                        return (parent.height - height) / 2;
                     }
                     if (plasmoid.location == PlasmaCore.Types.TopEdge) {
                         return !plasmoid.configuration.invertIndicator ? parent.height - height : 0;
@@ -86,9 +100,9 @@ Component {
                     return !plasmoid.configuration.invertIndicator ? 0 : parent.height - height;
                 }
                 radius: {
-                    if (plasmoid.configuration.indicatorStyle == 1) {
+                    if (plasmoid.configuration.indicatorStyle == 2) {
                         return 2;
-                    } else if (plasmoid.configuration.indicatorStyle == 2) {
+                    } else if (plasmoid.configuration.indicatorStyle == 3) {
                         return 300;
                     }
                     return 0;
