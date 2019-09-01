@@ -4,22 +4,22 @@ This is an applet for KDE Plasma panel that lets you switch between virtual desk
 The plasmoid displays virtual desktops as text labels (numbers, names, both) with indicators (various styles). That means there's no icons or window previews like in the Plasma's default Pager applet. The intention is to keep it simple.
 
 ### Features
-* switching to a virtual desktop
-* switching to a recent virtual desktop
-* adding a new virtual desktop
-* removing last virtual desktop
-* removing current virtual desktop
-* moving current virtual desktop to left
-* moving current virtual desktop to right
-* renaming current virtual desktop
+* switching to a desktop
+* switching to a recent desktop
+* adding a new desktop
+* removing last desktop
+* removing current desktop
+* moving current desktop to left
+* moving current desktop to right
+* renaming current desktop
 
 #### Automated features
-* keeping at least one empty virtual desktop
-* removing redundant empty virtual desktops 
-* renaming virtual desktops once they become empty
-* switching to a manually added virtual desktop
-* prompting to rename a manually added virtual desktop
-* executing a command after manually adding a virtual desktop
+* keeping at least one empty desktop
+* removing redundant empty desktops 
+* renaming desktops once they become empty
+* switching to a manually added desktop
+* prompting to rename a manually added desktop
+* executing a command after manually adding a desktop
 
 ### Preview
 ![](preview.gif)
