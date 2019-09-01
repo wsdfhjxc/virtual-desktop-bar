@@ -18,31 +18,14 @@ RowLayout {
         id: desktopNameInput
         implicitWidth: 162
         implicitHeight: 28
-        text: "Desktop"
-
         onAccepted: {
             virtualDesktopBar.renameCurrentDesktop(text);
             plasmoid.expanded = false;
         }
     }
 
-    Timer {
-        repeat: true
-        running: true
-        interval: 500
-        onTriggered: {
-            if (visible && !desktopNameInput.focus) {
-                desktopNameInput.focus = true;
-                desktopNameInput.selectAll();
-            }
-        }
-    }
-
-    Component.onCompleted: {
-        refreshDesktopNameInput();
-    }
-
     function refreshDesktopNameInput() {
+        desktopNameInput.focus = true;
         desktopNameInput.text = virtualDesktopBar.getCurrentDesktopName();
         desktopNameInput.selectAll();
     }

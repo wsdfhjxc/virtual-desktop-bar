@@ -118,7 +118,12 @@ RowLayout {
 
     function action_renameCurrentDesktop() {
         plasmoid.expanded = true;
-        desktopNamePopup.refreshDesktopNameInput();
+    }
+
+    Plasmoid.onExpandedChanged: {
+        if (plasmoid.expanded) {
+            desktopNamePopup.refreshDesktopNameInput();
+        }
     }
 
     function action_openDesktopSettings() {
