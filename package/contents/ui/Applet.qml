@@ -58,6 +58,7 @@ RowLayout {
         plasmoid.setAction("openDesktopSettings", "Configure Desktops...", "configure");
 
         plasmoid.action("addNewDesktop").enabled = Qt.binding(function() {
+            if (!desktopSwitcher) { return false; }
             if (desktopSwitcher.desktopAmount == 20) {
                 return false;
             }
@@ -77,20 +78,24 @@ RowLayout {
         };
 
         plasmoid.action("removeLastDesktop").enabled = Qt.binding(function() {
+            if (!desktopSwitcher) { return false; }
             return desktopSwitcher.desktopAmount > 1 &&
                    (!plasmoid.configuration.keepOneEmptyDesktop || removeGuard(desktopSwitcher.desktopAmount));
         });
 
         plasmoid.action("removeCurrentDesktop").enabled = Qt.binding(function() {
+            if (!desktopSwitcher) { return false; }
             return desktopSwitcher.desktopAmount > 1 &&
                    (!plasmoid.configuration.keepOneEmptyDesktop || removeGuard(desktopSwitcher.currentDesktopNumber));
         });
 
         plasmoid.action("moveCurrentDesktopToLeft").enabled = Qt.binding(function() {
+            if (!desktopSwitcher) { return false; }
             return desktopSwitcher.currentDesktopNumber > 1;
         });
 
         plasmoid.action("moveCurrentDesktopToRight").enabled = Qt.binding(function() {
+            if (!desktopSwitcher) { return false; }
             var desktopAmount = desktopSwitcher.desktopAmount;
             return desktopSwitcher.currentDesktopNumber < desktopAmount;
         });
