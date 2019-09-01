@@ -61,9 +61,9 @@ void VirtualDesktopBar::addNewDesktop(bool guard, const QString desktopName) {
     }
     if (guard && !cfg_dropRedundantDesktops && !cfg_newDesktopCommand.isEmpty()) {
         QTimer::singleShot(100, [=] {
-            QString command = cfg_newDesktopCommand + " &";
+            QString command = "(" + cfg_newDesktopCommand + ")&";
             system(command.toStdString().c_str());
-        });   
+        });
     }
 }
 
