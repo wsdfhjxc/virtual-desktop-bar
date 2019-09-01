@@ -284,7 +284,7 @@ Component {
         function remove() {
             desktopButtonRect.opacity = 0;
             removeTimer.start();
-            destroy(500);
+            destroy(225);
         }
     }
 }
