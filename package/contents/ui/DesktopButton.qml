@@ -5,7 +5,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 
 Component {
     Item {
-        id: self
+        id: desktopButton
 
         property int desktopButtonSpacing: {
             if (plasmoid.configuration.buttonSpacing == 0) {
@@ -141,7 +141,7 @@ Component {
                 anchors.fill: parent
 
                 onClicked: {
-                    var desktopNumber = getDesktopNumberForDesktopButton(self);
+                    var desktopNumber = getDesktopNumberForDesktopButton(desktopButton);
                     virtualDesktopBar.switchToDesktop(desktopNumber)
                 }
             }
@@ -273,9 +273,9 @@ Component {
             this.desktopName = desktopName;
             desktopLabel.text = Qt.binding(function() {
                 if (plasmoid.configuration.labelStyle == 0) {
-                    return getDesktopNumberForDesktopButton(self, true);
+                    return getDesktopNumberForDesktopButton(desktopButton, true);
                 } else if (plasmoid.configuration.labelStyle == 1) {
-                    return getDesktopNumberForDesktopButton(self, true) + ": " + desktopName;
+                    return getDesktopNumberForDesktopButton(desktopButton, true) + ": " + desktopName;
                 }
                 return desktopName;
             });
