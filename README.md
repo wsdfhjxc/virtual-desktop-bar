@@ -74,6 +74,7 @@ There are global keyboard shortcuts, but you have to define them in the Global S
 * Virtual desktops are shared by all monitors (KWin's limitation)
 * Support for Plasma Wayland session isn't there yet (missing API parts)
 * The code behind this applet is a hot mess that begs for a sensible rewrite
+* There are some occasional glitches with applet layout on Kubuntu 18.04 (Qt 5.9.5)
 * Dynamic virtual desktop management doesn't play nice with KWin scripts (see below)
 
 #### Compatibility with KWin scripts
