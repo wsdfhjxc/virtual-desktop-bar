@@ -8,7 +8,9 @@ Component {
         id: desktopButton
 
         property int desktopButtonSpacing: {
-            if (plasmoid.configuration.buttonSpacing == 0) {
+            if (plasmoid.configuration.buttonSpacing < 0) {
+                return 0;
+            } else if (plasmoid.configuration.buttonSpacing == 0) {
                 return 4;
             } else if (plasmoid.configuration.buttonSpacing == 1) {
                 return 8;

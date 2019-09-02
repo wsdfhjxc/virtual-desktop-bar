@@ -23,6 +23,10 @@ Component {
             anchors.fill: parent
         }
 
+        Item {
+            width: plasmoid.configuration.buttonSpacing < 0 ? 4 : 0
+        }
+
         PlusButton {}
 
         Component.onCompleted: {
