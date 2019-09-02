@@ -9,16 +9,8 @@ Component {
         implicitHeight: parent.height
 
         property int desktopAmount: 0
-        property var desktopButtons: []
-        property int desktopButtonSpacing: {
-            if (plasmoid.configuration.buttonSpacing == 0) {
-                return 4;
-            } else if (plasmoid.configuration.buttonSpacing == 1) {
-                return 8;
-            }
-            return 12;
-        }
         property int currentDesktopNumber;
+        property var desktopButtons: []
 
         DesktopButton {
             id: desktopButtonComponent

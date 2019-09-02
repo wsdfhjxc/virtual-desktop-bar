@@ -7,6 +7,14 @@ Component {
     Item {
         id: self
 
+        property int desktopButtonSpacing: {
+            if (plasmoid.configuration.buttonSpacing == 0) {
+                return 4;
+            } else if (plasmoid.configuration.buttonSpacing == 1) {
+                return 8;
+            }
+            return 12;
+        }
         property int desktopLabelMargin: {
             if (plasmoid.configuration.buttonWidth == 0) {
                 return 3;
