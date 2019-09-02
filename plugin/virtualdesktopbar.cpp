@@ -475,6 +475,7 @@ void VirtualDesktopBar::onWindowAdded(WId id) {
     emit emptyDesktopsUpdated(emptyDesktops);
 }
 
+#include <QDebug>
 void VirtualDesktopBar::onWindowChanged(WId id, NET::Properties properties, NET::Properties2) {
     if (!KWindowSystem::hasWId(id)) {
         return;
@@ -485,8 +486,8 @@ void VirtualDesktopBar::onWindowChanged(WId id, NET::Properties properties, NET:
     const KWindowInfo info = KWindowInfo(id, NET::WMDesktop | NET::WMState | NET::WMWindowType | NET::WMName,
                                          NET::WM2WindowClass);
     if (info.hasState(NET::SkipTaskbar) ||
-        info.windowClassName() == "plasmashell" ||
-        info.windowClassName() == "latte-dock" ||
+        (info.windowClassName() == "plasmashell" && info.name() == "Plasma" ) ||
+        (info.windowClassName() == "latte-dock" && info.name() == "Latte Dock") ||
         info.windowClassName() == "krunner") {
         return;
     }
@@ -524,8 +525,8 @@ void VirtualDesktopBar::onWindowRemoved(WId id) {
     const KWindowInfo info = KWindowInfo(id, NET::WMState | NET::WMWindowType | NET::WMName,
                                          NET::WM2WindowClass);
     if (info.hasState(NET::SkipTaskbar) ||
-        info.windowClassName() == "plasmashell" ||
-        info.windowClassName() == "latte-dock" ||
+        (info.windowClassName() == "plasmashell" && info.name() == "Plasma" ) ||
+        (info.windowClassName() == "latte-dock" && info.name() == "Latte Dock") ||
         info.windowClassName() == "krunner") {
         return;
     }
