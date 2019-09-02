@@ -21,6 +21,7 @@ Item {
     property string cfg_idleIndicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
     property string cfg_occupiedIndicatorColor: ""
+    property alias cfg_enableAnimations: enableAnimations.checked
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
 
@@ -360,6 +361,26 @@ Item {
                     cfg_occupiedIndicatorColor = color;
                 });
             }
+        }
+
+        Item {
+            height: 16
+        }
+
+        Label {
+            text: "Other"
+            font.pixelSize: labelFontPixelSize
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
+        CheckBox {
+            id: enableAnimations
+            text: "Enable animations"
+            Layout.columnSpan: 1
         }
 
         Item {
