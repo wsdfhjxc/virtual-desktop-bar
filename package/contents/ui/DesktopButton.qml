@@ -103,7 +103,9 @@ Component {
                     return parent.width + 0.5;
                 }
                 height: {
-                    if (plasmoid.configuration.indicatorStyle == 1) {
+                    if (plasmoid.configuration.indicatorStyle == 4) {
+                        return parent.height;
+                    } else if (plasmoid.configuration.indicatorStyle == 1) {
                         return parent.height - 16;
                     } else if (plasmoid.configuration.indicatorStyle > 1) {
                         return parent.height - 10;

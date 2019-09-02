@@ -237,7 +237,7 @@ Item {
             ComboBox {
                 id: indicatorStyle
                 implicitWidth: 100
-                model: [ "Line", "Side", "Block", "Rounded" ]
+                model: [ "Line", "Side", "Block", "Rounded", "Full" ]
             }
         }
 
