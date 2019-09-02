@@ -1,10 +1,11 @@
 #### 0.5.0
 * Added an option to execute a command after adding a desktop
+* Added an option to set no spacing between desktop buttons
 * Added an option to disable desktop label dimming for idle desktops
-* Added an option to choose a different desktop indicator style (line, side, block, rounded)
+* Added an option to choose a different desktop indicator style (line, side, block, rounded, full)
 * Added an option to set custom desktop indicator color for idle desktops (or hide, if alpha = 0)
+* Fixed broken empty desktop indicators when moving some shell related dialogs between desktops
 * Changed the plus button symbol to be better aligned with the rest of used font's characters
-* Removed an option to disable plasmoid animations (they are pretty much unnoticable anyway)
 
 #### 0.4.6
 * Fixed broken empty desktop indicators once again...
