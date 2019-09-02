@@ -475,7 +475,6 @@ void VirtualDesktopBar::onWindowAdded(WId id) {
     emit emptyDesktopsUpdated(emptyDesktops);
 }
 
-#include <QDebug>
 void VirtualDesktopBar::onWindowChanged(WId id, NET::Properties properties, NET::Properties2) {
     if (!KWindowSystem::hasWId(id)) {
         return;
