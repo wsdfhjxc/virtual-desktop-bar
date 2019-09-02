@@ -385,7 +385,12 @@ const QList<WId> VirtualDesktopBar::getWindows(const int desktopNumber, const bo
     return windows;
 }
 
-void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
+bool VirtualDesktopBar::get_cfg_keepOneEmptyDesktop() {
+    return cfg_keepOneEmptyDesktop;
+}
+
+void VirtualDesktopBar::set_cfg_keepOneEmptyDesktop(bool value) {
+    cfg_keepOneEmptyDesktop = value;
     if (cfg_keepOneEmptyDesktop) {
         if (getEmptyDesktops().length() == 0) {
             addNewDesktop(false);
@@ -395,13 +400,23 @@ void VirtualDesktopBar::cfg_keepOneEmptyDesktopChanged() {
     }
 }
 
-void VirtualDesktopBar::cfg_dropRedundantDesktopsChanged() {
+bool VirtualDesktopBar::get_cfg_dropRedundantDesktops() {
+    return cfg_dropRedundantDesktops;
+}
+
+void VirtualDesktopBar::set_cfg_dropRedundantDesktops(bool value) {
+    cfg_dropRedundantDesktops = value;
     if (cfg_keepOneEmptyDesktop && cfg_dropRedundantDesktops) {
         removeEmptyDesktops();
     }
 }
 
-void VirtualDesktopBar::cfg_emptyDesktopNameChanged() {
+QString VirtualDesktopBar::get_cfg_emptyDesktopName() {
+    return cfg_emptyDesktopName;
+}
+
+void VirtualDesktopBar::set_cfg_emptyDesktopName(QString value) {
+    cfg_emptyDesktopName = value;
     if (!cfg_emptyDesktopName.isEmpty()) {
         const QList<int> emptyDesktops = getEmptyDesktops();
         renameEmptyDesktops(emptyDesktops);

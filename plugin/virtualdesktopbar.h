@@ -41,23 +41,28 @@ public:
     Q_INVOKABLE void moveCurrentDesktopToRight();
 
     Q_PROPERTY(bool cfg_keepOneEmptyDesktop
-               MEMBER cfg_keepOneEmptyDesktop
-               NOTIFY cfg_keepOneEmptyDesktopChanged)
+               READ get_cfg_keepOneEmptyDesktop
+               WRITE set_cfg_keepOneEmptyDesktop)
 
     Q_PROPERTY(bool cfg_dropRedundantDesktops
-               MEMBER cfg_dropRedundantDesktops
-               NOTIFY cfg_dropRedundantDesktopsChanged)
+               READ get_cfg_dropRedundantDesktops
+               WRITE set_cfg_dropRedundantDesktops)
     
     Q_PROPERTY(QString cfg_emptyDesktopName
-               MEMBER cfg_emptyDesktopName
-               NOTIFY cfg_emptyDesktopNameChanged)
+               READ get_cfg_emptyDesktopName
+               WRITE set_cfg_emptyDesktopName)
 
     Q_PROPERTY(QString cfg_newDesktopCommand
                MEMBER cfg_newDesktopCommand)
 
-    void cfg_keepOneEmptyDesktopChanged();
-    void cfg_dropRedundantDesktopsChanged();
-    void cfg_emptyDesktopNameChanged();
+    bool get_cfg_keepOneEmptyDesktop();
+    void set_cfg_keepOneEmptyDesktop(bool value);
+
+    bool get_cfg_dropRedundantDesktops();
+    void set_cfg_dropRedundantDesktops(bool value);
+
+    QString get_cfg_emptyDesktopName();
+    void set_cfg_emptyDesktopName(QString value);
 
 signals:
     void currentDesktopChanged(const int desktopNumber);
