@@ -75,6 +75,23 @@ Component {
                 }
             }
 
+            Label {
+                id: desktopLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                clip: true
+                text: desktopName
+                color: plasmoid.configuration.labelColor || theme.textColor
+                font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
+                font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
+
+                Behavior on width {
+                    animation: NumberAnimation {
+                        duration: 75
+                    }
+                }
+            }
+
             Rectangle {
                 id: desktopIndicator
                 width: {
@@ -114,24 +131,6 @@ Component {
                         return 300;
                     }
                     return 0;
-                }
-            }
-
-            Label {
-                id: desktopLabel
-                text: desktopName
-                x: desktopLabelMargin
-                width: desktopLabel.implicitWidth
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
-                clip: true
-                color: plasmoid.configuration.labelColor || theme.textColor
-                font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
-
-                Behavior on width {
-                    animation: NumberAnimation {
-                        duration: 75
-                    }
                 }
             }
 
