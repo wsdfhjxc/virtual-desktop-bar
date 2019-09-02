@@ -100,7 +100,7 @@ Component {
                     if (plasmoid.configuration.indicatorStyle == 1) {
                         return desktopIndicatorThickness;
                     }
-                    return parent.width;
+                    return parent.width + 0.5;
                 }
                 height: {
                     if (plasmoid.configuration.indicatorStyle == 1) {
