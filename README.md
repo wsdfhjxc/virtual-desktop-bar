@@ -75,10 +75,10 @@ There are global keyboard shortcuts, but you have to define them in the Global S
 * Support for Plasma Wayland session isn't there yet (missing API parts)
 * The code behind this applet is a hot mess that begs for a sensible rewrite
 * There are some occasional glitches with applet layout on Kubuntu 18.04 (Qt 5.9.5)
-* Dynamic virtual desktop management doesn't play nice with KWin scripts (see below)
+* Dynamic virtual desktop management doesn't play nice with KWin tiling scripts (see below)
 
-#### Compatibility with KWin scripts
-If you want to use this applet with some KWin scripts, for example tiling scripts, they won't work correctly. This is related to some non-standard features that Virtual Desktop Bar provides. However, there is a chance they could work correctly, but that requires a little bit work from a KWin script developer. Please read [this document](KWIN.md) for more details.
+#### Compatibility with KWin tiling scripts
+If you want to use this applet with some KWin tiling scripts, they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details.
 
-#### Compatible KWin scripts
+#### Compatible KWin tiling scripts
 * [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
