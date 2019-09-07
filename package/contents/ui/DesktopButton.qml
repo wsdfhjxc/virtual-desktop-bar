@@ -35,24 +35,12 @@ Component {
                        desktopButtonRect.width + desktopButtonSpacing : 0
         implicitHeight: parent.height
 
-        Timer {
-            id: initTimer
-            interval: 75
-            running: plasmoid.configuration.enableAnimations
-            onTriggered: {
-                desktopButtonRect.opacity = 1;
-            }
-        }
-
-        Timer {
-            id: removeTimer
-            interval: 150
-            onTriggered: {
-                desktopButtonRect.width = 0
-            }
-        }
-
         Component.onCompleted: {
+            if (plasmoid.configuration.enableAnimations) {
+                delay(75, function() {
+                    desktopButtonRect.opacity = 1;
+                });
+            };
             desktopButtonRect.width = Qt.binding(function() {
                 return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
             });
@@ -301,7 +289,9 @@ Component {
         function remove() {
             if (plasmoid.configuration.enableAnimations) {
                 desktopButtonRect.opacity = 0;
-                removeTimer.start();
+                delay(150, function() {
+                    desktopButtonRect.width = 0;
+                });
                 destroy(225);
             } else {
                 destroy(10);

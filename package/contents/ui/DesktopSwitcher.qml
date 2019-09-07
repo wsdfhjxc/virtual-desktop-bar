@@ -100,12 +100,6 @@ Component {
             desktopButtons.push(desktopButton);
         }
 
-        Timer {
-            id: renameNewDesktopTimer
-            interval: 100
-            onTriggered: root.action_renameCurrentDesktop()
-        }
-
         function addDesktops(desktopAmountDifference) {
             var desktopNames = virtualDesktopBar.getDesktopNames();
             var desktopNumber = 1;
@@ -122,7 +116,9 @@ Component {
 
                 virtualDesktopBar.switchToDesktop(desktopNumber);
                 if (plasmoid.configuration.renameNewDesktop) {
-                    renameNewDesktopTimer.start();
+                    delay(100, function() {
+                        action_renameCurrentDesktop();
+                    });
                 }
             }
         }

@@ -135,4 +135,16 @@ RowLayout {
         KQuickControlsAddonsComponents.KCMShell.open("desktop"); // old module
         KQuickControlsAddonsComponents.KCMShell.open("kcm_kwin_virtualdesktops"); // new module
     }
+
+    function createTimer() {
+        return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
+    }
+
+    function delay(time, func) {
+        var timer = createTimer();
+        timer.interval = time;
+        timer.repeat = false;
+        timer.triggered.connect(func);
+        timer.start();
+    }
 }
