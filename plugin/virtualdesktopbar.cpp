@@ -93,6 +93,8 @@ void VirtualDesktopBar::removeDesktop(const int desktopNumber) {
         return;
     }
 
+    emit desktopRemoveRequested(desktopNumber);
+
     if (desktopNumber > 0 && desktopNumber != numberOfDesktops) {
         const QList<WId> windowsAfterDesktop = getWindows(desktopNumber, true);
         for (WId id : windowsAfterDesktop) {

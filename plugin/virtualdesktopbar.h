@@ -68,6 +68,7 @@ signals:
     void currentDesktopChanged(const int desktopNumber);
     void desktopAmountChanged(const int desktopAmount);
 
+    void desktopRemoveRequested(const int desktopNumber);
     void currentDesktopNameChangeRequested();
     void desktopNamesChanged();
 
