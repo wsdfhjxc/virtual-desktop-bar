@@ -37,12 +37,16 @@ RowLayout {
             desktopSwitcher.onDesktopNamesChanged();
         }
 
-        onCurrentDesktopNameChangeRequested: {
-            action_renameCurrentDesktop();
-        }
-
         onEmptyDesktopsUpdated: {
             desktopSwitcher.onEmptyDesktopsUpdated(desktopNumbers);
+        }
+
+        onDesktopRemoveRequested: {
+            desktopSwitcher.onDesktopRemoveRequested(desktopNumber);
+        }
+
+        onCurrentDesktopNameChangeRequested: {
+            action_renameCurrentDesktop();
         }
     }
 

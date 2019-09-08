@@ -286,15 +286,12 @@ Component {
             this.isEmptyDesktop = isEmptyDesktop;
         }
 
-        function remove() {
+        function hide() {
             if (plasmoid.configuration.enableAnimations) {
                 desktopButtonRect.opacity = 0;
                 delay(150, function() {
                     desktopButtonRect.width = 0;
                 });
-                destroy(225);
-            } else {
-                destroy(10);
             }
         }
     }

@@ -11,6 +11,7 @@ Component {
         property int desktopAmount: 0
         property int currentDesktopNumber;
         property var desktopButtons: []
+        property int desktopRemoveRequests: 0
 
         DesktopButton {
             id: desktopButtonComponent
@@ -59,6 +60,16 @@ Component {
         }
 
         function onDesktopAmountChanged(desktopAmount) {
+            if (desktopRemoveRequests) {
+                delay(225, function() {
+                    _onDesktopAmountChanged(desktopAmount);
+                });
+            } else {
+                _onDesktopAmountChanged(desktopAmount);
+            }
+        }
+
+        function _onDesktopAmountChanged(desktopAmount) {
             var currentDesktopAmount = desktopButtons.length;
             var desktopAmountDifference = desktopAmount - currentDesktopAmount;
             if (desktopAmountDifference > 0) {
@@ -70,6 +81,16 @@ Component {
         }
 
         function onDesktopNamesChanged() {
+            if (desktopRemoveRequests) {
+                delay(225, function() {
+                    _onDesktopNamesChanged();
+                });
+            } else {
+                _onDesktopNamesChanged();
+            }
+        }
+
+        function _onDesktopNamesChanged() {
             var desktopNames = virtualDesktopBar.getDesktopNames();
             for (var i = 0; i < desktopButtons.length; i++) {
                 var desktopName = desktopNames[i];
@@ -79,6 +100,16 @@ Component {
         }
 
         function onEmptyDesktopsUpdated(desktopNumbers) {
+            if (desktopRemoveRequests) {
+                delay(225, function() {
+                    _onEmptyDesktopsUpdated(desktopNumbers);
+                });
+            } else {
+                _onEmptyDesktopsUpdated(desktopNumbers);
+            }
+        }
+
+        function _onEmptyDesktopsUpdated(desktopNumbers) {
             for (var i = 0; i < desktopButtons.length; i++) {
                 var desktopButton = desktopButtons[i];
                 desktopButton.setIsEmptyDesktop(false);
@@ -93,11 +124,35 @@ Component {
             }
         }
 
+        function onDesktopRemoveRequested(desktopNumber) {
+            if (plasmoid.configuration.enableAnimations) {
+                desktopRemoveRequests++;
+                unregisterDesktopButton(desktopNumber);
+                delay(225, function() {
+                    desktopRemoveRequests--;
+                    if (desktopNumber != desktopAmount) {
+                        onCurrentDesktopChanged(desktopNumber);
+                    }
+                });
+            }
+        }
+
         function registerDesktopButton(desktopName, isCurrentDesktop) {
             var desktopButton = desktopButtonComponent.createObject(desktopButtonsLayout);
             desktopButton.setDesktopName(desktopName);
             desktopButton.setIsCurrentDesktop(!!isCurrentDesktop);
             desktopButtons.push(desktopButton);
+        }
+
+        function unregisterDesktopButton(desktopNumber) {
+            var desktopButton = desktopButtons[desktopNumber - 1];
+            if (plasmoid.configuration.enableAnimations) {
+                desktopButton.hide();
+                desktopButton.destroy(225);
+            } else {
+                desktopButton.destroy();
+            }
+            desktopButtons.splice(desktopNumber - 1, 1);
         }
 
         function addDesktops(desktopAmountDifference) {
@@ -126,9 +181,7 @@ Component {
         function removeDesktops(desktopAmountDifference) {
             var newDesktopAmount = desktopButtons.length - desktopAmountDifference;
             for (var i = desktopButtons.length - 1; i >= newDesktopAmount; i--) {
-                var desktopButton = desktopButtons[i];
-                desktopButton.remove();
-                desktopButtons.splice(i, 1);
+                unregisterDesktopButton(i + 1);
             }
         }
 
