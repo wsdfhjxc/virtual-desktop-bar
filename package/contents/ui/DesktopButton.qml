@@ -111,7 +111,7 @@ Component {
                 }
             }
 
-            Label {
+            Text {
                 id: desktopLabel
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
