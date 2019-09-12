@@ -180,6 +180,7 @@ Item {
             CheckBox {
                 id: labelColorCheckBox
                 text: "Custom color:"
+                enabled: cfg_indicatorStyle != 5
                 onCheckedChanged: {
                     cfg_labelColor = checked ? labelColorButton.getColor() : "";
                     labelColorButton.setEnabled(checked);
@@ -238,7 +239,7 @@ Item {
             ComboBox {
                 id: indicatorStyle
                 implicitWidth: 100
-                model: [ "Line", "Side", "Block", "Rounded", "Full" ]
+                model: [ "Line", "Side", "Block", "Rounded", "Full", "Label" ]
             }
         }
 
@@ -251,6 +252,7 @@ Item {
 
         CheckBox {
             id: distinctIndicatorOccupied
+            enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
             text: "Distinct indicator for occupied idle desktops"
             Layout.columnSpan: 1
         }

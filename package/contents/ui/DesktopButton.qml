@@ -69,6 +69,7 @@ Component {
 
             Rectangle {
                 id: desktopIndicator
+                visible: plasmoid.configuration.indicatorStyle != 5
                 width: {
                     if (plasmoid.configuration.indicatorStyle == 1) {
                         return desktopIndicatorThickness;
@@ -117,7 +118,12 @@ Component {
                 anchors.verticalCenter: parent.verticalCenter
                 clip: true
                 text: desktopName
-                color: plasmoid.configuration.labelColor || theme.textColor
+                color: {
+                    if (plasmoid.configuration.indicatorStyle == 5) {
+                        return desktopIndicator.color;
+                    }
+                    return plasmoid.configuration.labelColor || theme.textColor;
+                }
                 font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
                 font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
 
@@ -155,7 +161,15 @@ Component {
                     name: "default"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: plasmoid.configuration.dimLabelForIdle ? 0.8 : 1
+                        opacity: {
+                            if (plasmoid.configuration.dimLabelForIdle) {
+                                if (plasmoid.configuration.indicatorStyle == 5) {
+                                    return 0.65 + desktopIndicator.opacity;
+                                }
+                                return 0.8;
+                            }
+                            return 1;
+                        }
                     }
                     PropertyChanges {
                         target: desktopIndicator
