@@ -21,6 +21,7 @@ Item {
     property string cfg_idleIndicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
     property string cfg_occupiedIndicatorColor: ""
+    property alias cfg_dontOverrideOpacity: dontOverrideOpacity.checked
     property alias cfg_enableAnimations: enableAnimations.checked
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
@@ -363,6 +364,12 @@ Item {
                     cfg_occupiedIndicatorColor = color;
                 });
             }
+        }
+
+        CheckBox {
+            id: dontOverrideOpacity
+            text: "Don't override opacity of custom colors"
+            Layout.columnSpan: 1
         }
 
         Item {

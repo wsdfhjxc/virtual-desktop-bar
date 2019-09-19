@@ -180,7 +180,16 @@ Component {
                             return plasmoid.configuration.idleIndicatorColor ||
                                    plasmoid.configuration.labelColor || theme.textColor;
                         }
-                        opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if (isCurrentDesktop && plasmoid.configuration.indicatorColor ||
+                                    isEmptyDesktop && plasmoid.configuration.idleIndicatorColor ||
+                                    !isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor) {
+                                    return 1;
+                                }
+                            }
+                            return !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
+                        }
                     }
                 },
 
@@ -193,7 +202,16 @@ Component {
                     PropertyChanges {
                         target: desktopIndicator
                         color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
-                        opacity: 0.7
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if ((isCurrentDesktop && plasmoid.configuration.indicatorColor) ||
+                                    (isEmptyDesktop && plasmoid.configuration.idleIndicatorColor) ||
+                                    (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor)) {
+                                    return 1;
+                                }
+                            }
+                            return 0.7;
+                        }
                     }
                 },
 
@@ -206,7 +224,16 @@ Component {
                     PropertyChanges {
                         target: desktopIndicator
                         color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
-                        opacity: 0.5
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if ((isCurrentDesktop && plasmoid.configuration.indicatorColor) ||
+                                    (isEmptyDesktop && plasmoid.configuration.idleIndicatorColor) ||
+                                    (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor)) {
+                                    return 1;
+                                }
+                            }
+                            return 0.5;
+                        }
                     }
                 }
             ]
