@@ -148,7 +148,7 @@ Component {
             var desktopButton = desktopButtons[desktopNumber - 1];
             if (plasmoid.configuration.enableAnimations) {
                 desktopButton.hide();
-                desktopButton.destroy(225);
+                desktopButton.destroy(250);
             } else {
                 desktopButton.destroy();
             }
