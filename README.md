@@ -41,6 +41,8 @@ For Arch Linux or Manjaro, run: `./install-arch-deps.sh`
 
 For openSUSE, run: `./install-opensuse-deps.sh`
 
+For Fedora, run `./install-fedora-deps.sh
+
 Then, compile the source code and install the applet:
 
 ```
