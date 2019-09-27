@@ -1,3 +1,11 @@
+#### 0.5.1
+* Added a new indicator style that just colors the desktop label
+* Added an option to not override the opacity of custom indicator colors
+* Fixed broken desktop button animation when removing a desktop
+* Fixed black color desktop label flashing when adding or removing a desktop
+* Changed the plus button opacity to follow the idle desktop label dimming option
+* Changed the renaming desktop popup to be more compact
+
 #### 0.5.0
 * Added an option to execute a command after adding a desktop
 * Added an option to set no spacing between desktop buttons
