@@ -22,7 +22,7 @@ RowLayout {
 
     TextField {
         id: desktopNameInput
-        implicitWidth: Math.max(30, hiddenTextInput.contentWidth + 16)
+        implicitWidth: Math.max(16, hiddenTextInput.contentWidth + 16)
         implicitHeight: 28
         horizontalAlignment: TextInput.AlignHCenter
         maximumLength: 20
