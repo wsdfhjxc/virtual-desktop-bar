@@ -22,7 +22,17 @@ The plasmoid displays virtual desktops as text labels (numbers, names, both) wit
 * executing a command after manually adding a desktop
 
 ### Preview
-![](preview.gif)
+Adding, renaming, moving, removing a desktop.
+
+![](preview1.gif)
+
+Three desktop label styles.
+
+![](preview2.gif)
+
+Various desktop indicator styles.
+
+![](preview3.gif)
 
 ### Installation
 Installing the applet directly from the Plasma Add-On Installer will not work. To install it, either get the applet as a distro specific package, or follow some simple instructions and build it from source by yourself.
