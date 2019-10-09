@@ -14,10 +14,18 @@ RowLayout {
         height: 1
     }
 
+    TextInput {
+        id: hiddenTextInput
+        visible: false
+        text: desktopNameInput.text
+    }
+
     TextField {
         id: desktopNameInput
-        implicitWidth: 162
+        implicitWidth: Math.max(16, hiddenTextInput.contentWidth + 16)
         implicitHeight: 28
+        horizontalAlignment: TextInput.AlignHCenter
+        maximumLength: 20
         onAccepted: {
             virtualDesktopBar.renameCurrentDesktop(text);
             plasmoid.expanded = false;

@@ -21,6 +21,7 @@ Item {
     property string cfg_idleIndicatorColor: ""
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
     property string cfg_occupiedIndicatorColor: ""
+    property alias cfg_dontOverrideOpacity: dontOverrideOpacity.checked
     property alias cfg_enableAnimations: enableAnimations.checked
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
@@ -180,6 +181,7 @@ Item {
             CheckBox {
                 id: labelColorCheckBox
                 text: "Custom color:"
+                enabled: cfg_indicatorStyle != 5
                 onCheckedChanged: {
                     cfg_labelColor = checked ? labelColorButton.getColor() : "";
                     labelColorButton.setEnabled(checked);
@@ -238,7 +240,7 @@ Item {
             ComboBox {
                 id: indicatorStyle
                 implicitWidth: 100
-                model: [ "Line", "Side", "Block", "Rounded", "Full" ]
+                model: [ "Line", "Side", "Block", "Rounded", "Full", "Label" ]
             }
         }
 
@@ -251,6 +253,7 @@ Item {
 
         CheckBox {
             id: distinctIndicatorOccupied
+            enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
             text: "Distinct indicator for occupied idle desktops"
             Layout.columnSpan: 1
         }
@@ -361,6 +364,12 @@ Item {
                     cfg_occupiedIndicatorColor = color;
                 });
             }
+        }
+
+        CheckBox {
+            id: dontOverrideOpacity
+            text: "Don't override opacity of custom colors"
+            Layout.columnSpan: 1
         }
 
         Item {

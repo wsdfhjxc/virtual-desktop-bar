@@ -34,7 +34,7 @@ Item {
             name: "default"
             PropertyChanges {
                 target: label
-                opacity: 0.7
+                opacity: plasmoid.configuration.dimLabelForIdle ? 0.7 : 0.9
             }
         },
 
@@ -42,7 +42,7 @@ Item {
             name: "hovered"
             PropertyChanges {
                 target: label
-                opacity: 0.8
+                opacity: plasmoid.configuration.dimLabelForIdle ? 0.8 : 0.9
             }
         }
     ]

@@ -35,24 +35,12 @@ Component {
                        desktopButtonRect.width + desktopButtonSpacing : 0
         implicitHeight: parent.height
 
-        Timer {
-            id: initTimer
-            interval: 75
-            running: plasmoid.configuration.enableAnimations
-            onTriggered: {
-                desktopButtonRect.opacity = 1;
-            }
-        }
-
-        Timer {
-            id: removeTimer
-            interval: 150
-            onTriggered: {
-                desktopButtonRect.width = 0
-            }
-        }
-
         Component.onCompleted: {
+            if (plasmoid.configuration.enableAnimations) {
+                delay(75, function() {
+                    desktopButtonRect.opacity = 1;
+                });
+            };
             desktopButtonRect.width = Qt.binding(function() {
                 return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
             });
@@ -81,6 +69,7 @@ Component {
 
             Rectangle {
                 id: desktopIndicator
+                visible: plasmoid.configuration.indicatorStyle != 5
                 width: {
                     if (plasmoid.configuration.indicatorStyle == 1) {
                         return desktopIndicatorThickness;
@@ -123,13 +112,18 @@ Component {
                 }
             }
 
-            Label {
+            Text {
                 id: desktopLabel
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 clip: true
                 text: desktopName
-                color: plasmoid.configuration.labelColor || theme.textColor
+                color: {
+                    if (plasmoid.configuration.indicatorStyle == 5) {
+                        return desktopIndicator.color;
+                    }
+                    return plasmoid.configuration.labelColor || theme.textColor;
+                }
                 font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
                 font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
 
@@ -167,7 +161,15 @@ Component {
                     name: "default"
                     PropertyChanges {
                         target: desktopLabel
-                        opacity: plasmoid.configuration.dimLabelForIdle ? 0.8 : 1
+                        opacity: {
+                            if (plasmoid.configuration.dimLabelForIdle) {
+                                if (plasmoid.configuration.indicatorStyle == 5) {
+                                    return 0.65 + desktopIndicator.opacity;
+                                }
+                                return 0.8;
+                            }
+                            return 1;
+                        }
                     }
                     PropertyChanges {
                         target: desktopIndicator
@@ -178,7 +180,16 @@ Component {
                             return plasmoid.configuration.idleIndicatorColor ||
                                    plasmoid.configuration.labelColor || theme.textColor;
                         }
-                        opacity: !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if (isCurrentDesktop && plasmoid.configuration.indicatorColor ||
+                                    isEmptyDesktop && plasmoid.configuration.idleIndicatorColor ||
+                                    !isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor) {
+                                    return 1;
+                                }
+                            }
+                            return !isEmptyDesktop && plasmoid.configuration.distinctIndicatorOccupied ? 0.35 : 0.15
+                        }
                     }
                 },
 
@@ -191,7 +202,16 @@ Component {
                     PropertyChanges {
                         target: desktopIndicator
                         color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
-                        opacity: 0.7
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if ((isCurrentDesktop && plasmoid.configuration.indicatorColor) ||
+                                    (isEmptyDesktop && plasmoid.configuration.idleIndicatorColor) ||
+                                    (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor)) {
+                                    return 1;
+                                }
+                            }
+                            return 0.7;
+                        }
                     }
                 },
 
@@ -204,7 +224,16 @@ Component {
                     PropertyChanges {
                         target: desktopIndicator
                         color: plasmoid.configuration.indicatorColor || theme.buttonFocusColor
-                        opacity: 0.5
+                        opacity: {
+                            if (plasmoid.configuration.dontOverrideOpacity) {
+                                if ((isCurrentDesktop && plasmoid.configuration.indicatorColor) ||
+                                    (isEmptyDesktop && plasmoid.configuration.idleIndicatorColor) ||
+                                    (!isEmptyDesktop && plasmoid.configuration.occupiedIndicatorColor)) {
+                                    return 1;
+                                }
+                            }
+                            return 0.5;
+                        }
                     }
                 }
             ]
@@ -298,13 +327,12 @@ Component {
             this.isEmptyDesktop = isEmptyDesktop;
         }
 
-        function remove() {
+        function hide() {
             if (plasmoid.configuration.enableAnimations) {
                 desktopButtonRect.opacity = 0;
-                removeTimer.start();
-                destroy(225);
-            } else {
-                destroy(10);
+                delay(150, function() {
+                    desktopButtonRect.width = 0;
+                });
             }
         }
     }

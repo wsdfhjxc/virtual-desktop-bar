@@ -75,6 +75,9 @@
     <entry name="occupiedIndicatorColor" type="String">
       <default></default>
     </entry>
+    <entry name="dontOverrideOpacity" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="showPlusButton" type="Bool">
       <default>true</default>
     </entry>

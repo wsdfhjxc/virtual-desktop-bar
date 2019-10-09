@@ -22,7 +22,17 @@ The plasmoid displays virtual desktops as text labels (numbers, names, both) wit
 * executing a command after manually adding a desktop
 
 ### Preview
-![](preview.gif)
+Adding, renaming, moving, removing a desktop.
+
+![](preview1.gif)
+
+Three desktop label styles.
+
+![](preview2.gif)
+
+Various desktop indicator styles.
+
+![](preview3.gif)
 
 ### Installation
 Installing the applet directly from the Plasma Add-On Installer will not work. To install it, either get the applet as a distro specific package, or follow some simple instructions and build it from source by yourself.
@@ -74,13 +84,13 @@ There are global keyboard shortcuts, but you have to define them in the Global S
 ### Known issues
 * Multi monitor behavior is in unknown state (untested)
 * Virtual desktops are shared by all monitors (KWin's limitation)
-* Support for Plasma Wayland session isn't there yet (missing API parts)
+* Support for Plasma Wayland session isn't there yet (maybe some day)
 * The code behind this applet is a hot mess that begs for a sensible rewrite
 * There are some occasional glitches with applet layout on Kubuntu 18.04 (Qt 5.9.5)
 * Dynamic virtual desktop management doesn't play nice with KWin tiling scripts (see below)
 
 #### Compatibility with KWin tiling scripts
-If you want to use this applet with some KWin tiling scripts, they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details.
+If you want to use this applet with some KWin tiling scripts, they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details and tips for KWin script developers which are interested in providing support for the plasmoid.
 
 #### Compatible KWin tiling scripts
 * [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
