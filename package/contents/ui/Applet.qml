@@ -13,6 +13,7 @@ RowLayout {
         cfg_keepOneEmptyDesktop: plasmoid.configuration.keepOneEmptyDesktop
         cfg_emptyDesktopName: plasmoid.configuration.emptyDesktopName
         cfg_newDesktopCommand: plasmoid.configuration.newDesktopCommand
+        cfg_enableKWinScriptsAPI: plasmoid.configuration.enableKWinScriptsAPI
     }
 
     Plasmoid.compactRepresentation: DesktopSwitcher {}

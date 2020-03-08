@@ -13,6 +13,7 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
 
     cfg_keepOneEmptyDesktop = false;
     cfg_dropRedundantDesktops = false;
+    cfg_enableKWinScriptsAPI = false;
 
     setUpSignalForwarding();
     setUpGlobalKeyboardShortcuts();
@@ -129,19 +130,27 @@ void VirtualDesktopBar::removeCurrentDesktop() {
         return;
     }
     if (canRemoveDesktop(currentDesktopNumber)) {
-        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-Before");
-        QThread::msleep(100);
+        if (cfg_enableKWinScriptsAPI) {
+            dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-Before");
+            QThread::msleep(100);
+        }
         removeDesktop(currentDesktopNumber);
-        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-After");
+        if (cfg_enableKWinScriptsAPI) {
+            dbusInterface.call("invokeShortcut", "VDB-Event-RemoveCurrentDesktop-After");
+        }
     }
 }
 
 void VirtualDesktopBar::removeLastDesktop() {
     if (canRemoveDesktop(KWindowSystem::numberOfDesktops())) {
-        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-Before");
-        QThread::msleep(100);
+        if (cfg_enableKWinScriptsAPI) {
+            dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-Before");
+            QThread::msleep(100);
+        }
         removeDesktop(KWindowSystem::numberOfDesktops());
-        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-After");
+        if (cfg_enableKWinScriptsAPI) {
+            dbusInterface.call("invokeShortcut", "VDB-Event-RemoveLastDesktop-After");
+        }
     }
 }
 
@@ -241,11 +250,15 @@ void VirtualDesktopBar::moveCurrentDesktopToLeft() {
         return;
     }
 
-    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-Before");
-    QThread::msleep(100);
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-Before");
+        QThread::msleep(100);
+    }
     moveDesktopToLeft(currentDesktopNumber);
     switchToDesktop(currentDesktopNumber);
-    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-After");
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToLeft-After");
+    }
 }
 
 void VirtualDesktopBar::moveCurrentDesktopToRight() {
@@ -253,11 +266,15 @@ void VirtualDesktopBar::moveCurrentDesktopToRight() {
         return;
     }
 
-    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-Before");
-    QThread::msleep(100);
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-Before");
+        QThread::msleep(100);
+    }
     moveDesktopToRight(currentDesktopNumber);
     switchToDesktop(currentDesktopNumber);
-    dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-After");
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-MoveCurrentDesktopToRight-After");
+    }
 }
 
 void VirtualDesktopBar::onCurrentDesktopChanged(const int desktopNumber) {
@@ -425,6 +442,14 @@ void VirtualDesktopBar::set_cfg_emptyDesktopName(QString value) {
     }
 }
 
+bool VirtualDesktopBar::get_cfg_enableKWinScriptsAPI() {
+    return cfg_enableKWinScriptsAPI;
+}
+
+void VirtualDesktopBar::set_cfg_enableKWinScriptsAPI(bool value) {
+    cfg_enableKWinScriptsAPI = value;
+}
+
 const QList<int> VirtualDesktopBar::getEmptyDesktops() const {
     QList<int> emptyDesktops;
 
@@ -458,15 +483,19 @@ void VirtualDesktopBar::removeEmptyDesktops() {
         return;
     }
 
-    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-Before");
-    QThread::msleep(100);
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-Before");
+        QThread::msleep(100);
+    }
 
     for (int i = emptyDesktops.length() - 1; i >= 1; i--) {
         int emptyDesktopNumber = emptyDesktops[i];
         removeDesktop(emptyDesktopNumber);
     }
 
-    dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-After");
+    if (cfg_enableKWinScriptsAPI) {
+        dbusInterface.call("invokeShortcut", "VDB-Event-RemoveEmptyDesktops-After");
+    }
 }
 
 void VirtualDesktopBar::onWindowAdded(WId id) {

@@ -55,6 +55,10 @@ public:
     Q_PROPERTY(QString cfg_newDesktopCommand
                MEMBER cfg_newDesktopCommand)
 
+    Q_PROPERTY(bool cfg_enableKWinScriptsAPI
+               READ get_cfg_enableKWinScriptsAPI
+               WRITE set_cfg_enableKWinScriptsAPI)
+
     bool get_cfg_keepOneEmptyDesktop();
     void set_cfg_keepOneEmptyDesktop(bool value);
 
@@ -63,6 +67,9 @@ public:
 
     QString get_cfg_emptyDesktopName();
     void set_cfg_emptyDesktopName(QString value);
+
+    bool get_cfg_enableKWinScriptsAPI();
+    void set_cfg_enableKWinScriptsAPI(bool value);
 
 signals:
     void currentDesktopChanged(const int desktopNumber);
@@ -81,6 +88,7 @@ private:
     bool cfg_dropRedundantDesktops;
     QString cfg_emptyDesktopName;
     QString cfg_newDesktopCommand;
+    bool cfg_enableKWinScriptsAPI;
 
     KActionCollection* actionCollection;
     QAction* actionSwitchToRecentDesktop;
