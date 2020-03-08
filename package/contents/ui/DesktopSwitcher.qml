@@ -29,7 +29,10 @@ Component {
                            plasmoid.configuration.showPlusButton ? 4 : 0
         }
 
-        PlusButton {}
+        PlusButton {
+            implicitHeight: parent.height
+            anchors.top: parent.top
+        }
 
         Component.onCompleted: {
             var desktopNames = virtualDesktopBar.getDesktopNames();

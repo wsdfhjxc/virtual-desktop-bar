@@ -3,14 +3,14 @@ import QtQuick.Controls 1.4
 
 Item {
     implicitWidth: label.width
-    height: parent.implicitHeight
     visible: plasmoid.configuration.showPlusButton
 
     Label {
         id: label
-        text: "➕"
+        text: "＋"
+        anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
+        font.pixelSize: 1.25 * (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize)
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }

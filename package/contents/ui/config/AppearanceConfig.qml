@@ -89,7 +89,7 @@ Item {
 
         CheckBox {
             id: showPlusButton
-            text: "Show  ➕  button for adding new desktops"
+            text: "Show  ＋  button for adding new desktops"
             Layout.columnSpan: 1
         }
 
