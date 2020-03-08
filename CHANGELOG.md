@@ -1,3 +1,8 @@
+#### 0.6.0
+* It's now possible to precisely set button dimensions and spacing in pixels
+* Plus button for adding new desktops is no longer displayed as a yellow emoji
+* Improved responsiveness by making KWin scripts compatibility mode disabled by default
+
 #### 0.5.1
 * Added a new indicator style that just colors the desktop label
 * Added an option to not override the opacity of custom indicator colors
