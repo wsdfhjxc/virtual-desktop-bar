@@ -7,8 +7,9 @@ import QtQuick.Dialogs 1.0
 Item {
     id: appearanceConfig
 
-    property alias cfg_buttonWidth: buttonWidth.currentIndex
-    property int cfg_buttonSpacing: 0
+    property alias cfg_buttonVerticalMargin: buttonVerticalMargin.value
+    property alias cfg_buttonHorizontalMargin: buttonHorizontalMargin.value
+    property alias cfg_buttonSpacing2: buttonSpacing2.value
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_labelStyle: labelStyle.currentIndex
     property string cfg_labelFont: ""
@@ -45,35 +46,44 @@ Item {
 
         RowLayout {
             Label {
-                text: "Desktop button width:"
+                text: "Vertical margins:"
             }
 
-            ComboBox {
-                id: buttonWidth
-                model: [ "Small", "Medium", "Large" ]
+            SpinBox {
+                id: buttonVerticalMargin
+                enabled: cfg_indicatorStyle < 4 && cfg_indicatorStyle > 0
+                value: cfg_buttonVerticalMargin
+                minimumValue: 0
+                maximumValue: 30
+                suffix: " px"
             }
         }
 
         RowLayout {
             Label {
-                text: "Spacing between desktop buttons:"
+                text: "Horizontal margins:"
             }
 
-            ComboBox {
-                id: buttonSpacing
-                textRole: "text"
-                model: ListModel {
-                    ListElement { text: "None"; value: -1 }
-                    ListElement { text: "Small"; value: 0 }
-                    ListElement { text: "Medium"; value: 1 }
-                    ListElement { text: "Large"; value: 2 }
-                }
-                Component.onCompleted: {
-                    currentIndex = cfg_buttonSpacing + 1;
-                }
-                onActivated: {
-                    cfg_buttonSpacing = model.get(currentIndex).value;
-                }
+            SpinBox {
+                id: buttonHorizontalMargin
+                value: cfg_buttonHorizontalMargin
+                minimumValue: 0
+                maximumValue: 30
+                suffix: " px"
+            }
+        }
+
+        RowLayout {
+            Label {
+                text: "Spacing between buttons:"
+            }
+
+            SpinBox {
+                id: buttonSpacing2
+                value: cfg_buttonSpacing2
+                minimumValue: 0
+                maximumValue: 30
+                suffix: " px"
             }
         }
 

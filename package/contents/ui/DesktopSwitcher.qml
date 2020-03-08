@@ -25,7 +25,7 @@ Component {
         }
 
         Item {
-            implicitWidth: plasmoid.configuration.buttonSpacing < 0 &&
+            implicitWidth: plasmoid.configuration.buttonSpacing2 == 0 &&
                            plasmoid.configuration.showPlusButton ? 4 : 0
         }
 

@@ -7,24 +7,6 @@ Component {
     Item {
         id: desktopButton
 
-        property int desktopButtonSpacing: {
-            if (plasmoid.configuration.buttonSpacing < 0) {
-                return 0;
-            } else if (plasmoid.configuration.buttonSpacing == 0) {
-                return 4;
-            } else if (plasmoid.configuration.buttonSpacing == 1) {
-                return 8;
-            }
-            return 12;
-        }
-        property int desktopLabelMargin: {
-            if (plasmoid.configuration.buttonWidth == 0) {
-                return 3;
-            } else if (plasmoid.configuration.buttonWidth == 1) {
-                return 6;
-            }
-            return 9;
-        }
         property int desktopIndicatorThickness: 3
 
         property string desktopName: "Desktop"
@@ -32,7 +14,7 @@ Component {
         property bool isEmptyDesktop: true
 
         implicitWidth: desktopButtonRect.width > 0 ?
-                       desktopButtonRect.width + desktopButtonSpacing : 0
+                       desktopButtonRect.width + plasmoid.configuration.buttonSpacing2 : 0
         implicitHeight: parent.height
 
         Component.onCompleted: {
@@ -42,7 +24,7 @@ Component {
                 });
             };
             desktopButtonRect.width = Qt.binding(function() {
-                return desktopLabel.implicitWidth + 2 * desktopLabelMargin;
+                return desktopLabel.implicitWidth + 2 * plasmoid.configuration.buttonHorizontalMargin;
             });
         }
 
@@ -79,10 +61,8 @@ Component {
                 height: {
                     if (plasmoid.configuration.indicatorStyle == 4) {
                         return parent.height;
-                    } else if (plasmoid.configuration.indicatorStyle == 1) {
-                        return parent.height - 16;
-                    } else if (plasmoid.configuration.indicatorStyle > 1) {
-                        return parent.height - 10;
+                    } else if (plasmoid.configuration.indicatorStyle > 0) {
+                        return desktopLabel.implicitHeight + 2 * plasmoid.configuration.buttonVerticalMargin;
                     }
                     return desktopIndicatorThickness;
                 }

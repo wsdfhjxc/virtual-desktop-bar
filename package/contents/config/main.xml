@@ -33,11 +33,14 @@
     <entry name="wheelSwitchWrap" type="Bool">
       <default>false</default>
     </entry>
-    <entry name="buttonWidth" type="Int">
-      <default>1</default>
+    <entry name="buttonVerticalMargin" type="Int">
+      <default>6</default>
     </entry>
-    <entry name="buttonSpacing" type="Int">
-      <default>1</default>
+    <entry name="buttonHorizontalMargin" type="Int">
+      <default>6</default>
+    </entry>
+    <entry name="buttonSpacing2" type="Int">
+      <default>6</default>
     </entry>
     <entry name="enableAnimations" type="Bool">
       <default>true</default>
