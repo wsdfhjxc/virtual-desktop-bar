@@ -34,7 +34,7 @@
       <default>false</default>
     </entry>
     <entry name="buttonVerticalMargin" type="Int">
-      <default>6</default>
+      <default>3</default>
     </entry>
     <entry name="buttonHorizontalMargin" type="Int">
       <default>6</default>
