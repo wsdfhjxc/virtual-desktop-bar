@@ -8,9 +8,10 @@ Item {
     Label {
         id: label
         text: "＋"
+        anchors.top: parent.top
         anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: 1.25 * (plasmoid.configuration.labelSize || theme.defaultFont.pixelSize)
+        anchors.topMargin: (parent.height - height) / 2 - 1
+        font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }
