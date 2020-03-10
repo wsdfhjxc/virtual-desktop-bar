@@ -50,15 +50,12 @@ Currently, there are no preconfigured or prebuilt packages for other distributio
 
 ### From source
 
-First, you need to install some required dependencies.
+First, you need to install some required dependencies:
 
-For Kubuntu or KDE neon, run: `./scripts/install-ubuntu-deps.sh`
-
-For Arch Linux or Manjaro, run: `./scripts/install-arch-deps.sh`
-
-For openSUSE, run: `./scripts/install-opensuse-deps.sh`
-
-For Fedora, CentOS or RHEL, run: `./scripts/install-redhat-deps.sh`
+* For Kubuntu or KDE neon, run: `./scripts/install-ubuntu-deps.sh`
+* For Arch Linux or Manjaro, run: `./scripts/install-arch-deps.sh`
+* For openSUSE, run: `./scripts/install-opensuse-deps.sh`
+* For Fedora, CentOS or RHEL, run: `./scripts/install-redhat-deps.sh`
 
 Then, compile the source code and install the applet:
 
