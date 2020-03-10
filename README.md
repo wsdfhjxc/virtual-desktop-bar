@@ -70,6 +70,8 @@ make
 sudo make install
 ```
 
+_Note:_ The last three lines also apply if you want to update to a new version.
+
 After that, you should be able to find Virtual Desktop Bar in the Widgets menu.
 
 If you want to remove the applet, `sudo make uninstall` will do.
@@ -106,6 +108,6 @@ If you want to use this applet with some KWin tiling scripts, they may not work 
 
 * [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
 
-And that's it for now...
+And that's it for now. It's a very niche applet, so that should be understandable.
 
 To get them working, you also have to tick a checkbox in the Advanced section of the configuration dialog.
