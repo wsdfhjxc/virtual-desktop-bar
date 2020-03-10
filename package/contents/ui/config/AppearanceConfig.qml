@@ -116,7 +116,14 @@ Item {
             ComboBox {
                 id: labelStyle
                 implicitWidth: 150
-                model: [ "Number only", "Number and name", "Name only" ]
+                model: [
+                    "Number",
+                    "Number: name",
+                    "Number - name",
+                    "Number • name",
+                    "Number / name",
+                    "Name"
+                ]
             }
         }
 

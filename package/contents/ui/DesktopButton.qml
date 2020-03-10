@@ -294,7 +294,13 @@ Component {
                     return getDesktopNumberForDesktopButton(desktopButton, true);
                 } else if (plasmoid.configuration.labelStyle == 1) {
                     return getDesktopNumberForDesktopButton(desktopButton, true) + ": " + desktopName;
-                }
+                } else if (plasmoid.configuration.labelStyle == 2) {
+                    return getDesktopNumberForDesktopButton(desktopButton, true) + " - " + desktopName;
+                } else if (plasmoid.configuration.labelStyle == 3) {
+                    return getDesktopNumberForDesktopButton(desktopButton, true) + " • " + desktopName;
+                } else if (plasmoid.configuration.labelStyle == 4) {
+                    return getDesktopNumberForDesktopButton(desktopButton, true) + " / " + desktopName;
+                } 
                 return desktopName;
             });
         }
