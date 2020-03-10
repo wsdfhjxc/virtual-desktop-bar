@@ -1,6 +1,6 @@
 #include "virtualdesktopbar.h"
 
-#include "kwindbusdesktopshim.h"
+#include "desktopinfo.h"
 
 #include <KWindowSystem>
 #include <KGlobalAccel>
@@ -174,11 +174,11 @@ void VirtualDesktopBar::renameDesktopDBus(const int desktopNumber, const QString
         return;
     }
 
-    QList<KWinDBusDesktopShim> list;
+    QList<DesktopInfo> list;
     arg >> list;
-    for (const KWinDBusDesktopShim& shim : list) {
-        if (shim.number + 1 == desktopNumber) {
-            interface.call("setDesktopName", shim.id, desktopName);
+    for (const DesktopInfo& info : list) {
+        if (info.number + 1 == desktopNumber) {
+            interface.call("setDesktopName", info.id, desktopName);
             break;
         }
     }
