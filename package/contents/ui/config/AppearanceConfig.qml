@@ -98,7 +98,7 @@ Item {
         }
 
         Label {
-            text: "Desktop label"
+            text: "Desktop labels"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -224,7 +224,7 @@ Item {
 
         CheckBox {
             id: dimLabelForIdle
-            text: "Dim label for idle desktops"
+            text: "Dim labels for idle desktops"
             Layout.columnSpan: 1
         }
 
@@ -233,7 +233,7 @@ Item {
         }
 
         Label {
-            text: "Desktop indicator"
+            text: "Desktop indicators"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -371,14 +371,17 @@ Item {
 
         CheckBox {
             id: dontOverrideOpacity
-            text: "Don't override opacity of custom colors"
+            enabled: indicatorColorCheckBox.checked ||
+                     idleIndicatorColorCheckBox.checked ||
+                     occupiedIndicatorColorCheckBox.checked
+            text: "Do not override opacity of custom colors"
             Layout.columnSpan: 1
         }
 
         CheckBox {
             id: distinctIndicatorOccupied
             enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
-            text: "Distinct indicator for occupied idle desktops"
+            text: "Distinct indicators for occupied idle desktops"
             Layout.columnSpan: 1
         }
 
