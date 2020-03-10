@@ -30,7 +30,7 @@ Adding, renaming, moving, removing a desktop:
 
 ![](screenshots/1.gif)
 
-Three desktop label styles:
+Multiple desktop label styles:
 
 ![](screenshots/2.gif)
 
