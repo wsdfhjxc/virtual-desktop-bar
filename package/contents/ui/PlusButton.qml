@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 
 Item {
     implicitWidth: label.width
-    visible: plasmoid.configuration.showPlusButton
+    visible: plasmoid.configuration.showPlusButton && !plasmoid.configuration.dropRedundantDesktops
 
     Label {
         id: label

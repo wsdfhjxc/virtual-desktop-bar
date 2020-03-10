@@ -89,6 +89,7 @@ Item {
 
         CheckBox {
             id: showPlusButton
+            enabled: !plasmoid.configuration.dropRedundantDesktops
             text: "Show ＋ button for adding new desktops"
             Layout.columnSpan: 1
         }
