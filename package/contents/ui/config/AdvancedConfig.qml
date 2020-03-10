@@ -17,7 +17,7 @@ Item {
         }
 
         Label {
-            text: "Tweaks for KWin scripts"
+            text: "Compatibility with KWin scripts"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
@@ -28,17 +28,17 @@ Item {
 
         CheckBox {
             id: enableKWinScriptsAPI
-            text: "Enable API for compatible KWin Scripts"
+            text: "Enable communication with compatible KWin scripts"
             Layout.columnSpan: 1
         }
 
-        Label {
-            text: "<html><a href='a'>Click here for more information about this option</a></html>"
-            onLinkActivated: Qt.openUrlExternally("https://github.com/wsdfhjxc/virtual-desktop-bar#compatibility-with-kwin-tiling-scripts")
+        Item {
+            height: 1
         }
 
-        Item {
-            height: 10
+        Label {
+            text: "<html><a href='a'>Click here for more details about this option</a></html>"
+            onLinkActivated: Qt.openUrlExternally("https://github.com/wsdfhjxc/virtual-desktop-bar#compatibility-with-kwin-tiling-scripts")
         }
     }
 }

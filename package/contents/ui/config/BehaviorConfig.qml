@@ -52,17 +52,7 @@ Item {
                 id: emptyDesktopNameCheckBox
                 text: "Automatically rename empty desktops as:"
                 checked: cfg_emptyDesktopName
-                onCheckedChanged: {
-                    if (checked) {
-                        if (emptyDesktopName.text) {
-                            cfg_emptyDesktopName = emptyDesktopName.text;
-                        } else {
-                            cfg_emptyDesktopName = "Empty";
-                        }
-                    } else {
-                        cfg_emptyDesktopName = "";
-                    }
-                }
+                onCheckedChanged: cfg_emptyDesktopName = checked ? emptyDesktopName.text : ""
             }
 
             TextInput {
@@ -77,8 +67,8 @@ Item {
                 maximumLength: 20
                 implicitWidth: Math.max(30, hiddenTextInput.contentWidth + 16)
                 horizontalAlignment: TextInput.AlignHCenter
-                text: cfg_emptyDesktopName
-                onEditingFinished: cfg_emptyDesktopName = text ? text : "Empty"
+                text: cfg_emptyDesktopName || "Desktop"
+                onEditingFinished: cfg_emptyDesktopName = text
             }
         }
 
@@ -105,7 +95,7 @@ Item {
 
         CheckBox {
             id: renameNewDesktop
-            text: "Immediately prompt to rename a manually added desktop"
+            text: "Automatically prompt to rename a manually added desktop"
             enabled: switchToNewDesktop.enabled && switchToNewDesktop.checked
             Layout.columnSpan: 1
         }
@@ -113,20 +103,10 @@ Item {
         RowLayout {
             CheckBox {
                 id: newDesktopCommandCheckBox
-                text: "Immediately execute a command:"
+                text: "Execute a command after manually adding a desktop:"
                 enabled: !dropRedundantDesktops.checked
                 checked: cfg_newDesktopCommand
-                onCheckedChanged: {
-                    if (checked) {
-                        if (newDesktopCommand.text) {
-                            cfg_newDesktopCommand = newDesktopCommand.text;
-                        } else {
-                            cfg_newDesktopCommand = "qdbus org.kde.krunner /App display";
-                        }
-                    } else {
-                        cfg_newDesktopCommand = "";
-                    }
-                }
+                onCheckedChanged: cfg_newDesktopCommand = checked ? newDesktopCommand.text : "";
             }
 
             TextInput {
@@ -141,8 +121,8 @@ Item {
                 maximumLength: 255
                 implicitWidth: Math.max(30, hiddenTextInput2.contentWidth + 16)
                 horizontalAlignment: TextInput.AlignHCenter
-                text: cfg_newDesktopCommand
-                onEditingFinished: cfg_newDesktopCommand = text ? text : ""
+                text: cfg_newDesktopCommand || "krunner"
+                onEditingFinished: cfg_newDesktopCommand = text
             }
         }
 

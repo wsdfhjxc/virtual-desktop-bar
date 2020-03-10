@@ -89,7 +89,7 @@ Item {
 
         CheckBox {
             id: showPlusButton
-            text: "Show  ＋  button for adding new desktops"
+            text: "Show ＋ button for adding new desktops"
             Layout.columnSpan: 1
         }
 
@@ -109,7 +109,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Desktop label style:"
+                text: "Style:"
             }
 
             ComboBox {
@@ -117,12 +117,6 @@ Item {
                 implicitWidth: 150
                 model: [ "Number only", "Number and name", "Name only" ]
             }
-        }
-
-        CheckBox {
-            id: dimLabelForIdle
-            text: "Dim desktop label for idle desktops"
-            Layout.columnSpan: 1
         }
 
         RowLayout {
@@ -228,6 +222,12 @@ Item {
             }
         }
 
+        CheckBox {
+            id: dimLabelForIdle
+            text: "Dim label for idle desktops"
+            Layout.columnSpan: 1
+        }
+
         Item {
             height: 16
         }
@@ -244,7 +244,7 @@ Item {
 
         RowLayout {
             Label {
-                text: "Desktop indicator style:"
+                text: "Style:"
             }
 
             ComboBox {
@@ -256,15 +256,8 @@ Item {
 
         CheckBox {
             id: invertIndicator
-            text: "Invert desktop indicator position"
+            text: "Invert indicator position"
             enabled: cfg_indicatorStyle < 2
-            Layout.columnSpan: 1
-        }
-
-        CheckBox {
-            id: distinctIndicatorOccupied
-            enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
-            text: "Distinct indicator for occupied idle desktops"
             Layout.columnSpan: 1
         }
 
@@ -379,6 +372,13 @@ Item {
         CheckBox {
             id: dontOverrideOpacity
             text: "Don't override opacity of custom colors"
+            Layout.columnSpan: 1
+        }
+
+        CheckBox {
+            id: distinctIndicatorOccupied
+            enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
+            text: "Distinct indicator for occupied idle desktops"
             Layout.columnSpan: 1
         }
 

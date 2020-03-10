@@ -4,7 +4,7 @@ import org.kde.plasma.configuration 2.0
 ConfigModel {
     ConfigCategory {
         name: "Behavior"
-        icon: "preferences-desktop-virtual"
+        icon: "preferences-desktop"
         source: "config/BehaviorConfig.qml"
     }
     ConfigCategory {
@@ -14,7 +14,7 @@ ConfigModel {
     }
     ConfigCategory {
         name: "Advanced"
-        icon: "preferences-desktop"
+        icon: "preferences-desktop-plasma"
         source: "config/AdvancedConfig.qml"
     }
 }
