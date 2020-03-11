@@ -3,6 +3,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
+import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
     id: appearanceConfig
@@ -51,10 +52,11 @@ Item {
 
             SpinBox {
                 id: buttonVerticalMargin
-                enabled: cfg_indicatorStyle < 4 && cfg_indicatorStyle > 0
+                enabled: plasmoid.formFactor == PlasmaCore.Types.Vertical ||
+                         cfg_indicatorStyle < 4 && cfg_indicatorStyle > 0
                 value: cfg_buttonVerticalMargin
                 minimumValue: 0
-                maximumValue: 30
+                maximumValue: 300
                 suffix: " px"
             }
         }
@@ -66,9 +68,11 @@ Item {
 
             SpinBox {
                 id: buttonHorizontalMargin
+                enabled: plasmoid.formFactor != PlasmaCore.Types.Vertical ||
+                         (cfg_indicatorStyle < 4 && cfg_indicatorStyle != 1)
                 value: cfg_buttonHorizontalMargin
                 minimumValue: 0
-                maximumValue: 30
+                maximumValue: 300
                 suffix: " px"
             }
         }
