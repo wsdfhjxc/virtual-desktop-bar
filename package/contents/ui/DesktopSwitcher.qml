@@ -216,7 +216,7 @@ Component {
                 wheelDelta += change;
 
                 while (wheelDelta >= wheelDeltaLimit) {
-                    wheelDelta -= wheelDeltaLimit;
+                    wheelDelta = 0;
                     var nextDesktopNumber = currentDesktopNumber + 1;
                     if (nextDesktopNumber <= desktopAmount) {
                         virtualDesktopBar.switchToDesktop(nextDesktopNumber);
