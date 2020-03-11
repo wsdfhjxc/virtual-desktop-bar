@@ -3,14 +3,16 @@ import QtQuick.Controls 1.4
 
 Item {
     implicitWidth: label.width
+    implicitHeight: !vertical ? parent.height : label.height
+    anchors.horizontalCenter: vertical ? parent.horizontalCenter : null
     visible: plasmoid.configuration.showPlusButton && !plasmoid.configuration.dropRedundantDesktops
 
     Label {
         id: label
         text: "＋"
         anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.topMargin: (parent.height - height) / 2 - 1
+        anchors.topMargin: !desktopSwitcher.vertical ?
+                           (parent.height - height) / 2 - 1 : -3
         font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family

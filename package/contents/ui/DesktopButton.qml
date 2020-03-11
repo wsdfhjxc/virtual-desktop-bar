@@ -13,9 +13,12 @@ Component {
         property bool isCurrentDesktop: false
         property bool isEmptyDesktop: true
 
-        implicitWidth: desktopButtonRect.width > 0 ?
+        implicitWidth: desktopSwitcher.vertical ?
+                       parent.width : desktopButtonRect.width > 0 ?
                        desktopButtonRect.width + plasmoid.configuration.buttonSpacing2 : 0
-        implicitHeight: parent.height
+        implicitHeight: !desktopSwitcher.vertical ?
+                        parent.height : desktopButtonRect.height > 0 ?
+                        desktopButtonRect.height + plasmoid.configuration.buttonSpacing2 : 0
 
         Component.onCompleted: {
             if (plasmoid.configuration.enableAnimations) {
@@ -26,12 +29,19 @@ Component {
             desktopButtonRect.width = Qt.binding(function() {
                 return desktopLabel.implicitWidth + 2 * plasmoid.configuration.buttonHorizontalMargin;
             });
+            desktopButtonRect.height = Qt.binding(function() {
+                if (!desktopSwitcher.vertical) {
+                    return parent.height;
+                }
+                return desktopLabel.implicitHeight + 2 * plasmoid.configuration.buttonVerticalMargin;
+            });
         }
 
         Rectangle {
             id: desktopButtonRect
             width: 0
-            height: parent.height
+            height: 0
+            anchors.horizontalCenter: desktopSwitcher.vertical ? parent.horizontalCenter : null
             color: "transparent"
             opacity: plasmoid.configuration.enableAnimations ? 0 : 1
 
@@ -43,6 +53,13 @@ Component {
             }
 
             Behavior on width {
+                enabled: plasmoid.configuration.enableAnimations
+                animation: NumberAnimation {
+                    duration: 75
+                }
+            }
+
+            Behavior on height {
                 enabled: plasmoid.configuration.enableAnimations
                 animation: NumberAnimation {
                     duration: 75
@@ -108,6 +125,13 @@ Component {
                 font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
 
                 Behavior on width {
+                    enabled: plasmoid.configuration.enableAnimations
+                    animation: NumberAnimation {
+                        duration: 75
+                    }
+                }
+
+                Behavior on height {
                     enabled: plasmoid.configuration.enableAnimations
                     animation: NumberAnimation {
                         duration: 75
@@ -317,7 +341,11 @@ Component {
             if (plasmoid.configuration.enableAnimations) {
                 desktopButtonRect.opacity = 0;
                 delay(150, function() {
-                    desktopButtonRect.width = 0;
+                    if (desktopSwitcher.vertical) {
+                        desktopButtonRect.height = 0;
+                    } else {
+                        desktopButtonRect.width = 0;
+                    }
                 });
             }
         }

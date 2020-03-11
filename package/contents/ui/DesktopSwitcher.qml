@@ -1,13 +1,16 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
+import org.kde.plasma.core 2.0 as PlasmaCore
 
 Component {
-    RowLayout {
+    GridLayout {
         id: desktopSwitcher
-        spacing: 0
-        implicitHeight: parent.height
+        rowSpacing: 0
+        columnSpacing: 0
+        flow: vertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
 
+        property bool vertical: plasmoid.formFactor == PlasmaCore.Types.Vertical
         property int desktopAmount: 0
         property int currentDesktopNumber;
         property var desktopButtons: []
@@ -17,22 +20,24 @@ Component {
             id: desktopButtonComponent
         }
 
-        RowLayout {
+        GridLayout {
             id: desktopButtonsLayout
-            spacing: parent.spacing
-            implicitHeight: parent.height
+            rowSpacing: parent.rowSpacing
+            columnSpacing: parent.columnSpacing
+            flow: parent.flow
             anchors.fill: parent
         }
 
         Item {
-            implicitWidth: plasmoid.configuration.buttonSpacing2 == 0 &&
+            implicitWidth: vertical ? null :
+                           plasmoid.configuration.buttonSpacing2 == 0 &&
                            plasmoid.configuration.showPlusButton ? 4 : 0
+            implicitHeight: !vertical ? null :
+                            plasmoid.configuration.buttonSpacing2 == 0 &&
+                            plasmoid.configuration.showPlusButton ? 1 : 0
         }
 
-        PlusButton {
-            implicitHeight: parent.height
-            anchors.top: parent.top
-        }
+        PlusButton {}
 
         Component.onCompleted: {
             var desktopNames = virtualDesktopBar.getDesktopNames();
