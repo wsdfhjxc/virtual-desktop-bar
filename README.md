@@ -30,13 +30,17 @@ Adding, renaming, moving, removing a desktop:
 
 ![](screenshots/1.gif)
 
-Multiple desktop label styles:
+Various desktop label styles:
 
 ![](screenshots/2.gif)
 
 Various desktop indicator styles:
 
 ![](screenshots/3.gif)
+
+Partial support also for vertical panels:
+
+![](screenshots/4.png)
 
 ## Installation
 
@@ -97,14 +101,14 @@ There are global keyboard shortcuts, but you have to find and define them in the
 * There are some occasional glitches with applet layout on Kubuntu 18.04 (Qt 5.9.5)
 * Dynamic virtual desktop management doesn't play nice with KWin tiling scripts (see below)
 
-### Compatibility with KWin tiling scripts
+## Compatibility with KWin tiling scripts
 
 If you want to use this applet with some KWin tiling scripts, they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details and tips for KWin script developers which are interested in providing support for the plasmoid.
 
-### Compatible KWin tiling scripts
+### Compatible scripts
 
 * [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
 
-And that's it for now. It's a very niche applet, so that should be understandable.
+And that's it for now. It's a very niche applet, so don't expect more to come.
 
-To get them working, you also have to tick a checkbox in the Advanced section of the configuration dialog.
+_Note:_ You also have to tick a checkbox in the Advanced section of the configuration dialog.
