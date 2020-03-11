@@ -27,6 +27,9 @@ Component {
                 });
             };
             desktopButtonRect.width = Qt.binding(function() {
+                if (desktopSwitcher.vertical) {
+                    return parent.width;
+                }
                 return desktopLabel.implicitWidth + 2 * plasmoid.configuration.buttonHorizontalMargin;
             });
             desktopButtonRect.height = Qt.binding(function() {
@@ -70,6 +73,15 @@ Component {
                 id: desktopIndicator
                 visible: plasmoid.configuration.indicatorStyle != 5
                 width: {
+                    if (desktopSwitcher.vertical) {
+                        if (plasmoid.configuration.indicatorStyle == 1) {
+                            return desktopIndicatorThickness;
+                        }
+                        if (plasmoid.configuration.indicatorStyle == 4) {
+                            return parent.width;
+                        }
+                        return desktopLabel.implicitWidth + 2 * plasmoid.configuration.buttonHorizontalMargin;
+                    }
                     if (plasmoid.configuration.indicatorStyle == 1) {
                         return desktopIndicatorThickness;
                     }
@@ -78,12 +90,18 @@ Component {
                 height: {
                     if (plasmoid.configuration.indicatorStyle == 4) {
                         return parent.height;
-                    } else if (plasmoid.configuration.indicatorStyle > 0) {
+                    }
+                    if (plasmoid.configuration.indicatorStyle > 0) {
                         return desktopLabel.implicitHeight + 2 * plasmoid.configuration.buttonVerticalMargin;
                     }
                     return desktopIndicatorThickness;
                 }
                 x: {
+                    if (desktopSwitcher.vertical) {
+                        if (plasmoid.configuration.indicatorStyle != 1) {
+                            return (parent.width - width) / 2;
+                        }
+                    }
                     if (plasmoid.configuration.indicatorStyle == 1 &&
                         plasmoid.configuration.invertIndicator) {
                         return parent.width - width;
@@ -102,7 +120,8 @@ Component {
                 radius: {
                     if (plasmoid.configuration.indicatorStyle == 2) {
                         return 2;
-                    } else if (plasmoid.configuration.indicatorStyle == 3) {
+                    }
+                    if (plasmoid.configuration.indicatorStyle == 3) {
                         return 300;
                     }
                     return 0;

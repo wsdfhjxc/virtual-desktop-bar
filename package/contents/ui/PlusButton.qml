@@ -2,7 +2,7 @@ import QtQuick 2.1
 import QtQuick.Controls 1.4
 
 Item {
-    implicitWidth: label.width
+    implicitWidth: vertical ? parent.width : label.width 
     implicitHeight: !vertical ? parent.height : label.height
     anchors.horizontalCenter: vertical ? parent.horizontalCenter : null
     visible: plasmoid.configuration.showPlusButton && !plasmoid.configuration.dropRedundantDesktops
@@ -11,6 +11,7 @@ Item {
         id: label
         text: "＋"
         anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: !desktopSwitcher.vertical ?
                            (parent.height - height) / 2 - 1 : -3
         font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
