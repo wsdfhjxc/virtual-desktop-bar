@@ -44,22 +44,20 @@ Partial support also for vertical panels:
 
 ## Installation
 
-Installing the applet directly from the Plasma Add-On Installer will not work. To install it, either get the applet as a distro specific package, or follow some simple instructions and build it from source by yourself.
+To install the applet, either get it as a distro specific package, or build it from source by yourself.
 
 ### Packages
 
-Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks cupnoodles).
-
-Currently, there are no preconfigured or prebuilt packages for other distributions.
+Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) made by cupnoodles.
 
 ### From source
 
 First, you need to install some required dependencies:
 
-* For Kubuntu or KDE neon, run: `./scripts/install-ubuntu-deps.sh`
-* For Arch Linux or Manjaro, run: `./scripts/install-arch-deps.sh`
-* For openSUSE, run: `./scripts/install-opensuse-deps.sh`
-* For Fedora, CentOS or RHEL, run: `./scripts/install-redhat-deps.sh`
+* On Kubuntu or KDE neon, run: `./scripts/install-ubuntu-deps.sh`
+* On Arch Linux or Manjaro, run: `./scripts/install-arch-deps.sh`
+* On openSUSE, run: `./scripts/install-opensuse-deps.sh`
+* On Fedora, CentOS or RHEL, run: `./scripts/install-redhat-deps.sh`
 
 Then, compile the source code and install the applet:
 
@@ -71,11 +69,11 @@ make
 sudo make install
 ```
 
-_Note:_ The last three lines also apply if you want to update to a new version.
+_Note:_ If you want to remove the applet, use `sudo make uninstall`.
+
+_Note:_ These steps also apply if you want to upgrade to a newer version.
 
 After that, you should be able to find Virtual Desktop Bar in the Widgets menu.
-
-If you want to remove the applet, `sudo make uninstall` will do.
 
 ## Configuration
 
@@ -94,11 +92,9 @@ There are global keyboard shortcuts, but you have to find and define them in the
 
 ## Known issues
 
-* Multi monitor behavior is in unknown state (untested)
 * Virtual desktops are shared by all monitors (KWin's limitation)
 * Support for Plasma Wayland session isn't there yet (maybe some day)
 * The code behind this applet is a hot mess that begs for a sensible rewrite
-* There are some occasional glitches with applet layout on Kubuntu 18.04 (Qt 5.9.5)
 * Dynamic virtual desktop management doesn't play nice with KWin tiling scripts (see below)
 
 ## Compatibility with KWin tiling scripts
@@ -109,6 +105,6 @@ If you want to use this applet with some KWin tiling scripts, they may not work 
 
 * [Patched faho's KWin tiling script](https://github.com/wsdfhjxc/kwin-tiling/tree/virtual-desktop-bar)
 
-And that's it for now. It's a very niche applet, so don't expect more to come.
+And that's it. It's a very niche applet, so don't expect more scripts to follow.
 
-_Note:_ You also have to tick a checkbox in the Advanced section of the configuration dialog.
+_Note:_ You also need to tick a checkbox in the Advanced section of the configuration dialog.
