@@ -42,6 +42,9 @@
     <entry name="buttonSpacing2" type="Int">
       <default>6</default>
     </entry>
+    <entry name="showOnlyCurrentDesktop" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="enableAnimations" type="Bool">
       <default>true</default>
     </entry>
