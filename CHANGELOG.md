@@ -1,3 +1,6 @@
+### 0.7.1
+* Added an option to show only current desktop
+
 ### 0.7.0
 * Added more desktop label styles
 * Added partial support for vertical panel layout
