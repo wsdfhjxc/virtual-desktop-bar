@@ -11,6 +11,7 @@ Item {
     property alias cfg_buttonVerticalMargin: buttonVerticalMargin.value
     property alias cfg_buttonHorizontalMargin: buttonHorizontalMargin.value
     property alias cfg_buttonSpacing2: buttonSpacing2.value
+    property alias cfg_showOnlyCurrentDesktop: showOnlyCurrentDesktop.checked
     property alias cfg_showPlusButton: showPlusButton.checked
     property alias cfg_labelStyle: labelStyle.currentIndex
     property string cfg_labelFont: ""
@@ -79,16 +80,24 @@ Item {
 
         RowLayout {
             Label {
+                enabled: !cfg_showOnlyCurrentDesktop
                 text: "Spacing between buttons:"
             }
 
             SpinBox {
                 id: buttonSpacing2
+                enabled: !cfg_showOnlyCurrentDesktop
                 value: cfg_buttonSpacing2
                 minimumValue: 0
                 maximumValue: 30
                 suffix: " px"
             }
+        }
+
+        CheckBox {
+            id: showOnlyCurrentDesktop
+            text: "Show button only for current desktop"
+            Layout.columnSpan: 1
         }
 
         CheckBox {

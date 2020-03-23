@@ -7,6 +7,8 @@ Component {
     Item {
         id: desktopButton
 
+        visible: !plasmoid.configuration.showOnlyCurrentDesktop || isCurrentDesktop
+
         property int desktopIndicatorThickness: 3
 
         property string desktopName: "Desktop"
