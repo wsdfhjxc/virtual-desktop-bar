@@ -17,6 +17,30 @@ Item {
         }
 
         Label {
+            text: "Applet version"
+            font.pixelSize: labelFontPixelSize
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
+        Label {
+            text: "Current version is 0.8"
+            Layout.columnSpan: 1
+        }
+
+        Label {
+            text: "<html><a href='a'>Click here to check for updates</a></html>"
+            onLinkActivated: Qt.openUrlExternally("https://store.kde.org/p/1315319/#updates-panel")
+        }
+
+        Item {
+            height: 10
+        }
+
+        Label {
             text: "Compatibility with KWin tiling scripts"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
