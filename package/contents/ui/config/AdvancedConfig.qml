@@ -56,10 +56,6 @@ Item {
             Layout.columnSpan: 1
         }
 
-        Item {
-            height: 1
-        }
-
         Label {
             text: "<html><a href='a'>Click here to see more information about this option</a></html>"
             onLinkActivated: Qt.openUrlExternally("https://github.com/wsdfhjxc/virtual-desktop-bar#compatibility-with-kwin-tiling-scripts")
