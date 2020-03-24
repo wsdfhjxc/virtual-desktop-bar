@@ -9,12 +9,14 @@ Item {
 
     Label {
         id: label
-        text: "＋"
+        text: plasmoid.configuration.plusButtonSymbol || "＋"
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: !desktopSwitcher.vertical ?
+        anchors.topMargin: text != "＋" ? (parent.height - height) / 2 :
+                           !desktopSwitcher.vertical ?
                            (parent.height - height) / 2 - 1 : -3
-        font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
+        font.pixelSize: plasmoid.configuration.plusButtonSize ||
+                        plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
         color: plasmoid.configuration.labelColor || theme.textColor
         font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
     }

@@ -13,7 +13,6 @@ Item {
     property alias cfg_buttonHorizontalMargin: buttonHorizontalMargin.value
     property alias cfg_buttonSpacing2: buttonSpacing2.value
     property alias cfg_showOnlyCurrentDesktop: showOnlyCurrentDesktop.checked
-    property alias cfg_showPlusButton: showPlusButton.checked
 
     // Desktop labels
     property alias cfg_labelStyle: labelStyle.currentIndex
@@ -30,6 +29,11 @@ Item {
     property string cfg_occupiedIndicatorColor: ""
     property alias cfg_dontOverrideOpacity: dontOverrideOpacity.checked
     property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
+
+    // New desktop button
+    property alias cfg_showPlusButton: showPlusButton.checked
+    property string cfg_plusButtonSymbol: ""
+    property int cfg_plusButtonSize: 0
 
     // Other
     property alias cfg_enableAnimations: enableAnimations.checked
@@ -104,13 +108,6 @@ Item {
         CheckBox {
             id: showOnlyCurrentDesktop
             text: "Show button only for current desktop"
-            Layout.columnSpan: 1
-        }
-
-        CheckBox {
-            id: showPlusButton
-            enabled: !plasmoid.configuration.dropRedundantDesktops
-            text: "Show ＋ button for adding new desktops"
             Layout.columnSpan: 1
         }
 
@@ -411,6 +408,71 @@ Item {
             enabled: cfg_indicatorStyle != 5 || cfg_dimLabelForIdle
             text: "Distinct indicators for occupied idle desktops"
             Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 16
+        }
+
+        Label {
+            text: "New desktop button"
+            font.pixelSize: labelFontPixelSize
+            Layout.columnSpan: 1
+        }
+
+        Item {
+            height: 1
+        }
+
+        CheckBox {
+            id: showPlusButton
+            enabled: !plasmoid.configuration.dropRedundantDesktops
+            text: "Show new desktop button"
+            Layout.columnSpan: 1
+        }
+
+        RowLayout {
+            CheckBox {
+                id: plusButtonSymbolCheckBox
+                text: "Custom symbol:"
+                enabled: showPlusButton.checked && showPlusButton.enabled
+                checked: cfg_plusButtonSymbol
+                onCheckedChanged: cfg_plusButtonSymbol = checked ? plusButtonCharacter.text : ""
+            }
+
+            TextField {
+                id: plusButtonCharacter
+                enabled: plusButtonSymbolCheckBox.checked && plusButtonSymbolCheckBox.enabled
+                maximumLength: 1
+                implicitWidth: 30
+                horizontalAlignment: TextInput.AlignHCenter
+                text: cfg_plusButtonSymbol || "＋"
+                onEditingFinished: cfg_plusButtonSymbol = text
+            }
+        }
+
+        RowLayout {
+            CheckBox {
+                id: plusButtonSizeCheckBox
+                text: "Custom size:"
+                enabled: showPlusButton.checked && showPlusButton.enabled
+                checked: cfg_plusButtonSize > 0
+                onCheckedChanged: cfg_plusButtonSize = checked ? plusButtonSize.value : 0;
+            }
+
+            SpinBox {
+                id: plusButtonSize
+                enabled: plusButtonSizeCheckBox.checked
+                value: cfg_plusButtonSize || cfg_labelSize || theme.defaultFont.pixelSize
+                minimumValue: 8
+                maximumValue: 64
+                suffix: " px"
+                onValueChanged: {
+                    if (plusButtonSizeCheckBox.checked) {
+                        cfg_plusButtonSize = value;
+                    }
+                }
+            }
         }
 
         Item {
