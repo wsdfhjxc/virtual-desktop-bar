@@ -8,23 +8,30 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Item {
     id: appearanceConfig
 
+    // Desktop buttons
     property alias cfg_buttonVerticalMargin: buttonVerticalMargin.value
     property alias cfg_buttonHorizontalMargin: buttonHorizontalMargin.value
     property alias cfg_buttonSpacing2: buttonSpacing2.value
     property alias cfg_showOnlyCurrentDesktop: showOnlyCurrentDesktop.checked
     property alias cfg_showPlusButton: showPlusButton.checked
+
+    // Desktop labels
     property alias cfg_labelStyle: labelStyle.currentIndex
     property string cfg_labelFont: ""
     property int cfg_labelSize: 0
     property string cfg_labelColor: ""
     property alias cfg_dimLabelForIdle: dimLabelForIdle.checked
+
+    // Desktop indicators
     property alias cfg_indicatorStyle: indicatorStyle.currentIndex
     property alias cfg_invertIndicator: invertIndicator.checked
     property string cfg_indicatorColor: ""
     property string cfg_idleIndicatorColor: ""
-    property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
     property string cfg_occupiedIndicatorColor: ""
     property alias cfg_dontOverrideOpacity: dontOverrideOpacity.checked
+    property alias cfg_distinctIndicatorOccupied: distinctIndicatorOccupied.checked
+
+    // Other
     property alias cfg_enableAnimations: enableAnimations.checked
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4

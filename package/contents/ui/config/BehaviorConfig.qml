@@ -5,12 +5,17 @@ import QtQuick.Layouts 1.1
 Item {
     id: behaviorConfig
 
+    // Empty desktops
     property alias cfg_keepOneEmptyDesktop: keepOneEmptyDesktop.checked
     property alias cfg_dropRedundantDesktops: dropRedundantDesktops.checked
     property string cfg_emptyDesktopName: ""
+
+    // Adding new desktops
     property alias cfg_switchToNewDesktop: switchToNewDesktop.checked
     property alias cfg_renameNewDesktop: renameNewDesktop.checked
     property string cfg_newDesktopCommand: ""
+
+    // Mouse wheel handling
     property alias cfg_switchWithWheel: switchWithWheel.checked
     property alias cfg_invertWheelSwitch: invertWheelSwitch.checked
     property alias cfg_wheelSwitchWrap: wheelSwitchWrap.checked
