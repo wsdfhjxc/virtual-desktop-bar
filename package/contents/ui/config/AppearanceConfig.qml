@@ -35,7 +35,7 @@ Item {
     property string cfg_plusButtonSymbol: ""
     property int cfg_plusButtonSize: 0
 
-    // Other
+    // Animations
     property alias cfg_enableAnimations: enableAnimations.checked
 
     property var labelFontPixelSize: theme.defaultFont.pixelSize + 4
@@ -480,7 +480,7 @@ Item {
         }
 
         Label {
-            text: "Other"
+            text: "Animations"
             font.pixelSize: labelFontPixelSize
             Layout.columnSpan: 1
         }
