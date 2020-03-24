@@ -12,9 +12,18 @@ Item {
         text: plasmoid.configuration.plusButtonSymbol || "＋"
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: text != "＋" ? (parent.height - height) / 2 :
-                           !desktopSwitcher.vertical ?
-                           (parent.height - height) / 2 - 1 : -3
+        anchors.topMargin: {
+            var margin = 0;
+            if (!desktopSwitcher.vertical) {
+                margin = (parent.height - height) / 2;
+                if (text == "＋") {
+                    margin -= 1;
+                }
+            } else {
+                margin = implicitHeight / -4.5;
+            }
+            return margin;
+        }
         font.pixelSize: plasmoid.configuration.plusButtonSize ||
                         plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
         color: plasmoid.configuration.labelColor || theme.textColor
