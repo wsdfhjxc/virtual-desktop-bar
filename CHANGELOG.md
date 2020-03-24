@@ -1,3 +1,7 @@
+### 0.8
+* Plus button (new desktop button) has now some customization options
+* Advanced section of the configuration dialog now contains the applet version
+
 ### 0.7.1
 * Added an option to show only current desktop
 
