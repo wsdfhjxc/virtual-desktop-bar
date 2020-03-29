@@ -1,12 +1,15 @@
-## Compatibility with KWin tiling scripts
-KWin doesn't have an API for moving virtual desktops or removing particular ones. This plasmoid implements such features, and it involves moving windows between existing desktops to achieve that. It's not possible for a KWin script to know that moving a bunch of windows from one desktop to another, and vice versa, should be interpreted as a virtual desktop swap. Moreover, most KWin scripts which track positions of windows, especially tiling scripts, are designed to work with static virtual desktops. So, they may break badly because of using non-standard features related to dynamic virtual desktop management, such as removing a desktop or moving it to left or right.
+# Compatibility with KWin scripts
 
-If you just want an alternative for the Pager applet and don't care about those features, you shouldn't have any problems. Just keep in mind, that once you try to remove a desktop (other than the last one), or move current desktop to left or right, the tiling script you are using will most likely misbehave. That can mean anything, from nothing happening, to even causing a KWin crash. That's how it is, as long as said features aren't supported in Plasma natively.
+KWin doesn't have an API for moving virtual desktops or removing particular ones. This plasmoid implements such features, by combining various method calls, and abstracting them into more complex methods, which can be then used within the applet's code. It's not possible for a KWin script to know about such abstracted methods, as they can only react to particular atomic signals supported by the platform (see [here](https://techbase.kde.org/Development/Tutorials/KWin/Scripting/API_4.9#Signals)). In addition, most KWin scripts which track positions of windows, especially tiling scripts, are designed to work with static virtual desktops. So, they may break badly because of using non-standard features related to dynamic virtual desktop management, such as removing a desktop, or moving it to left or right.
+
+If you just want an alternative for the Pager applet and don't care about those features, you shouldn't have any problems. Just keep in mind, that once you try to remove a desktop (other than the last one), or move current desktop to left or right, the tiling script you are using will most likely misbehave. That can mean anything, from nothing happening, to even causing a KWin crash. That's how it is, as long as said features aren't supported in Plasma natively (it'd be awesome).
 
 However, as a KWin script developer, you can try to provide compatibility with Virtual Desktop Bar to your script. It turns out, it's possible to "talk" to a KWin script by invoking keyboard shortcuts that can be registered by it. Because this seems to be the only way to communicate with a KWin script, the applet hopefully expects some specifically named keyboard shortcuts to be available. It will try to invoke them, to notify the potential KWin script about some events.
 
-### The poor man's API
+## The poor man's API
+
 The expected keyboard shortcuts are named like this:
+
 * `VDB-Event-RemoveLastDesktop-Before`
 * `VDB-Event-RemoveLastDesktop-After`
 * `VDB-Event-RemoveCurrentDesktop-Before`
@@ -20,12 +23,14 @@ The expected keyboard shortcuts are named like this:
 
 They all have a common prefix, an action name and a suffix, being either `Before` or `After`. The `Before` suffix tells that the action is going to be performed very soon (in 100 ms), and the `After` suffix tells that the action has been actually performed. This should be enough to know what's going to happen, prepare the script and adjust something when a `Before` event is noticed, and do other things when an `After` event is noticed.
 
-Because you might ask yourself "What am I supposed to do with this bullshit?", particular events have been briefly explained in the next section. The code snippet contains some comments that can give you inspiration.
+Because you might ask yourself - "what am I supposed to do with this bullshit?", particular events have been briefly explained in the next section. The code snippet contains some comments that can give you inspiration.
 
-### Example of integration
-In order to receive fake input of these keyboard shortcuts within a KWin script, the shortcuts have to be registered with usage of a `registerShortcut` function provided by KWin. If your script has support for keyboard shortcuts, you're already familiar with that. Anyway, there is no need to specify the actual key combination or anything else, except the shortcut name and a JavaScript callback function.
+## Example of integration
+
+In order to receive fake input of these keyboard shortcuts within a KWin script, the shortcuts have to be registered with usage of a `registerShortcut` function provided by KWin. If your script has support for keyboard shortcuts, you're already familiar with that. Anyway, there is no need to specify the actual key combination or anything else, except the shortcut name and a JavaScript callback function with some code.
 
 Here are some ideas about what you could do, to keep everything (more or less) functional:
+
 ```javascript
 KWin.registerShortcut("VDB-Event-RemoveLastDesktop-Before", "", "", function() {
     var lastDesktop = workspace.desktops;
@@ -123,4 +128,4 @@ KWin.registerShortcut("VDB-Event-RemoveEmptyDesktops-After", "", "", function() 
 });
 ```
 
-That's all I could think of without diving into technical details, since they are script specific anyway, and it's up to you how windows and virtual desktops are managed by your script. Good luck and happy hacking.
+That's all I could think of without diving into technical details, since they are script specific anyway, and it's up to you how windows and virtual desktops are managed by your script. At this point, all I can say is, good luck.

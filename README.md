@@ -92,14 +92,15 @@ There are global keyboard shortcuts, but you have to find and define them in the
 
 ## Known issues
 
+* "Error loading QML file" (see [here](https://github.com/wsdfhjxc/virtual-desktop-bar/issues/25#issuecomment-605633423) for a possible solution)
 * Virtual desktops are shared by all monitors (KWin's limitation)
 * Support for Plasma Wayland session isn't there yet (maybe some day)
-* The code behind this applet is a hot mess that begs for a sensible rewrite
-* Dynamic virtual desktop management doesn't play nice with KWin tiling scripts (see below)
+* The code behind this applet is a hot mess that begs for a rewrite (I'm a moron)
+* Dynamic virtual desktop management doesn't play nice with KWin scripts (see below)
 
-## Compatibility with KWin tiling scripts
+## Compatibility with KWin scripts
 
-If you want to use this applet with some KWin tiling scripts, they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details and tips for KWin script developers which are interested in providing support for the plasmoid.
+If you want to use this applet with some KWin scripts (especially tiling scripts), they may not work correctly. However, this is only related to some non-standard features that Virtual Desktop Bar provides. I recommend reading [this document](KWIN.md) for more details and tips for KWin script developers who are interested in providing support for the plasmoid.
 
 ### Compatible scripts
 
