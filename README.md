@@ -4,7 +4,7 @@ This is an applet for KDE Plasma panel that lets you switch between virtual desk
 
 The plasmoid displays virtual desktops as text labels (numbers, names, both) with indicators (various styles). That means there's no icons* or window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has some options regarding its behavior and visuals, which should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetically-pleasant.
 
-<small>\* However, it's possible to use symbols provided by FontAwesome (or any other Unicode glyphs) as desktop names.</small>
+<sup>\* However, it's possible to use symbols provided by FontAwesome (or any other Unicode glyphs) as desktop names.</sup>
 
 ## Features
 
