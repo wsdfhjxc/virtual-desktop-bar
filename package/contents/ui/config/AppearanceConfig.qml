@@ -19,6 +19,7 @@ Item {
     property string cfg_labelFont: ""
     property int cfg_labelSize: 0
     property string cfg_labelColor: ""
+    property alias cfg_boldLabelForCurrent: boldLabelForCurrent.checked
     property alias cfg_dimLabelForIdle: dimLabelForIdle.checked
 
     // Desktop indicators
@@ -245,6 +246,12 @@ Item {
                     }
                 });
             }
+        }
+
+        CheckBox {
+            id: boldLabelForCurrent
+            text: "Bold label for current desktop"
+            Layout.columnSpan: 1
         }
 
         CheckBox {

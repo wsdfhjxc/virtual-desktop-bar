@@ -66,6 +66,9 @@
     <entry name="labelColor" type="String">
       <default></default>
     </entry>
+    <entry name="boldLabelForCurrent" type="Bool">
+      <default>false</default>
+    </entry>
     <entry name="dimLabelForIdle" type="Bool">
       <default>true</default>
     </entry>

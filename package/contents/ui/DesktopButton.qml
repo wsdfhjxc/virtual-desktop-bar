@@ -144,6 +144,7 @@ Component {
                 }
                 font.family: plasmoid.configuration.labelFont || theme.defaultFont.family
                 font.pixelSize: plasmoid.configuration.labelSize || theme.defaultFont.pixelSize
+                font.bold: isCurrentDesktop && plasmoid.configuration.boldLabelForCurrent
 
                 Behavior on width {
                     enabled: plasmoid.configuration.enableAnimations
