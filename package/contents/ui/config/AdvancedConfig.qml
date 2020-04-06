@@ -27,7 +27,7 @@ Item {
         }
 
         Label {
-            text: "Current version is 0.8"
+            text: "Current version is 0.9"
             Layout.columnSpan: 1
         }
 
