@@ -1,3 +1,8 @@
+### 0.9
+* Optional bold label for current desktop
+* Some changes regarding default configuration
+* Some irrevelant changes to the configuration dialog
+
 ### 0.8
 * Plus button (new desktop button) has now some customization options
 * Advanced section of the configuration dialog now contains the applet version
