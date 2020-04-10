@@ -55,7 +55,7 @@
 
     <!-- Appearance / Desktop labels -->
     <entry name="labelStyle" type="Enum">
-      <default>1</default>
+      <default>5</default>
     </entry>
     <entry name="labelFont" type="String">
       <default></default>
@@ -66,11 +66,11 @@
     <entry name="labelColor" type="String">
       <default></default>
     </entry>
-    <entry name="boldLabelForCurrent" type="Bool">
-      <default>false</default>
-    </entry>
     <entry name="dimLabelForIdle" type="Bool">
       <default>true</default>
+    </entry>
+    <entry name="boldLabelForCurrent" type="Bool">
+      <default>false</default>
     </entry>
 
     <!-- Appearance / Desktop indicators -->
