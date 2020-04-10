@@ -19,8 +19,8 @@ Item {
     property string cfg_labelFont: ""
     property int cfg_labelSize: 0
     property string cfg_labelColor: ""
-    property alias cfg_boldLabelForCurrent: boldLabelForCurrent.checked
     property alias cfg_dimLabelForIdle: dimLabelForIdle.checked
+    property alias cfg_boldLabelForCurrent: boldLabelForCurrent.checked
 
     // Desktop indicators
     property alias cfg_indicatorStyle: indicatorStyle.currentIndex
@@ -249,14 +249,14 @@ Item {
         }
 
         CheckBox {
-            id: boldLabelForCurrent
-            text: "Bold label for current desktop"
+            id: dimLabelForIdle
+            text: "Dim labels for idle desktops"
             Layout.columnSpan: 1
         }
 
         CheckBox {
-            id: dimLabelForIdle
-            text: "Dim labels for idle desktops"
+            id: boldLabelForCurrent
+            text: "Bold label for current desktop"
             Layout.columnSpan: 1
         }
 
@@ -461,7 +461,7 @@ Item {
         RowLayout {
             CheckBox {
                 id: plusButtonSizeCheckBox
-                text: "Custom size:"
+                text: "Custom font size:"
                 enabled: showPlusButton.checked && showPlusButton.enabled
                 checked: cfg_plusButtonSize > 0
                 onCheckedChanged: cfg_plusButtonSize = checked ? plusButtonSize.value : 0;
