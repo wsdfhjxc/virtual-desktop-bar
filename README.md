@@ -50,7 +50,9 @@ To install the applet, either get it as a distro specific package, or build it f
 
 ### Packages
 
-Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) made by cupnoodles.
+Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles).
+
+Fedora and openSUSE users can get the applet from an [OBS repository](https://software.opensuse.org//download.html?project=home%3Asputnik%3Alook-and-feel&package=virtual-desktop-bar) (thanks @sputnik-devops).
 
 ### From source
 
