@@ -1,15 +1,15 @@
 [Desktop Entry]
 Name=Virtual Desktop Bar
 Comment=Manage your virtual desktops
+Icon=virtualdesktopbar
 Type=Service
-Icon=virtualdesktopbar_plasma_applet
-ServiceTypes=Plasma/Applet
+
 X-KDE-PluginInfo-Name=org.kde.plasma.virtualdesktopbar
+X-KDE-PluginInfo-Version=1.0
 X-KDE-PluginInfo-Author=wsdfhjxc
-X-KDE-PluginInfo-EnabledByDefault=true
-X-KDE-PluginInfo-Version=0.9
-X-KDE-ServiceTypes=Plasma/Applet
 X-KDE-PluginInfo-Category=Windows and Tasks
-X-KDE-FormFactors=desktop
-X-Plasma-MainScript=ui/Applet.qml
+X-KDE-ServiceTypes=Plasma/Applet
+
 X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/applet/Applet.qml
+X-Plasma-Provides=org.kde.plasma.virtualdesktops
