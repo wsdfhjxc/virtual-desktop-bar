@@ -142,7 +142,7 @@
       <default>false</default>
     </entry>
     <entry name="DesktopIndicatorsDistinctForOccupiedIdleDesktops" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
     <entry name="DesktopIndicatorsDistinctForDesktopsNeedingAttention" type="Bool">
       <default>false</default>
