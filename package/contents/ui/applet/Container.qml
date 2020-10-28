@@ -258,7 +258,7 @@ GridLayout {
         for (var i = 0; i < desktopButtonList.length; i++) {
             var desktopButton = desktopButtonList[i];
 
-            if (!temp || temp.implicitWidth < desktopButton.implicitWidth) {
+            if (!temp || temp._label.implicitWidth < desktopButton._label.implicitWidth) {
                 temp = desktopButton;
             }
         }

@@ -20,6 +20,9 @@ Component {
         property bool isDragged: container.draggedDesktopButton == this
         property bool ignoreMouseArea: container.isDragging
 
+        property alias _label: label
+        property alias _indicator: indicator
+
         Layout.fillWidth: isVerticalOrientation
         Layout.fillHeight: !isVerticalOrientation
 
@@ -137,6 +140,12 @@ Component {
                     }
                     if (config.DesktopIndicatorsStyle == 4) {
                         return parent.width;
+                    }
+                    if (config.DesktopButtonsSetCommonSizeForAll &&
+                        container.largestDesktopButton &&
+                        container.largestDesktopButton != parent &&
+                        container.largestDesktopButton._label.implicitWidth > label.implicitWidth) {
+                        return container.largestDesktopButton._indicator.width;
                     }
                     return label.implicitWidth + 2 * config.DesktopButtonsHorizontalMargin;
                 }
