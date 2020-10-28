@@ -168,21 +168,27 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     actionAddDesktop = actionCollection->addAction(QStringLiteral("addDesktop"));
     actionAddDesktop->setText(prefix + "Add Desktop");
     QObject::connect(actionAddDesktop, &QAction::triggered, this, [&] {
-        addDesktop();
+        if (!cfg_DynamicDesktopsEnable) {
+            addDesktop();
+        }
     });
     KGlobalAccel::setGlobalShortcut(actionAddDesktop, QKeySequence());
 
     actionRemoveLastDesktop = actionCollection->addAction(QStringLiteral("removeLastDesktop"));
     actionRemoveLastDesktop->setText(prefix + "Remove Last Desktop");
     QObject::connect(actionRemoveLastDesktop, &QAction::triggered, this, [&] {
-        removeDesktop(KWindowSystem::numberOfDesktops());
+        if (!cfg_DynamicDesktopsEnable) {
+            removeDesktop(KWindowSystem::numberOfDesktops());
+        }
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveLastDesktop, QKeySequence());
 
     actionRemoveCurrentDesktop = actionCollection->addAction(QStringLiteral("removeCurrentDesktop"));
     actionRemoveCurrentDesktop->setText(prefix + "Remove Current Desktop");
     QObject::connect(actionRemoveCurrentDesktop, &QAction::triggered, this, [&] {
-        removeDesktop(KWindowSystem::currentDesktop());
+        if (!cfg_DynamicDesktopsEnable) {
+            removeDesktop(KWindowSystem::currentDesktop());
+        }
     });
     KGlobalAccel::setGlobalShortcut(actionRemoveCurrentDesktop, QKeySequence());
 
@@ -194,7 +200,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionRenameCurrentDesktop, QKeySequence());
 
     actionMoveCurrentDesktopToLeft = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToLeft"));
-    actionMoveCurrentDesktopToLeft->setText("Move Current Desktop to Left");
+    actionMoveCurrentDesktopToLeft->setText(prefix + "Move Current Desktop to Left");
     QObject::connect(actionMoveCurrentDesktopToLeft, &QAction::triggered, this, [&] {
         replaceDesktops(KWindowSystem::currentDesktop(),
                         KWindowSystem::currentDesktop() - 1);
@@ -202,7 +208,7 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToLeft, QKeySequence());
 
     actionMoveCurrentDesktopToRight = actionCollection->addAction(QStringLiteral("moveCurrentDesktopToRight"));
-    actionMoveCurrentDesktopToRight->setText("Move Current Desktop to Right");
+    actionMoveCurrentDesktopToRight->setText(prefix + "Move Current Desktop to Right");
     QObject::connect(actionMoveCurrentDesktopToRight, &QAction::triggered, this, [&] {
         replaceDesktops(KWindowSystem::currentDesktop(),
                         KWindowSystem::currentDesktop() + 1);
