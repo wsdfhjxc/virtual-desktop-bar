@@ -327,10 +327,19 @@ QList<KWindowInfo> VirtualDesktopBar::getWindowInfoList(int desktopNumber, bool 
             continue;
         }
 
-        // Skipping windows if they wish so
+        // Skipping some flagged windows
         if (windowInfo.hasState(NET::SkipPager) ||
-            windowInfo.hasState(NET::SkipTaskbar) ||
-            windowInfo.windowType(NET::NormalMask)) {
+            windowInfo.hasState(NET::SkipTaskbar)) {
+            continue;
+        }
+
+        auto windowType = windowInfo.windowType(NET::DockMask |
+                                                NET::MenuMask |
+                                                NET::SplashMask |
+                                                NET::NormalMask);
+        if ((windowType & NET::Dock) ||
+            (windowType & NET::Menu) ||
+            (windowType & NET::Splash)) {
             continue;
         }
 
