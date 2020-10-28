@@ -160,14 +160,15 @@ Component {
             }
 
             x: {
-                var temp = 0;
                 if (isVerticalOrientation) {
                     if (config.DesktopIndicatorsStyle != 1) {
                         return (parent.width - width) / 2;
                     }
+                    return config.DesktopIndicatorsInvertPosition ?
+                           parent.width - lineWidth : 0;
                 }
                 if (config.DesktopIndicatorsStyle == 1 &&
-                           config.DesktopIndicatorsInvertPosition) {
+                    config.DesktopIndicatorsInvertPosition) {
                     return parent.width - width - (config.DesktopButtonsSpacing || 0);
                 }
                 return config.DesktopButtonsSpacing || 0;
