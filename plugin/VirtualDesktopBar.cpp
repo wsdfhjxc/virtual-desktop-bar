@@ -6,6 +6,7 @@
 #include <QRegularExpression>
 #include <QScreen>
 #include <QTimer>
+#include <QX11Info>
 
 #include <KGlobalAccel>
 
@@ -26,6 +27,7 @@ adding desktops at given positions, even on X11, and also provides a method for 
 */
 
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
+        netRootInfo(QX11Info::connection(), 0),
         dbusInterface("org.kde.KWin", "/VirtualDesktopManager"),
         dbusInterfaceName("org.kde.KWin.VirtualDesktopManager"),
         sendDesktopInfoListLock(false),
@@ -54,7 +56,11 @@ void VirtualDesktopBar::addDesktop(unsigned position) {
     }
 
     QString name = "New Desktop";
-    dbusInterface.call("createDesktop", position, name);
+    auto reply = dbusInterface.call("createDesktop", position, name);
+
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        netRootInfo.setNumberOfDesktops(KWindowSystem::numberOfDesktops() + 1);
+    }
 
     if (!cfg_AddingDesktopsExecuteCommand.isEmpty()) {
         QTimer::singleShot(100, [=] {
@@ -65,11 +71,48 @@ void VirtualDesktopBar::addDesktop(unsigned position) {
 }
 
 void VirtualDesktopBar::removeDesktop(int number) {
-    dbusInterface.call("removeDesktop", getDesktopInfo(number).id);
+    auto reply = dbusInterface.call("removeDesktop", getDesktopInfo(number).id);
+
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        if (number == KWindowSystem::numberOfDesktops()) {
+            netRootInfo.setNumberOfDesktops(KWindowSystem::numberOfDesktops() - 1);
+        } else {
+            tryAddEmptyDesktopLock = true;
+            tryRemoveEmptyDesktopsLock = true;
+            tryRenameEmptyDesktopsLock = true;
+            sendDesktopInfoListLock = true;
+
+            QList<QString> desktopNameList;
+            QList<KWindowInfo> windowInfoList;
+            for (int i = number + 1; i <= KWindowSystem::numberOfDesktops(); i++) {
+                desktopNameList << KWindowSystem::desktopName(i);
+                windowInfoList.append(getWindowInfoList(i));
+            }
+
+            for (int i = number, j = 0; i <= KWindowSystem::numberOfDesktops() - 1; i++, j++) {
+                renameDesktop(i, desktopNameList[j]);
+            }
+
+            for (auto& windowInfo : windowInfoList) {
+                KWindowSystem::setOnDesktop(windowInfo.win(), windowInfo.desktop() - 1);
+            }
+
+            tryAddEmptyDesktopLock = false;
+            tryRemoveEmptyDesktopsLock = false;
+            tryRenameEmptyDesktopsLock = false;
+            sendDesktopInfoListLock = false;
+
+            netRootInfo.setNumberOfDesktops(KWindowSystem::numberOfDesktops() - 1);
+        }
+    }
 }
 
 void VirtualDesktopBar::renameDesktop(int number, QString name) {
-    dbusInterface.call("setDesktopName", getDesktopInfo(number).id, name);
+    auto reply = dbusInterface.call("setDesktopName", getDesktopInfo(number).id, name);
+
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        KWindowSystem::setDesktopName(number, name);
+    }
 }
 
 void VirtualDesktopBar::replaceDesktops(int number1, int number2) {
@@ -262,11 +305,21 @@ QList<DesktopInfo> VirtualDesktopBar::getDesktopInfoList(bool extraInfo) {
     // Getting info about desktops through the KWin's D-Bus service here
     auto reply = dbusInterface.call("Get", dbusInterfaceName, "desktops");
 
-    // Extracting data from the D-Bus reply message here
-    // More details at https://stackoverflow.com/a/20206377
-    auto something = reply.arguments().at(0).value<QDBusVariant>();
-    auto somethingSomething = something.variant().value<QDBusArgument>();
-    somethingSomething >> desktopInfoList;
+    if (reply.type() == QDBusMessage::ErrorMessage) {
+        for (int i = 1; i <= KWindowSystem::numberOfDesktops(); i++) {
+            DesktopInfo desktopInfo;
+            desktopInfo.number = i;
+            desktopInfo.name = KWindowSystem::desktopName(i);
+
+            desktopInfoList << desktopInfo;
+        }
+    } else {
+        // Extracting data from the D-Bus reply message here
+        // More details at https://stackoverflow.com/a/20206377
+        auto something = reply.arguments().at(0).value<QDBusVariant>();
+        auto somethingSomething = something.variant().value<QDBusArgument>();
+        somethingSomething >> desktopInfoList;
+    }
 
     for (auto& desktopInfo : desktopInfoList) {
         desktopInfo.isCurrent = desktopInfo.number == KWindowSystem::currentDesktop();
@@ -395,6 +448,7 @@ void VirtualDesktopBar::sendDesktopInfoList() {
     }
     emit desktopInfoListSent(desktopInfoList);
 }
+
 void VirtualDesktopBar::tryAddEmptyDesktop() {
     if (cfg_DynamicDesktopsEnable) {
         auto emptyDesktopNumberList = getEmptyDesktopNumberList(false);
