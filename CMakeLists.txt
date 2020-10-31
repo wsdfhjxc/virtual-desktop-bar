@@ -31,7 +31,8 @@ set(KF5_MIN_VERSION 5.44.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION}
              CONFIG REQUIRED
-             Qml)
+             Qml
+             X11Extras)
 
 find_package(KF5 ${KF5_MIN_VERSION}
              REQUIRED COMPONENTS
@@ -52,6 +53,7 @@ add_library(virtualdesktopbar SHARED ${virtualdesktopbar_SRCS})
 
 target_link_libraries(virtualdesktopbar
                       Qt5::Qml
+                      Qt5::X11Extras
                       KF5::Plasma
                       KF5::WindowSystem
                       KF5::GlobalAccel

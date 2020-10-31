@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1
+
+### Changes
+
+* Restored the ability to work with window managers other than KWin
+
 ## 1.0
 
 This is a release that introduces breaking changes.

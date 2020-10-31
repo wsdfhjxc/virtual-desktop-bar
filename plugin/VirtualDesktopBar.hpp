@@ -8,6 +8,8 @@
 #include <QString>
 #include <QVariantList>
 
+#include <netwm.h>
+
 #include <KActionCollection>
 #include <KWindowSystem>
 
@@ -53,6 +55,7 @@ signals:
     void requestRenameCurrentDesktop();
 
 private:
+    NETRootInfo netRootInfo;
     QDBusInterface dbusInterface;
     QString dbusInterfaceName;
 
