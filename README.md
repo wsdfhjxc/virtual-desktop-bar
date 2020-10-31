@@ -1,6 +1,6 @@
 # Virtual Desktop Bar
 
-This is an applet for KDE Plasma panel (or Latte Dock) that lets you switch between virtual desktops and also invoke some actions to dynamically manage them in a convenient way. In order to do it, you can use the mouse, the context menu or user-defined keyboard shortcuts. There are also some extra features related to virtual desktops and more.
+This is an applet for KDE Plasma panel (or Latte Dock) that lets you switch between virtual desktops and also invoke some actions to dynamically manage them in a convenient way. In order to do it, you can use the mouse, the context menu or user-defined keyboard shortcuts. There are also some extra features related to virtual desktops.
 
 The plasmoid displays virtual desktops as text labels with indicators in various styles. That means there's no graphical icons and window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has several configuration options regarding its behavior and visuals, which should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetic.
 
@@ -89,3 +89,7 @@ Nothing can be done about it, as long as KWin scripting API does not support sig
  * `desktopsReplaced(QString id1, QString id2)`
 
 To avoid issues while using KWin scripts, do not use the features mentioned above.
+
+## Compatibility with window managers other than KWin
+
+Some features, even the basic ones, like adding or removing desktops, might not work if KWin is replaced with a different window manager, be it i3, bspwm or any other. Such issues are unlikely to be addressed. However, the plasmoid should still display desktops and their state in a panel, so it can act as a purely visual addition with its labels and indicators.
