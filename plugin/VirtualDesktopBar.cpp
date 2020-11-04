@@ -64,7 +64,7 @@ void VirtualDesktopBar::addDesktop(unsigned position) {
 
     if (!cfg_AddingDesktopsExecuteCommand.isEmpty()) {
         QTimer::singleShot(100, [=] {
-            QString command = "(" + cfg_AddingDesktopsExecuteCommand + ") & disown";
+            QString command = "(" + cfg_AddingDesktopsExecuteCommand + ") &";
             system(command.toStdString().c_str());
         });
     }
