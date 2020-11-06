@@ -6,12 +6,12 @@ import "../common" as UICommon
 
 Item {
     // Empty desktops
-    property string cfg_EmptyDesktopsRenameAs: ""
+    property string cfg_EmptyDesktopsRenameAs
 
     // Adding desktops
     property alias cfg_AddingDesktopsSwitchTo: addingDesktopsSwitchToCheckBox.checked
     property alias cfg_AddingDesktopsPromptToRename: addingDesktopsPromptToRenameCheckBox.checked
-    property string cfg_AddingDesktopsExecuteCommand: ""
+    property string cfg_AddingDesktopsExecuteCommand
 
     // Dynamic desktops
     property alias cfg_DynamicDesktopsEnable: dynamicDesktopsEnableCheckBox.checked
