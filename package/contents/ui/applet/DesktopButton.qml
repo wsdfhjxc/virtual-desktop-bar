@@ -291,6 +291,7 @@ Component {
             onClicked: {
                 if (config.TooltipsEnable) {
                     killTooltipTimer();
+                    tooltip.visible = false;
                 }
 
                 if (mouse.button == Qt.LeftButton) {
