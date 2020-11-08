@@ -34,7 +34,7 @@ Button {
         }
     }
 
-    onClicked: {
-        dialog.visible = true;
-    }
+    onClicked: dialog.visible = true
+
+    Component.onCompleted: dialog.color = color
 }
