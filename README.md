@@ -59,7 +59,7 @@ Then, to compile the source code and install the applet run: `./scripts/install-
 
 Note: This also applies if you want to upgrade to a newer version.
 
-Note: If you want to remove the applet, run: `./scripts/uninstall-applet.sh`
+Note: If you want to remove the applet run: `./scripts/uninstall-applet.sh`
 
 After that, you should be able to find Virtual Desktop Bar in the Add Widgets menu.
 
@@ -92,4 +92,4 @@ To avoid issues while using KWin scripts, do not use the features mentioned abov
 
 ## Compatibility with window managers other than KWin
 
-Some features, even the basic ones, like adding or removing desktops, might not work if KWin is replaced with a different window manager, be it i3, bspwm or any other. Such issues are unlikely to be addressed. However, the plasmoid should still display desktops and their state in a panel, so it can act as a purely visual addition with its labels and indicators.
+Some features, even the basic ones, like adding or removing desktops, might not work if KWin is replaced with a different window manager, be it i3, bspwm or any other. Such issues are unlikely to be addressed. However, the plasmoid should still display desktops and their state, so it can act as a visual addition with labels and indicators.
