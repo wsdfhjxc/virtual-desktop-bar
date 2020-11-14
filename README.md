@@ -41,10 +41,7 @@ To install the applet, either get it as a distro-specific package, or build it f
 
 ### Packages
 
-* Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
-* Fedora and openSUSE users can get the applet from an [OBS repository](https://software.opensuse.org//download.html?project=home%3Asputnik%3Alook-and-feel&package=virtual-desktop-bar) (thanks @sputnik-devops)
-
-Note: Make sure to check if the packages are up to date, for example by looking at the date contained in the filename of a package listed in the OBS repository. If they are not, you can always resort to building the plasmoid from source.
+* Arch Linux users can get the latest version of the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
 
 ### From source
 
