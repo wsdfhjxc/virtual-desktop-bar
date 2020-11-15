@@ -195,7 +195,7 @@ Component {
 
             radius: {
                 if (config.DesktopIndicatorsStyle == 2) {
-                    return 2;
+                    return config.DesktopIndicatorsStyleBlockRadius;
                 }
                 if (config.DesktopIndicatorsStyle == 3) {
                     return 300;

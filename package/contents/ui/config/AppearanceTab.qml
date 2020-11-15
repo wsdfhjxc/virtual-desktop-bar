@@ -42,6 +42,7 @@ Item {
 
     // Desktop indicators
     property alias cfg_DesktopIndicatorsStyle: desktopIndicatorsStyleComboBox.currentIndex
+    property alias cfg_DesktopIndicatorsStyleBlockRadius: desktopIndicatorsStyleBlockRadiusSpinBox.value
     property alias cfg_DesktopIndicatorsInvertPosition: desktopIndicatorsInvertPositionCheckBox.checked
     property string cfg_DesktopIndicatorsCustomColorForIdleDesktops
     property string cfg_DesktopIndicatorsCustomColorForCurrentDesktop
@@ -440,6 +441,29 @@ Item {
                     "Full size",
                     "Use labels"
                 ]
+
+                onCurrentIndexChanged: {
+                    if (cfg_DesktopIndicatorsStyle == 2) {
+                        cfg_DesktopIndicatorsStyleBlockRadius = desktopIndicatorsStyleBlockRadiusSpinBox.value;
+                    } else {
+                        cfg_DesktopIndicatorsStyleBlockRadius = 2;
+                    }
+                }
+
+                Component.onCompleted: {
+                    if (cfg_DesktopIndicatorsStyle != 2) {
+                        cfg_DesktopIndicatorsStyleBlockRadius = 2;
+                    }
+                }
+            }
+
+            SpinBox {
+                id: desktopIndicatorsStyleBlockRadiusSpinBox
+                visible: cfg_DesktopIndicatorsStyle == 2
+                value: cfg_DesktopIndicatorsStyleBlockRadius
+                minimumValue: 0
+                maximumValue: 300
+                suffix: " px corner radius"
             }
         }
 
