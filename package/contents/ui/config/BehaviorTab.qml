@@ -48,7 +48,11 @@ Item {
                 enabled: emptyDesktopsRenameAsCheckBox.checked
                 maximumLength: 20
                 text: cfg_EmptyDesktopsRenameAs || "Desktop"
-                onTextChanged: cfg_EmptyDesktopsRenameAs = text
+                onTextChanged: {
+                    if (cfg_EmptyDesktopsRenameAs && text) {
+                        cfg_EmptyDesktopsRenameAs = text;
+                    }
+                }
                 onEditingFinished: cfg_EmptyDesktopsRenameAs = text
             }
         }
@@ -104,7 +108,11 @@ Item {
                          addingDesktopsExecuteCommandCheckBox.checked
                 maximumLength: 255
                 text: cfg_AddingDesktopsExecuteCommand || "krunner"
-                onTextChanged: cfg_AddingDesktopsExecuteCommand = text
+                onTextChanged: {
+                    if (cfg_AddingDesktopsExecuteCommand && text) {
+                        cfg_AddingDesktopsExecuteCommand = text;
+                    }
+                }
                 onEditingFinished: cfg_AddingDesktopsExecuteCommand = text
             }
         }

@@ -150,7 +150,7 @@ Item {
 
             HintIcon {
                 visible: !desktopButtonsHorizontalMarginSpinBox.enabled
-                tooltipText: "Not available for the selected indicator style"
+                tooltipText: "Not available in vertical orientation"
             }
         }
 
@@ -238,7 +238,11 @@ Item {
                 visible: cfg_DesktopLabelsStyle == 4
                 maximumLength: 50
                 text: cfg_DesktopLabelsStyleCustomFormat || "$X: $N"
-                onTextChanged: cfg_DesktopLabelsStyleCustomFormat = text
+                onTextChanged: {
+                    if (cfg_DesktopLabelsStyle == 4 && text) {
+                        cfg_DesktopLabelsStyleCustomFormat = text;
+                    }
+                }
                 onEditingFinished: cfg_DesktopLabelsStyleCustomFormat = text
             }
 
