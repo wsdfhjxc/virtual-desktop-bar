@@ -98,7 +98,7 @@
       <default></default>
     </entry>
     <entry name="DesktopLabelsMaximumLength" type="Int">
-      <default>100</default>
+      <default>25</default>
     </entry>
     <entry name="DesktopLabelsCustomFont" type="String">
       <default></default>
