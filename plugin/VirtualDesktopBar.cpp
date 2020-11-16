@@ -327,10 +327,8 @@ QList<DesktopInfo> VirtualDesktopBar::getDesktopInfoList(bool extraInfo) {
             }
 
             QString windowName = windowInfo.name();
-            int separatorPosition = windowName.lastIndexOf("—");
-            if (separatorPosition == -1) {
-                separatorPosition = windowName.lastIndexOf("-");
-            }
+            int separatorPosition = qMax(windowName.lastIndexOf("—"),
+                                         windowName.lastIndexOf("-"));
             if (separatorPosition != -1) {
                 separatorPosition += 1;
                 int length = windowName.length() - separatorPosition;
