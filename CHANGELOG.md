@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2
+
+### Changes
+
+* Improved handling of window names (no more ugly class names)
+* Fixed broken fade-out animation when removing a non-last desktop
+* Added an option to change corner radius for the Block indicator style
+
 ## 1.1
 
 ### Changes
