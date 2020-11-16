@@ -39,7 +39,6 @@ VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
 
     setUpSignals();
     setUpGlobalKeyboardShortcuts();
-    setUpWindowNameSubstitutions();
 }
 
 void VirtualDesktopBar::requestDesktopInfoList() {
@@ -259,18 +258,6 @@ void VirtualDesktopBar::setUpGlobalKeyboardShortcuts() {
     KGlobalAccel::setGlobalShortcut(actionMoveCurrentDesktopToRight, QKeySequence());
 }
 
-void VirtualDesktopBar::setUpWindowNameSubstitutions() {
-    windowNameSubstitutionMap.insert("Gimp-*.", "GIMP");
-    windowNameSubstitutionMap.insert("dolphin", "Dolphin");
-    windowNameSubstitutionMap.insert("kate", "Kate");
-    windowNameSubstitutionMap.insert("konsole", "Konsole");
-    windowNameSubstitutionMap.insert("ksysguard", "KSysGuard");
-    windowNameSubstitutionMap.insert("lattedock", "Latte Dock");
-    windowNameSubstitutionMap.insert("libreoffice-*", "LibreOffice");
-    windowNameSubstitutionMap.insert("okular", "Okular");
-    windowNameSubstitutionMap.insert("systemsettings", "Settings");
-}
-
 void VirtualDesktopBar::processChanges(std::function<void()> callback, bool& lock) {
     if (!lock) {
         lock = true;
@@ -339,15 +326,16 @@ QList<DesktopInfo> VirtualDesktopBar::getDesktopInfoList(bool extraInfo) {
                 desktopInfo.isUrgent = windowInfo.hasState(NET::DemandsAttention);
             }
 
-            QString windowName = windowInfo.windowClassClass();
-
-            auto const mapKeys = windowNameSubstitutionMap.keys();
-            for (auto& pattern : mapKeys) {
-                QRegularExpression regex(pattern);
-                if (regex.match(windowName).hasMatch()) {
-                    windowName = windowNameSubstitutionMap.value(pattern);
-                    break;
-                }
+            QString windowName = windowInfo.name();
+            int separatorPosition = windowName.lastIndexOf("—");
+            if (separatorPosition == -1) {
+                separatorPosition = windowName.lastIndexOf("-");
+            }
+            if (separatorPosition != -1) {
+                separatorPosition += 1;
+                int length = windowName.length() - separatorPosition;
+                QStringRef substringRef(&windowName, separatorPosition, length);
+                windowName = substringRef.toString().trimmed();
             }
 
             if (i == 0) {
@@ -371,8 +359,8 @@ QList<KWindowInfo> VirtualDesktopBar::getWindowInfoList(int desktopNumber, bool 
         KWindowInfo windowInfo(windowIds[i], NET::WMState |
                                              NET::WMDesktop |
                                              NET::WMGeometry |
-                                             NET::WMWindowType,
-                                             NET::WM2WindowClass);
+                                             NET::WMWindowType |
+                                             NET::WMName);
 
         // Skipping windows not present on the current desktops
         if (windowInfo.desktop() != desktopNumber &&
