@@ -2,7 +2,7 @@
 
 This is an applet for KDE Plasma panel (or Latte Dock) that lets you switch between virtual desktops and also invoke some actions to dynamically manage them in a convenient way. In order to do it, you can use the mouse, the context menu or user-defined keyboard shortcuts. There are also some extra features related to virtual desktops.
 
-The plasmoid displays virtual desktops as text labels with indicators in various styles. That means there's no graphical icons and window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has several configuration options regarding its behavior and visuals, which should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetic.
+The plasmoid displays virtual desktops as text labels with indicators in various styles. That means there's no graphical icons and window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has several configuration options regarding its behavior and visuals. These should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetic. And actually, the whole reason for creating this plasmoid was about aesthetics in the first place, as I consider the Plasma's default Pager applet, with its fixed-size rectangles and window shapes, to be not so pretty to look at.
 
 ## Features
 
