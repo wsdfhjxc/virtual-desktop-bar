@@ -7,6 +7,7 @@
 * Improved handling of window names (no more ugly class names)
 * Fixed broken fade-out animation when removing a non-last desktop
 * Added an option to change corner radius for the Block indicator style
+* Changed the default length limit for desktop labels to 25 characters
 
 ## 1.1
 
