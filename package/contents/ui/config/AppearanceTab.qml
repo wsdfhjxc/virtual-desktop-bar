@@ -487,6 +487,8 @@ Item {
         }
 
         RowLayout {
+            spacing: 0
+
             CheckBox {
                 id: desktopIndicatorsCustomColorForIdleDesktopsCheckBox
                 checked: cfg_DesktopIndicatorsCustomColorForIdleDesktops
@@ -507,6 +509,8 @@ Item {
         }
 
         RowLayout {
+            spacing: 0
+
             CheckBox {
                 id: desktopIndicatorsCustomColorForCurrentDesktopCheckBox
                 checked: cfg_DesktopIndicatorsCustomColorForCurrentDesktop
@@ -527,6 +531,8 @@ Item {
         }
 
         RowLayout {
+            spacing: 0
+
             CheckBox {
                 id: desktopIndicatorsCustomColorForOccupiedIdleDesktopsCheckBox
                 checked: cfg_DesktopIndicatorsCustomColorForOccupiedIdleDesktops
@@ -547,6 +553,8 @@ Item {
         }
 
         RowLayout {
+            spacing: 0
+
             CheckBox {
                 id: desktopIndicatorsCustomColorForDesktopsNeedingAttentionCheckBox
                 checked: cfg_DesktopIndicatorsCustomColorForDesktopsNeedingAttention
