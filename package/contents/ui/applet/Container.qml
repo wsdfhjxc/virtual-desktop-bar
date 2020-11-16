@@ -226,7 +226,7 @@ GridLayout {
             var keepDesktopButton = false;
             for (var j = 0; j < desktopInfoList.length; j++) {
                 var desktopInfo = desktopInfoList[j];
-                if (desktopButton.number == desktopInfo.number) {
+                if (desktopButton.id == desktopInfo.id) {
                     keepDesktopButton = true;
                     break;
                 }
