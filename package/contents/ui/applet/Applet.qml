@@ -4,7 +4,7 @@ import org.kde.kquickcontrolsaddons 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.plasmoid 2.0
 
-import org.kde.plasma.virtualdesktopbar 1.0
+import org.kde.plasma.virtualdesktopbar 1.2
 
 Item {
     id: root

@@ -3,7 +3,6 @@
 #include <QAction>
 #include <QDBusInterface>
 #include <QList>
-#include <QMap>
 #include <QObject>
 #include <QString>
 #include <QVariantList>
@@ -61,9 +60,6 @@ private:
 
     void setUpSignals();
     void setUpGlobalKeyboardShortcuts();
-
-    QMap<QString, QString> windowNameSubstitutionMap;
-    void setUpWindowNameSubstitutions();
 
     DesktopInfo getDesktopInfo(int number);
     DesktopInfo getDesktopInfo(QString id);

@@ -5,5 +5,5 @@
 #include "VirtualDesktopBar.hpp"
 
 void VirtualDesktopBarPlugin::registerTypes(const char* uri) {
-    qmlRegisterType<VirtualDesktopBar>(uri, 1, 0, "VirtualDesktopBar");
+    qmlRegisterType<VirtualDesktopBar>(uri, 1, 2, "VirtualDesktopBar");
 }

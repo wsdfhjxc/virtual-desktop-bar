@@ -98,7 +98,7 @@
       <default></default>
     </entry>
     <entry name="DesktopLabelsMaximumLength" type="Int">
-      <default>100</default>
+      <default>25</default>
     </entry>
     <entry name="DesktopLabelsCustomFont" type="String">
       <default></default>
@@ -122,6 +122,9 @@
     <!-- Appearance - Desktop indicators -->
     <entry name="DesktopIndicatorsStyle" type="Int">
       <default>0</default>
+    </entry>
+    <entry name="DesktopIndicatorsStyleBlockRadius" type="Int">
+      <default>2</default>
     </entry>
     <entry name="DesktopIndicatorsInvertPosition" type="Bool">
       <default>false</default>

@@ -2,7 +2,9 @@
 
 This is an applet for KDE Plasma panel (or Latte Dock) that lets you switch between virtual desktops and also invoke some actions to dynamically manage them in a convenient way. In order to do it, you can use the mouse, the context menu or user-defined keyboard shortcuts. There are also some extra features related to virtual desktops.
 
-The plasmoid displays virtual desktops as text labels with indicators in various styles. That means there's no graphical icons and window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has several configuration options regarding its behavior and visuals, which should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetic.
+The plasmoid displays virtual desktops as text labels with indicators in various styles. That means there's no graphical icons and window previews like in the Plasma's default Pager applet. Although the intention is to keep it simple, the applet has several configuration options regarding its behavior and visuals. These should be more than enough for desktop customization enthusiasts and folks at [/r/unixporn](https://reddit.com/r/unixporn) who want to make their panels aesthetic.
+
+And actually, the whole reason for creating this plasmoid was about the aesthetics in the first place, as I consider the Plasma's default Pager applet, with its fixed-size rectangles and window shapes, to be quite ugly, to put it straight.
 
 ## Features
 
@@ -41,10 +43,7 @@ To install the applet, either get it as a distro-specific package, or build it f
 
 ### Packages
 
-* Arch Linux users can get the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
-* Fedora and openSUSE users can get the applet from an [OBS repository](https://software.opensuse.org//download.html?project=home%3Asputnik%3Alook-and-feel&package=virtual-desktop-bar) (thanks @sputnik-devops)
-
-Note: Make sure to check if the packages are up to date, for example by looking at the date contained in the filename of a package listed in the OBS repository. If they are not, you can always resort to building the plasmoid from source.
+* Arch Linux users can get the latest version of the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
 
 ### From source
 
@@ -59,7 +58,7 @@ Then, to compile the source code and install the applet run: `./scripts/install-
 
 Note: This also applies if you want to upgrade to a newer version.
 
-Note: If you want to remove the applet, run: `./scripts/uninstall-applet.sh`
+Note: If you want to remove the applet run: `./scripts/uninstall-applet.sh`
 
 After that, you should be able to find Virtual Desktop Bar in the Add Widgets menu.
 
@@ -92,4 +91,4 @@ To avoid issues while using KWin scripts, do not use the features mentioned abov
 
 ## Compatibility with window managers other than KWin
 
-Some features, even the basic ones, like adding or removing desktops, might not work if KWin is replaced with a different window manager, be it i3, bspwm or any other. Such issues are unlikely to be addressed. However, the plasmoid should still display desktops and their state in a panel, so it can act as a purely visual addition with its labels and indicators.
+Some features, even the basic ones, like adding or removing desktops, might not work if KWin is replaced with a different window manager, be it i3, bspwm or any other. Such issues are unlikely to be addressed. However, the plasmoid should still display desktops and their state, so it can act as a visual addition with labels and indicators.
