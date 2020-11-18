@@ -156,13 +156,14 @@ Item {
 
         RowLayout {
             Label {
-                enabled: !cfg_DesktopButtonsShowOnlyForCurrentDesktop
+                enabled: desktopButtonsSpacingSpinBox.enabled
                 text: "Spacing between buttons:"
             }
 
             SpinBox {
                 id: desktopButtonsSpacingSpinBox
-                enabled: !cfg_DesktopButtonsShowOnlyForCurrentDesktop
+                enabled: !cfg_DesktopButtonsShowOnlyForCurrentDesktop ||
+                         cfg_DesktopButtonsShowOnlyForOccupiedDesktops
                 value: cfg_DesktopButtonsSpacing
                 minimumValue: 0
                 maximumValue: 100

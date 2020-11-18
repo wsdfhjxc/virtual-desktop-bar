@@ -20,19 +20,10 @@ Component {
         property bool isDragged: container.draggedDesktopButton == this
         property bool ignoreMouseArea: container.isDragging
 
-        property alias _label: label
-        property alias _indicator: indicator
-
-        Layout.fillWidth: isVerticalOrientation
-        Layout.fillHeight: !isVerticalOrientation
-
-        clip: true
-        color: "transparent"
-        opacity: !config.AnimationsEnable ? 1 : 0
-        visible: {
+        property bool isVisible: {
             if (config.DesktopButtonsShowOnlyForCurrentDesktop &&
                 config.DesktopButtonsShowOnlyForOccupiedDesktops) {
-                return isCurrent && !isEmpty;
+                return isCurrent || !isEmpty;
             }
             if (config.DesktopButtonsShowOnlyForCurrentDesktop) {
                 return isCurrent;
@@ -42,6 +33,24 @@ Component {
             }
             return true;
         }
+
+        onIsVisibleChanged: {
+            if (isVisible) {
+                show();
+            } else {
+                hide();
+            }
+        }
+
+        property alias _label: label
+        property alias _indicator: indicator
+
+        Layout.fillWidth: isVerticalOrientation
+        Layout.fillHeight: !isVerticalOrientation
+
+        clip: true
+        color: "transparent"
+        opacity: !config.AnimationsEnable ? 1 : 0
 
         readonly property int tooltipWaitDuration: 800
         readonly property int animationWidthDuration: 100
@@ -358,6 +367,10 @@ Component {
         }
 
         function show() {
+            if (!isVisible) {
+                return;
+            }
+
             var self = this;
 
             implicitWidth = Qt.binding(function() {
@@ -395,7 +408,11 @@ Component {
             }
         }
 
-        function hide(callback) {
+        function hide(callback, force) {
+            if (!force && isVisible) {
+                return;
+            }
+
             opacity = 0;
 
             var resetDimensions = function() {
