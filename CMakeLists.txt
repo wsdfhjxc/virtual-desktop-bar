@@ -13,8 +13,6 @@ if(NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "/usr")
 endif()
 
-cmake_policy(SET CMP0063 NEW)
-
 file(STRINGS /etc/os-release distro REGEX "^NAME=.*$")
 if(distro MATCHES ".*openSUSE.*")
     set(QML_INSTALL_DIR "/usr/lib64/qt5/qml")
