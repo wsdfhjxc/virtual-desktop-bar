@@ -149,50 +149,51 @@ void VirtualDesktopBar::replaceDesktops(int number1, int number2) {
     renameDesktop(desktopInfo2.number, desktopInfo1.name);
 }
 
-void VirtualDesktopBar::cfg_EmptyDesktopsRenameAsChanged() {
-    tryRenameEmptyDesktops();
-}
-
-void VirtualDesktopBar::cfg_AddingDesktopsExecuteCommandChanged() {
-}
-
-void VirtualDesktopBar::cfg_DynamicDesktopsEnableChanged() {
-    tryAddEmptyDesktop();
-    tryRemoveEmptyDesktops();
-}
-
-void VirtualDesktopBar::cfg_MultipleScreensFilterOccupiedDesktopsChanged() {
-    sendDesktopInfoList();
-}
-
 void VirtualDesktopBar::setUpSignals() {
-    auto s = KWindowSystem::self();
-    auto r = this;
+    setUpKWinSignals();
+    setUpInternalSignals();
+}
 
-    QObject::connect(s, &KWindowSystem::currentDesktopChanged, r, [&] {
+void VirtualDesktopBar::setUpKWinSignals() {
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::currentDesktopChanged, this, [&] {
         updateLocalDesktopNumbers();
         processChanges([&] { sendDesktopInfoList(); }, sendDesktopInfoListLock);
     });
 
-    QObject::connect(s, &KWindowSystem::numberOfDesktopsChanged, r, [&] {
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::numberOfDesktopsChanged, this, [&] {
         processChanges([&] { tryAddEmptyDesktop(); }, tryAddEmptyDesktopLock);
         processChanges([&] { tryRemoveEmptyDesktops(); }, tryRemoveEmptyDesktopsLock);
         processChanges([&] { tryRenameEmptyDesktops(); }, tryRenameEmptyDesktopsLock);
         processChanges([&] { sendDesktopInfoList(); }, sendDesktopInfoListLock);
     });
 
-    QObject::connect(s, &KWindowSystem::desktopNamesChanged, r, [&] {
+    QObject::connect(KWindowSystem::self(), &KWindowSystem::desktopNamesChanged, this, [&] {
         processChanges([&] { sendDesktopInfoList(); }, sendDesktopInfoListLock);
     });
 
-    QObject::connect(s, static_cast<void (KWindowSystem::*)(WId, NET::Properties, NET::Properties2)>
-                        (&KWindowSystem::windowChanged), r, [&](WId, NET::Properties properties, NET::Properties2) {
+    QObject::connect(KWindowSystem::self(), static_cast<void (KWindowSystem::*)(WId, NET::Properties, NET::Properties2)>
+                                            (&KWindowSystem::windowChanged), this, [&](WId, NET::Properties properties, NET::Properties2) {
         if (properties & NET::WMState) {
             processChanges([&] { tryAddEmptyDesktop(); }, tryAddEmptyDesktopLock);
             processChanges([&] { tryRemoveEmptyDesktops(); }, tryRemoveEmptyDesktopsLock);
             processChanges([&] { tryRenameEmptyDesktops(); }, tryRenameEmptyDesktopsLock);
             processChanges([&] { sendDesktopInfoList(); }, sendDesktopInfoListLock);
         }
+    });
+}
+
+void VirtualDesktopBar::setUpInternalSignals() {
+    QObject::connect(this, &VirtualDesktopBar::cfg_EmptyDesktopsRenameAsChanged, this, [&] {
+        tryRenameEmptyDesktops();
+    });
+
+    QObject::connect(this, &VirtualDesktopBar::cfg_DynamicDesktopsEnableChanged, this, [&] {
+        tryAddEmptyDesktop();
+        tryRemoveEmptyDesktops();
+    });
+
+    QObject::connect(this, &VirtualDesktopBar::cfg_MultipleScreensFilterOccupiedDesktopsChanged, this, [&] {
+        sendDesktopInfoList();
     });
 }
 

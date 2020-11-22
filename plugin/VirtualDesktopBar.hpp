@@ -33,8 +33,7 @@ public:
                NOTIFY cfg_EmptyDesktopsRenameAsChanged);
 
     Q_PROPERTY(QString cfg_AddingDesktopsExecuteCommand
-               MEMBER cfg_AddingDesktopsExecuteCommand
-               NOTIFY cfg_AddingDesktopsExecuteCommandChanged);
+               MEMBER cfg_AddingDesktopsExecuteCommand);
 
     Q_PROPERTY(bool cfg_DynamicDesktopsEnable
                MEMBER cfg_DynamicDesktopsEnable
@@ -44,14 +43,14 @@ public:
                MEMBER cfg_MultipleScreensFilterOccupiedDesktops
                NOTIFY cfg_MultipleScreensFilterOccupiedDesktopsChanged);
 
+signals:
+    void desktopInfoListSent(QVariantList desktopInfoList);
+    void requestRenameCurrentDesktop();
+
     void cfg_EmptyDesktopsRenameAsChanged();
     void cfg_AddingDesktopsExecuteCommandChanged();
     void cfg_DynamicDesktopsEnableChanged();
     void cfg_MultipleScreensFilterOccupiedDesktopsChanged();
-
-signals:
-    void desktopInfoListSent(QVariantList desktopInfoList);
-    void requestRenameCurrentDesktop();
 
 private:
     NETRootInfo netRootInfo;
@@ -59,6 +58,8 @@ private:
     QString dbusInterfaceName;
 
     void setUpSignals();
+    void setUpKWinSignals();
+    void setUpInternalSignals();
     void setUpGlobalKeyboardShortcuts();
 
     DesktopInfo getDesktopInfo(int number);
