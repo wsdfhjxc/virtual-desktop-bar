@@ -209,7 +209,7 @@ GridLayout {
                     if (list.length == 0) {
                         updateDesktopButtons(desktopInfoList);
                     }
-                });
+                }, true);
                 continue;
             }
 
