@@ -43,7 +43,7 @@ To install the applet, either get it as a distro-specific package, or build it f
 
 ### Packages
 
-* Arch Linux users can get the latest version of the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
+* Arch Linux users can get the latest git version of the applet as an [AUR package](https://aur.archlinux.org/packages/plasma5-applets-virtual-desktop-bar-git) (thanks @nwwdles)
 
 ### From source
 
