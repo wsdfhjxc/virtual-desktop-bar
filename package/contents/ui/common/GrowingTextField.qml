@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 
 TextField {
     id: textField
-    implicitWidth: Math.max(30, hiddenTextInput.contentWidth + 16)
+    implicitWidth: Math.min(300, Math.max(30, hiddenTextInput.contentWidth + 16))
     horizontalAlignment: TextInput.AlignHCenter
 
     TextInput {
