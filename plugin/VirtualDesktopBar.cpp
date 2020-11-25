@@ -296,6 +296,7 @@ QList<DesktopInfo> VirtualDesktopBar::getDesktopInfoList(bool extraInfo) {
     if (reply.type() == QDBusMessage::ErrorMessage) {
         for (int i = 1; i <= KWindowSystem::numberOfDesktops(); i++) {
             DesktopInfo desktopInfo;
+            desktopInfo.id = i;
             desktopInfo.number = i;
             desktopInfo.name = KWindowSystem::desktopName(i);
 
