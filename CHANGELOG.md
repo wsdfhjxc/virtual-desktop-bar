@@ -6,7 +6,7 @@
 
 * Fixed some issues with window names handling again
 * Fixed visibility of buttons when both options are checked
-* Fixed build issues on Kubuntu 18.04 and distros with older Qt version
+* Fixed some issues on Kubuntu 18.04 and distros with older Qt version
 
 ## 1.2
 
