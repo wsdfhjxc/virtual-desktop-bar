@@ -72,7 +72,6 @@ There are global keyboard shortcuts, but you have to configure them in the Globa
 
 ## Known issues
 
-* "Error loading QML file" (see [here](https://github.com/wsdfhjxc/virtual-desktop-bar/issues/25#issuecomment-605633423) for a possible solution)
 * Virtual desktops are shared by all monitors (KWin's limitation)
 * Support for Plasma Wayland session isn't there yet (this is a long-term goal)
 * The code behind this applet is a mess that doesn't follow the proper way of writing plasmoids
