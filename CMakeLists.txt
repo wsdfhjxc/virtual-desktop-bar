@@ -14,8 +14,18 @@ if(NOT CMAKE_INSTALL_PREFIX)
 endif()
 
 file(STRINGS /etc/os-release distro REGEX "^NAME=.*$")
+if(distro MATCHES ".*Ubuntu.*")
+    set(KDE_INSTALL_QMLDIR "/usr/lib/x86_64-linux-gnu/qt5/qml")
+endif()
+
+file(STRINGS /etc/os-release distro REGEX "^NAME=.*$")
 if(distro MATCHES ".*openSUSE.*")
-    set(QML_INSTALL_DIR "/usr/lib64/qt5/qml")
+    set(KDE_INSTALL_QMLDIR "/usr/lib64/qt5/qml")
+endif()
+
+file(STRINGS /etc/os-release distro REGEX "^NAME=.*$")
+if(distro MATCHES ".*Arch|Manjaro|Solus.*")
+    set(KDE_INSTALL_QMLDIR "/usr/lib/qt/qml")
 endif()
 
 find_package(ECM REQUIRED NO_MODULE)
@@ -59,7 +69,7 @@ target_link_libraries(virtualdesktopbar
                       KF5::GlobalAccel
                       KF5::XmlGui)
 
-install(TARGETS virtualdesktopbar DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/virtualdesktopbar)
-install(FILES plugin/qmldir DESTINATION ${QML_INSTALL_DIR}/org/kde/plasma/virtualdesktopbar)
+install(TARGETS virtualdesktopbar DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/plasma/virtualdesktopbar)
+install(FILES plugin/qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/plasma/virtualdesktopbar)
 
 ecm_install_icons(ICONS icons/sc-apps-virtualdesktopbar.svg DESTINATION ${ICON_INSTALL_DIR})
