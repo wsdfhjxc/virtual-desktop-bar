@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4
+
+### Changes
+
+* Fixed broken Add Desktop context menu option
+
 ## 1.3
 
 ### Changes
