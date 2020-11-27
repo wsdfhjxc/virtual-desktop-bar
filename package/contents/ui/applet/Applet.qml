@@ -81,7 +81,7 @@ Item {
         backend.removeDesktop(container.lastHoveredButton.number);
     }
 
-    function action_addNewDesktop() {
+    function action_addDesktop() {
         backend.addDesktop();
     }
 
