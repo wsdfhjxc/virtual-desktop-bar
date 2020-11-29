@@ -406,10 +406,9 @@ Component {
                 Utils.delay(animationWidthDuration, function() {
                     opacity = 1;
                 });
-                return;
+            } else {
+                opacity = 1;
             }
-
-            opacity = 1;
         }
 
         function hide(callback, force) {
@@ -434,11 +433,10 @@ Component {
                     resetDimensions();
                     Utils.delay(animationWidthDuration, postHideCallback);
                 });
-                return;
+            } else {
+                resetDimensions();
+                postHideCallback();
             }
-
-            resetDimensions();
-            postHideCallback();
         }
 
         onImplicitWidthChanged: {
