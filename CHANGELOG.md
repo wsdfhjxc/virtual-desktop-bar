@@ -5,6 +5,8 @@
 ### Changes
 
 * Fixed broken Add Desktop context menu option
+* Fixed some issues with hidden or squashed desktop buttons
+* Fixed annoying button jumping when only one desktop button is visible
 
 ## 1.3
 
