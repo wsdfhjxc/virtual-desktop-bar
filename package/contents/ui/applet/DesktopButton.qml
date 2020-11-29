@@ -36,11 +36,13 @@ Component {
 
         onIsVisibleChanged: {
             container.updateNumberOfVisibleDesktopButtons();
-            if (isVisible) {
-                show();
-            } else {
-                hide();
-            }
+            Qt.callLater(function() {
+                if (isVisible) {
+                    show();
+                } else {
+                    hide();
+                }
+            });
         }
 
         property alias _label: label
@@ -66,6 +68,7 @@ Component {
         }
 
         Behavior on implicitWidth {
+            id: widthBehavior
             enabled: config.AnimationsEnable
             animation: NumberAnimation {
                 duration: animationWidthDuration
@@ -78,6 +81,7 @@ Component {
         }
 
         Behavior on implicitHeight {
+            id: heightBehavior
             enabled: config.AnimationsEnable
             animation: NumberAnimation {
                 duration: animationWidthDuration
@@ -375,6 +379,10 @@ Component {
             visible = true;
             var self = this;
 
+            if (container.numberOfVisibleDesktopButtons == 1) {
+                widthBehavior.enabled = heightBehavior.enabled = false;
+            }
+
             implicitWidth = Qt.binding(function() {
                 if (isVerticalOrientation) {
                     return parent.width;
@@ -410,6 +418,10 @@ Component {
             } else {
                 opacity = 1;
             }
+
+            widthBehavior.enabled = heightBehavior.enabled = Qt.binding(function() {
+                return config.AnimationsEnable;
+            });
         }
 
         function hide(callback, force) {
@@ -419,6 +431,10 @@ Component {
 
             opacity = 0;
 
+            if (container.numberOfVisibleDesktopButtons == 1) {
+                widthBehavior.enabled = heightBehavior.enabled = false;
+            }
+
             var resetDimensions = function() {
                 implicitWidth = isVerticalOrientation ? parent.width : 0;
                 implicitHeight = isVerticalOrientation ? 0: parent.height;
@@ -427,9 +443,12 @@ Component {
             var self = this;
             var postHideCallback = callback ? callback : function() {
                 self.visible = false;
+                widthBehavior.enabled = heightBehavior.enabled = Qt.binding(function() {
+                    return config.AnimationsEnable;
+                });
             };
 
-            if (config.AnimationsEnable) {
+            if (config.AnimationsEnable && container.numberOfVisibleDesktopButtons > 1) {
                 Utils.delay(animationOpacityDuration, function() {
                     resetDimensions();
                     Utils.delay(animationWidthDuration, postHideCallback);
