@@ -406,7 +406,10 @@ Component {
                 Utils.delay(animationWidthDuration, function() {
                     opacity = 1;
                 });
+                return;
             }
+
+            opacity = 1;
         }
 
         function hide(callback, force) {
