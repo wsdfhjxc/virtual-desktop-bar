@@ -35,6 +35,7 @@ Component {
         }
 
         onIsVisibleChanged: {
+            container.updateNumberOfVisibleDesktopButtons();
             if (isVisible) {
                 show();
             } else {

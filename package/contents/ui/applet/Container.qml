@@ -17,6 +17,7 @@ GridLayout {
     property Item lastDesktopButton
     property Item currentDesktopButton
     property Item largestDesktopButton
+    property int numberOfVisibleDesktopButtons
 
     DesktopButton { id: desktopButtonComponent }
 
@@ -266,5 +267,11 @@ GridLayout {
         if (temp != largestDesktopButton) {
             largestDesktopButton = temp;
         }
+    }
+
+    function updateNumberOfVisibleDesktopButtons() {
+        numberOfVisibleDesktopButtons = desktopButtonList.filter(function(desktopButton) {
+            return desktopButton.isVisible;
+        }).length;
     }
 }
