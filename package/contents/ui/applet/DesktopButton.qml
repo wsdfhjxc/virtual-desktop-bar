@@ -371,6 +371,7 @@ Component {
                 return;
             }
 
+            visible = true;
             var self = this;
 
             implicitWidth = Qt.binding(function() {
@@ -420,7 +421,10 @@ Component {
                 implicitHeight = isVerticalOrientation ? 0: parent.height;
             }
 
-            var postHideCallback = callback ? callback : function() {};
+            var self = this;
+            var postHideCallback = callback ? callback : function() {
+                self.visible = false;
+            };
 
             if (config.AnimationsEnable) {
                 Utils.delay(animationOpacityDuration, function() {
