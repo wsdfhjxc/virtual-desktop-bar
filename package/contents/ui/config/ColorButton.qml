@@ -6,8 +6,8 @@ import QtQuick.Dialogs 1.0
 Button {
     id: button
     enabled: false
-    implicitWidth: 25
-    implicitHeight: 20
+    implicitWidth: theme.defaultFont.pixelSize * 2.1
+    implicitHeight: theme.defaultFont.pixelSize * 1.67
     opacity: enabled ? 1 : 0.3
 
     property string color

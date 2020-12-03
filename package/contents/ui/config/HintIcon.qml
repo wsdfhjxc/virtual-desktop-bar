@@ -8,8 +8,8 @@ import "../common" as UICommon
 
 PlasmaCore.IconItem {
     roundToIconSize: false
-    Layout.maximumWidth: 20
-    Layout.maximumHeight: 20
+    Layout.maximumWidth: theme.defaultFont.pixelSize * 1.67
+    Layout.maximumHeight: theme.defaultFont.pixelSize * 1.67
 
     source: "help-contextual"
 
