@@ -4,7 +4,12 @@ DIR=$(pwd)
 SCRIPTS_DIR=$(dirname "$0")
 BUILD_DIR="$SCRIPTS_DIR/../build"
 
-"./$SCRIPTS_DIR/build-applet.sh" && \
+mkdir -p "$BUILD_DIR" && \
 cd "$BUILD_DIR" && \
-sudo make install
+cmake .. && \
+make clean && \
+make
+
+CODE=$?
 cd "$DIR"
+exit $CODE
