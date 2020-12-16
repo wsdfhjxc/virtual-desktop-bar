@@ -324,7 +324,7 @@ Component {
                 var labelText = name;
 
                 if (config.DesktopLabelsStyle == 1) {
-                    labelText = number;
+                    labelText = number + "";
                 } else if (config.DesktopLabelsStyle == 2) {
                     labelText = number + ": " + name;
                 } else if (config.DesktopLabelsStyle == 3) {
