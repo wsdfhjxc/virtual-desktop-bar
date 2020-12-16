@@ -10,22 +10,6 @@
 
 #include <KGlobalAccel>
 
-/*
-KWindowSystem is needed for moving windows between desktops (as it can list them in stacking order),
-and for getting low level information about windows present on desktops. Unfortunately, it doesn't support
-changing the number of desktops (see NETRootInfo), let alone removing particular ones (see LibTaskManager).
-Also, renaming desktops with its setDesktopName method isn't reliable (old names appear after rebooting).
-
-NETRootInfo provides a method for setting the number of desktops, but brings additional X11 dependencies.
-
-LibTaskManager provides a method for removing particular desktops, and for adding desktops at given positions,
-but these work only on Wayland. On X11 they just remove the last desktop, and append a new one after the last one.
-Also, LibTaskManager doesn't seem to provide any method for renaming desktops at all. That's a bummer.
-
-KWin's D-Bus service seems to be the most comprehensive. It provides methods for removing particular desktops,
-adding desktops at given positions, even on X11, and also provides a method for renaming desktops.
-*/
-
 VirtualDesktopBar::VirtualDesktopBar(QObject* parent) : QObject(parent),
         netRootInfo(QX11Info::connection(), 0),
         dbusInterface("org.kde.KWin", "/VirtualDesktopManager"),
