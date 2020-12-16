@@ -33,17 +33,8 @@ void VirtualDesktopBar::showDesktop(int number) {
     KWindowSystem::setCurrentDesktop(number);
 }
 
-void VirtualDesktopBar::addDesktop(unsigned position) {
-    if (position == 0) {
-        position = KWindowSystem::numberOfDesktops() + 1;
-    }
-
-    QString name = "New Desktop";
-    auto reply = dbusInterface.call("createDesktop", position, name);
-
-    if (reply.type() == QDBusMessage::ErrorMessage) {
-        netRootInfo.setNumberOfDesktops(KWindowSystem::numberOfDesktops() + 1);
-    }
+void VirtualDesktopBar::addDesktop(unsigned /*position*/) {
+    netRootInfo.setNumberOfDesktops(KWindowSystem::numberOfDesktops() + 1);
 
     if (!cfg_AddingDesktopsExecuteCommand.isEmpty()) {
         QTimer::singleShot(100, [=] {
