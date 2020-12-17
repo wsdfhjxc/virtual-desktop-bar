@@ -262,7 +262,7 @@ Item {
 
         RowLayout {
             Label {
-                enabled: cfg_DesktopLabelsStyle != 1
+                enabled: desktopLabelsMaximumLengthSpinBox.enabled
                 text: "Maximum length:"
             }
 
@@ -323,8 +323,11 @@ Item {
 
                 onCurrentIndexChanged: {
                     if (enabled && currentIndex) {
-                        var selectedFont = model[currentIndex].value;
-                        cfg_DesktopLabelsCustomFont = selectedFont;
+                        var selectedItem = model[currentIndex];
+                        if (selectedItem) {
+                            var selectedFont = selectedItem.value;
+                            cfg_DesktopLabelsCustomFont = selectedFont;
+                        }
                     }
                 }
             }
@@ -370,7 +373,8 @@ Item {
 
             ColorButton {
                 id: desktopLabelsCustomColorButton
-                enabled: desktopLabelsCustomColorCheckBox.checked
+                enabled: desktopLabelsCustomColorCheckBox.enabled &&
+                         desktopLabelsCustomColorCheckBox.checked
                 color: cfg_DesktopLabelsCustomColor || theme.textColor
 
                 colorAcceptedCallback: function(color) {
