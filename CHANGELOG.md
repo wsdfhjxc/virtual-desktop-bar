@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5
+
+### Changes
+
+* Fixed broken window detection (e.g. Steam or Spotify were affected by this)
+* Fixed an issue of not being able to select the Number style under certain conditions
+* Updated some configuration dialog elements to be scalable on HiDPI screens
+* Fixed some other minor issues regarding the configuration dialog
+
 ## 1.4
 
 ### Changes
