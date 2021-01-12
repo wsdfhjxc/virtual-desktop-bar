@@ -43,6 +43,7 @@ Item {
     // Desktop indicators
     property alias cfg_DesktopIndicatorsStyle: desktopIndicatorsStyleComboBox.currentIndex
     property alias cfg_DesktopIndicatorsStyleBlockRadius: desktopIndicatorsStyleBlockRadiusSpinBox.value
+    property alias cfg_DesktopIndicatorsStyleLineThickness: desktopIndicatorsStyleLineThicknessSpinBox.value
     property alias cfg_DesktopIndicatorsInvertPosition: desktopIndicatorsInvertPositionCheckBox.checked
     property string cfg_DesktopIndicatorsCustomColorForIdleDesktops
     property string cfg_DesktopIndicatorsCustomColorForCurrentDesktop
@@ -457,6 +458,12 @@ Item {
                     } else {
                         cfg_DesktopIndicatorsStyleBlockRadius = 2;
                     }
+                    if (cfg_DesktopIndicatorsStyle < 2) {
+                        cfg_DesktopIndicatorsStyleLineThickness = desktopIndicatorsStyleLineThicknessSpinBox.value;
+                    } else {
+                        cfg_DesktopIndicatorsStyleLineThickness = 3;
+                    }
+
                 }
 
                 Component.onCompleted: {
@@ -473,6 +480,15 @@ Item {
                 minimumValue: 0
                 maximumValue: 300
                 suffix: " px corner radius"
+            }
+
+            SpinBox {
+                id: desktopIndicatorsStyleLineThicknessSpinBox
+                visible: cfg_DesktopIndicatorsStyle < 2
+                value: cfg_DesktopIndicatorsStyleLineThickness
+                minimumValue: 1
+                maximumValue: 10
+                suffix: " px thickness"
             }
         }
 

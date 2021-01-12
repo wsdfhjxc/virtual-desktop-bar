@@ -92,8 +92,6 @@ Component {
         Rectangle {
             id: indicator
 
-            readonly property int lineWidth: 3
-
             visible: config.DesktopIndicatorsStyle != 5
 
             color: {
@@ -150,7 +148,7 @@ Component {
             width: {
                 if (isVerticalOrientation) {
                     if (config.DesktopIndicatorsStyle == 1) {
-                        return lineWidth;
+                        return config.DesktopIndicatorsStyleLineThickness;
                     }
                     if (config.DesktopIndicatorsStyle == 4) {
                         return parent.width;
@@ -164,7 +162,7 @@ Component {
                     return label.implicitWidth + 2 * config.DesktopButtonsHorizontalMargin;
                 }
                 if (config.DesktopIndicatorsStyle == 1) {
-                    return lineWidth;
+                    return config.DesktopIndicatorsStyleLineThickness;
                 }
                 return parent.width + 0.5 - 2 * config.DesktopButtonsSpacing;
             }
@@ -179,7 +177,7 @@ Component {
                 if (config.DesktopIndicatorsStyle > 0) {
                     return label.implicitHeight + 2 * config.DesktopButtonsVerticalMargin;
                 }
-                return lineWidth;
+                return config.DesktopIndicatorsStyleLineThickness;
             }
 
             x: {
@@ -188,7 +186,7 @@ Component {
                         return (parent.width - width) / 2;
                     }
                     return config.DesktopIndicatorsInvertPosition ?
-                           parent.width - lineWidth : 0;
+                           parent.width - config.DesktopIndicatorsStyleLineThickness : 0;
                 }
                 if (config.DesktopIndicatorsStyle == 1 &&
                     config.DesktopIndicatorsInvertPosition) {
