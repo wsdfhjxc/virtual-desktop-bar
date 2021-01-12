@@ -105,14 +105,10 @@ Item {
             SpinBox {
                 id: desktopButtonsVerticalMarginSpinBox
 
-                enabled: {
-                    if (plasmoid.formFactor != PlasmaCore.Types.Vertical) {
-                        return cfg_DesktopIndicatorsStyle != 0 &&
-                               cfg_DesktopIndicatorsStyle != 4 &&
-                               cfg_DesktopIndicatorsStyle != 5;
-                    }
-                    return cfg_DesktopIndicatorsStyle != 5;
-                }
+                enabled: plasmoid.formFactor == PlasmaCore.Types.Vertical ||
+                         (cfg_DesktopIndicatorsStyle != 0 &&
+                          cfg_DesktopIndicatorsStyle != 4 &&
+                          cfg_DesktopIndicatorsStyle != 5)
 
                 value: cfg_DesktopButtonsVerticalMargin
                 minimumValue: 0
@@ -134,14 +130,10 @@ Item {
             SpinBox {
                 id: desktopButtonsHorizontalMarginSpinBox
 
-                enabled: {
-                    if (plasmoid.formFactor != PlasmaCore.Types.Vertical) {
-                        return cfg_DesktopIndicatorsStyle != 5;
-                    }
-                    return cfg_DesktopIndicatorsStyle != 1 &&
-                           cfg_DesktopIndicatorsStyle != 4 &&
-                           cfg_DesktopIndicatorsStyle != 5;
-                }
+                enabled: plasmoid.formFactor != PlasmaCore.Types.Vertical ||
+                         (cfg_DesktopIndicatorsStyle != 1 &&
+                          cfg_DesktopIndicatorsStyle != 4 &&
+                          cfg_DesktopIndicatorsStyle != 5)
 
                 value: cfg_DesktopButtonsHorizontalMargin
                 minimumValue: 0
@@ -151,7 +143,7 @@ Item {
 
             HintIcon {
                 visible: !desktopButtonsHorizontalMarginSpinBox.enabled
-                tooltipText: "Not available in vertical orientation"
+                tooltipText: "Not available for the selected indicator style"
             }
         }
 
