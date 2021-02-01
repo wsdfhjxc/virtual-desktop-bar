@@ -352,7 +352,8 @@ QList<KWindowInfo> VirtualDesktopBar::getWindowInfoList(int desktopNumber, bool 
 
         auto windowType = windowInfo.windowType(NET::AllTypesMask);
         if (windowType != -1 &&
-            (windowType & NET::NormalMask != 0)) {
+            ((windowType == NET::Dock) ||
+             (windowType == NET::Desktop))) {
             continue;
         }
 
